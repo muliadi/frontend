@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import Checkbox from 'material-ui/lib/checkbox';
 
 export
-var CustomComp = class extends React.Component {
+const CustomComp = class extends React.Component {
     render() {
         return (
             <div>
