@@ -1,5 +1,6 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import {CustomComp} from './CustomComp.js'
 
@@ -23,4 +24,5 @@ var Main = class extends React.Component {
     }
 }
 
+injectTapEventPlugin();
 ReactDOM.render( <Main /> , document.getElementById('app'))

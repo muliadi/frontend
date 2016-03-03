@@ -1,11 +1,16 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import React from 'react'
+
+import RaisedButton from 'material-ui/lib/raised-button';
+import Checkbox from 'material-ui/lib/checkbox';
 
 export
 var CustomComp = class extends React.Component {
     render() {
         return (
-            <h1>zzzzzzzzzzzz</h1>
+            <div>
+                <RaisedButton label="Default" secondary={true} onTouchTap={this.handleRequestClose}/>
+                <Checkbox />
+            </div>
         );
     }
 }
