@@ -5,8 +5,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Checkbox from 'material-ui/lib/checkbox';
 
-export
-const CustomComp = class extends React.Component {
+class CustomComp extends React.Component {
     render() {
         return (
             <div>
@@ -15,4 +14,6 @@ const CustomComp = class extends React.Component {
             </div>
         );
     }
-};
+}
+
+export default CustomComp;

@@ -7,15 +7,15 @@ import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
 import IconMenu from 'material-ui/lib/menus/icon-menu';
 import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import {lang} from '../lang/heb.js';
 
 
-export
-const MainAppBar = class extends React.Component {
+class MainAppBar extends React.Component {
 
     render() {
         return (
             <AppBar
-              title="Title"
+              title={lang.document_title}
               iconElementLeft={<IconButton><NavigationClose /></IconButton>}
               iconElementRight={
                 <IconMenu
@@ -33,4 +33,6 @@ const MainAppBar = class extends React.Component {
             />
         );
     }
-};
+}
+
+export default MainAppBar;

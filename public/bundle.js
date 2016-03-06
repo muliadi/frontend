@@ -70,7 +70,13 @@
 
 	var _CustomComp = __webpack_require__(203);
 
+	var _CustomComp2 = _interopRequireDefault(_CustomComp);
+
 	var _MainAppBar = __webpack_require__(295);
+
+	var _MainAppBar2 = _interopRequireDefault(_MainAppBar);
+
+	var _heb = __webpack_require__(321);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -110,9 +116,9 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
-	                    _react2.default.createElement(_MainAppBar.MainAppBar, null),
+	                    _react2.default.createElement(_MainAppBar2.default, null),
 	                    this.state.a,
-	                    _react2.default.createElement(_CustomComp.CustomComp, { a: 7 })
+	                    _react2.default.createElement(_CustomComp2.default, { a: 7 })
 	                )
 	            );
 	        }
@@ -121,6 +127,7 @@
 	    return Main;
 	}(_react2.default.Component);
 
+	document.title = _heb.lang.document_title;
 	(0, _reactTapEventPlugin2.default)();
 	_reactDom2.default.render(_react2.default.createElement(Main, null), document.getElementById('app'));
 
@@ -26637,7 +26644,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.CustomComp = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -26661,7 +26667,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* jshint esversion: 6*/
 
-	var CustomComp = exports.CustomComp = function (_React$Component) {
+	var CustomComp = function (_React$Component) {
 	    _inherits(CustomComp, _React$Component);
 
 	    function CustomComp() {
@@ -26684,6 +26690,8 @@
 
 	    return CustomComp;
 	}(_react2.default.Component);
+
+	exports.default = CustomComp;
 
 /***/ },
 /* 204 */
@@ -33070,7 +33078,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.MainAppBar = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -33102,6 +33109,8 @@
 
 	var _menuItem2 = _interopRequireDefault(_menuItem);
 
+	var _heb = __webpack_require__(321);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33110,7 +33119,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* jshint esversion: 6*/
 
-	var MainAppBar = exports.MainAppBar = function (_React$Component) {
+	var MainAppBar = function (_React$Component) {
 	  _inherits(MainAppBar, _React$Component);
 
 	  function MainAppBar() {
@@ -33123,7 +33132,7 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(_appBar2.default, {
-	        title: 'Title',
+	        title: _heb.lang.document_title,
 	        iconElementLeft: _react2.default.createElement(
 	          _iconButton2.default,
 	          null,
@@ -33150,6 +33159,8 @@
 
 	  return MainAppBar;
 	}(_react2.default.Component);
+
+	exports.default = MainAppBar;
 
 /***/ },
 /* 296 */
@@ -38204,6 +38215,21 @@
 	};
 	exports.default = NestedList;
 	module.exports = exports['default'];
+
+/***/ },
+/* 321 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	        value: true
+	});
+	/* jshint esversion: 6 */
+
+	var lang = exports.lang = {
+	        document_title: "שוק הספקים"
+	};
 
 /***/ }
 /******/ ]);
