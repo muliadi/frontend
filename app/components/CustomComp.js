@@ -1,4 +1,6 @@
-import React from 'react'
+/* jshint esversion: 6*/
+
+import React from 'react';
 
 import RaisedButton from 'material-ui/lib/raised-button';
 import Checkbox from 'material-ui/lib/checkbox';
@@ -13,4 +15,4 @@ const CustomComp = class extends React.Component {
             </div>
         );
     }
-}
+};

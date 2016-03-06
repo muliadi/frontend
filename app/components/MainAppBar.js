@@ -1,3 +1,5 @@
+/* jshint esversion: 6*/
+
 import React from 'react';
 import AppBar from 'material-ui/lib/app-bar';
 import IconButton from 'material-ui/lib/icon-button';
@@ -31,4 +33,4 @@ const MainAppBar = class extends React.Component {
             />
         );
     }
-}
+};
