@@ -1,4 +1,4 @@
-/* jshint esversion: 6*/
+/* jshint esversion: 6 */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -20,7 +20,11 @@ const Main = class extends React.Component {
     }
 
     componentDidMount() {
-        setTimeout(function(){this.setState({a: 'ffffffffffffff'});}.bind(this), 5000);
+        fetch('https://api.github.com/users/skariel').then(r => r.json())
+            .then(r => {
+                this.setState({a: JSON.stringify(r)});
+            });
+        //setTimeout(function(){this.setState({a: 'ffffffffffffff'});}.bind(this), 5000);
     }
 
     render() {

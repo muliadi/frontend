@@ -84,7 +84,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* jshint esversion: 6*/
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* jshint esversion: 6 */
 
 	var muiTheme = (0, _getMuiTheme2.default)({ isRtl: true });
 
@@ -103,9 +103,14 @@
 	    _createClass(Main, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            setTimeout(function () {
-	                this.setState({ a: 'ffffffffffffff' });
-	            }.bind(this), 5000);
+	            var _this2 = this;
+
+	            fetch('https://api.github.com/users/skariel').then(function (r) {
+	                return r.json();
+	            }).then(function (r) {
+	                _this2.setState({ a: JSON.stringify(r) });
+	            });
+	            //setTimeout(function(){this.setState({a: 'ffffffffffffff'});}.bind(this), 5000);
 	        }
 	    }, {
 	        key: 'render',
