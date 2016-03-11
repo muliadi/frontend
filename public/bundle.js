@@ -88,6 +88,10 @@
 
 	var muiTheme = (0, _getMuiTheme2.default)({ isRtl: true });
 
+	var action = {
+	    a: 2
+	};
+
 	var Main = function (_React$Component) {
 	    _inherits(Main, _React$Component);
 
@@ -105,7 +109,10 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            fetch('https://api.github.com/users/skariel').then(function (r) {
+	            fetch('http://0.0.0.0:8080', {
+	                method: "POST",
+	                body: JSON.stringify(action)
+	            }).then(function (r) {
 	                return r.json();
 	            }).then(function (r) {
 	                _this2.setState({ a: JSON.stringify(r) });
