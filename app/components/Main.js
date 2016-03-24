@@ -34,19 +34,25 @@ Action : {
 const Main = class extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {a: 'bbbbbbbbbbbbbb'};
+        this.state = {a: 'bbbbbbbbbbbbbb', imgdata: 'R0lGODlhUAAPAKIAAAsLav///88PD9WqsYmApmZmZtZfYmdakyH5BAQUAP8ALAAAAABQAA8AAAPbWLrc/jDKSVe4OOvNu/9gqARDSRBHegyGMahqO4R0bQcjIQ8E4BMCQc930JluyGRmdAAcdiigMLVrApTYWy5FKM1IQe+Mp+L4rphz+qIOBAUYeCY4p2tGrJZeH9y79mZsawFoaIRxF3JyiYxuHiMGb5KTkpFvZj4ZbYeCiXaOiKBwnxh4fnt9e3ktgZyHhrChinONs3cFAShFF2JhvCZlG5uchYNun5eedRxMAF15XEFRXgZWWdciuM8GCmdSQ84lLQfY5R14wDB5Lyon4ubwS7jx9NcV9/j5+g4JADs='};
     }
 
     componentDidMount() {
 
-        fetch('http://0.0.0.0:8080',
-        {
-            method : "POST",
-            body   : JSON.stringify(action)
-        })
-        .then(r => r.json())
+        fetchql('{current_session}')
         .then(r => {
-                this.setState({a: JSON.stringify(r)});
+                this.setState({a: r.data.current_session});
+            });
+        fetchql(`
+        {
+            user(id: "B/siysuExTnLptl3xQ5niQDiisqalzWkBIy4Ah7JC5I=") {
+                small_image {
+                    bse64data
+                }
+            }
+        }`)
+        .then(r => {
+                this.setState({imgdata: r.data.user.small_image.bse64data});
             });
         //setTimeout(function(){this.setState({a: 'ffffffffffffff'});}.bind(this), 5000);
     }
@@ -55,9 +61,24 @@ const Main = class extends React.Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
-                    <MainAppBar />
-                    {this.state.a}
-                    <CustomComp a={7} />
+                    <div className="sec1"/>
+                    <div className="sec2">
+                        <div class="row">
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        </div>
+                    </div>
                 </div>
             </MuiThemeProvider>
         );

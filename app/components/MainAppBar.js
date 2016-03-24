@@ -15,6 +15,9 @@ class MainAppBar extends React.Component {
     render() {
         return (
             <AppBar
+              titleStyle={{
+                  marginTop: "-3px",
+              }}
               title={lang.document_title}
               iconElementLeft={<IconButton><NavigationClose /></IconButton>}
               iconElementRight={
