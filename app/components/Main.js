@@ -2,34 +2,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import MuiThemeProvider from 'material-ui/lib/MuiThemeProvider';
-import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
-
-import CustomComp from './CustomComp.js';
-import MainAppBar from './MainAppBar.js';
+// import CustomComp from './CustomComp.js';
 import {lang} from '../lang/heb.js';
-
-const muiTheme = getMuiTheme({isRtl:true});
-
-const action = [
-{
-ActionType : "CreateSession",
-Action : 6
-},
-{
-ActionType : "CreateUser",
-Action : {
-    requested_login_id : "skkjhrfel98675675",
-    login_pssw_hash    : "45897gf8",
-    full_name          : "Ariel Keselman",
-    address            : "Tivon",
-    phone_number       : null,
-    mail               : "skariel@gmail.com",
-    image_base64       : null
-}
-}];
 
 const Main = class extends React.Component {
     constructor(props) {
@@ -59,31 +34,28 @@ const Main = class extends React.Component {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={muiTheme}>
-                <div>
-                    <div className="sec2">
-                        <div className="row">
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                            <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
-                        </div>
+            <div>
+                <div className="sec2">
+                    <div className="row">
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
                     </div>
                 </div>
-            </MuiThemeProvider>
+            </div>
         );
     }
 };
 
 document.title = lang.document_title;
-injectTapEventPlugin();
 ReactDOM.render( <Main /> , document.getElementById('app'));
