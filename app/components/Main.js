@@ -45,14 +45,14 @@ const Main = class extends React.Component {
             });
         fetchql(`
         {
-            user(id: "B/siysuExTnLptl3xQ5niQDiisqalzWkBIy4Ah7JC5I=") {
+            user(id: "BY99ipEqrIAklhYOXlmZl8kjWaz3zs8Mw/4oR2newpw=") {
                 small_image {
-                    bse64data
+                    base64data
                 }
             }
         }`)
         .then(r => {
-                this.setState({imgdata: r.data.user.small_image.bse64data});
+                this.setState({imgdata: r.data.user.small_image.base64data});
             });
         //setTimeout(function(){this.setState({a: 'ffffffffffffff'});}.bind(this), 5000);
     }
@@ -61,9 +61,8 @@ const Main = class extends React.Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
-                    <div className="sec1"/>
                     <div className="sec2">
-                        <div class="row">
+                        <div className="row">
                             <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
                             <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
                             <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
