@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// import CustomComp from './CustomComp.js';
+import CustomComp from './CustomComp.js';
 import {lang} from '../lang/heb.js';
 
 const Main = class extends React.Component {
@@ -20,7 +20,7 @@ const Main = class extends React.Component {
             });
         fetchql(`
         {
-            user(id: "BY99ipEqrIAklhYOXlmZl8kjWaz3zs8Mw/4oR2newpw=") {
+            user(id: "aqSqhI0jm55f7ibhPUTyeBL+rPTTDJj3ckuCJUM1OaA=") {
                 small_image {
                     base64data
                 }
@@ -50,6 +50,8 @@ const Main = class extends React.Component {
                         <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
                         <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
                         <img src={"data:image;base64,"+this.state.imgdata} style={{width: "300px", height:"auto", margin:"20px"}}/>
+                        {this.state.imgdata}
+                        <CustomComp></CustomComp>
                     </div>
                 </div>
             </div>
