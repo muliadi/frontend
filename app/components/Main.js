@@ -50,7 +50,7 @@ const Main = class extends React.Component {
             <div className="mdl-grid" style={style_grid}>      
                 {
                     this.state.items.map(item => {
-                        return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}> 
+                        return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone" style={style_cell}> 
                         <ItemCard
                             name={item.name}
                             short_desc={item.short_desc}
