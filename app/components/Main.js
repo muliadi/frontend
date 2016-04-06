@@ -36,15 +36,27 @@ const Main = class extends React.Component {
     }
 
     render() {
+        var style_grid = {
+            marginLeft: "auto;",        
+            marginRight: "auto;",
+            maxWidth: "1400px;"        
+        };
+        var style_cell = {
+            marginLeft: "auto;",        
+            marginRight: "auto;",
+        };
+        
         return (
-            <div className="centered">      
+            <div className="mdl-grid" style={style_grid}>      
                 {
                     this.state.items.map(item => {
-                        return <ItemCard
+                        return <div className="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet" style={style_cell}> 
+                        <ItemCard
                             name={item.name}
                             short_desc={item.short_desc}
                             image={item.small_image.base64data}>
                         </ItemCard>                        
+                        </div>
                     })
                 }
             </div>

@@ -5,25 +5,30 @@ import React from 'react';
 class ItemCard extends React.Component {
     render() {
         var style_card = {
-            width: "320px;",
+            width: "100%;",
+            maxWidth: "320px;",
             height: "320px;",
-            margin: "20px 20px 20px 20px;",
             background: "url('data:image;base64,"+this.props.image+"') center / cover",        
-            flexDirection: "column-reverse;"        
+            flexDirection: "column-reverse;",
+            marginLeft: "auto;",        
+            marginRight: "auto;",        
         };
         var style_shadow = {
-            width: "320px;",
-            height: "75px;",
+            width: "94%;",
             margin: "0px 0px 0px 0px;",
             background: "rgba(0,0,0,0.75)",
-            padding: "20px 20px 20px 20px;",
+            paddingTop: "10px;",
+            paddingRight: "3%;",
+            paddingLeft: "3%;",
+            paddingBottom: "10px;",
             color: "rgba(255,255,255,0.95);",
-            fontSize: "25px;"
+            fontSize: "22px;"
         };
         var style_short_desc = {
-            marginTop: "10px;",
+            marginTop: "7px;",
             color: "rgba(215,215,215,0.95);",
-            fontSize: "15px;"
+            fontSize: "13px;",
+            lineHeight: "1.2;",
         };
         return (
             <div className="mdl-card mdl-shadow--4dp" style={style_card}>
