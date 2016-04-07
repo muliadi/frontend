@@ -47,6 +47,10 @@ const Main = class extends React.Component {
             marginRight: "auto;",
         };
         
+        const clicked = () => {
+            console.log("Clicked!!!");
+        }
+        
         return (
             <div className="mdl-grid" style={style_grid}>
                 {
@@ -60,7 +64,7 @@ const Main = class extends React.Component {
                         </div>
                     })
                 }
-            <ItemCreateCard></ItemCreateCard>
+            <ItemCreateCard clicked={clicked}></ItemCreateCard>
             </div>
         );
     }
