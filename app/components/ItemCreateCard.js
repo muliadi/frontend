@@ -1,6 +1,6 @@
 // /* jshint esversion: 6*/
 
-const ItemCreateCard = (props) => {
+const ItemCreateCard = ({clicked}) => {
     var name;
     var short_desc;
     const handleName = function (event) {
@@ -38,10 +38,13 @@ const ItemCreateCard = (props) => {
                     onChange={handleShortDesc}></input>
                 <label className="mdl-textfield__label" for="sample4">תאור קצר</label>
             </div>
-            <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={props.clicked}>
+            <button
+                className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                onClick={clicked}>
                 הוסף תמונה
             </button>
-            <button className="mdl-button mdl-js-button mdl-js-ripple-effect">
+            <button
+                className="mdl-button mdl-js-button mdl-js-ripple-effect">
                 הוסף תמונה
             </button>                                
         </div> 

@@ -1,11 +1,11 @@
 // /* jshint esversion: 6*/
 
-const ItemCard = (props) => {
+const ItemCard = ({name, short_desc, image}) => {
     const style_card = {
         width: "100%;",
         maxWidth: "320px;",
         height: "320px;",
-        background: "url('data:image;base64,"+props.image+"') center / cover",        
+        background: "url('data:image;base64,"+image+"') center / cover",        
         flexDirection: "column-reverse;",
         marginLeft: "auto;",        
         marginRight: "auto;",        
@@ -31,10 +31,10 @@ const ItemCard = (props) => {
         <div className="mdl-card mdl-shadow--4dp" style={style_card}>
             <div style={style_shadow}>
                 <div>
-                    {props.name}
+                    {name}
                 </div>
                 <div style={style_short_desc}>
-                    {props.short_desc}
+                    {short_desc}
                 </div>
             </div>
         </div>
