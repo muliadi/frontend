@@ -40,5 +40,7 @@ const ItemCard = ({name, short_desc, image}) => {
         </div>
     );    
 }
-    
+
+// TODO: add propTypes
+
 export default ItemCard

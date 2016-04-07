@@ -51,5 +51,7 @@ const ItemCreateCard = ({clicked}) => {
     );
 }
 
+// TODO: add propTypes
+
 export default ItemCreateCard;
 
