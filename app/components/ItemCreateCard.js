@@ -30,9 +30,6 @@ class ItemCreateCard extends React.Component {
             marginRight: "auto;",
             paddingRight:"10px;",
         };
-        var style_text_rtl = {
-            textAlign: "right;",
-        }
         return (
             <div style={style_card}>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -40,18 +37,16 @@ class ItemCreateCard extends React.Component {
                         className="mdl-textfield__input"
                         type="text"
                         id="sample3"
-                        style={style_text_rtl}
                         onChange={handleName}></input>
-                    <label className="mdl-textfield__label" for="sample3" style={style_text_rtl}>שם המוצר</label>
+                    <label className="mdl-textfield__label" for="sample3">שם המוצר</label>
                 </div>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
                         className="mdl-textfield__input"
                         type="text"
                         id="sample4"
-                        style={style_text_rtl}
                         onChange={handleShortDesc}></input>
-                    <label className="mdl-textfield__label" for="sample4" style={style_text_rtl}>תאור קצר</label>
+                    <label className="mdl-textfield__label" for="sample4">תאור קצר</label>
                 </div>
                 <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                     הוסף תמונה
