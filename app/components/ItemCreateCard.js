@@ -2,18 +2,9 @@
 
 import React from "react"
 
-class ItemCreateCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            is_uploading: false,
-            empty_image: true,
-        };
-        this.__name = "";
-        this.__shortDesc = "";
-        this.__fileName = "";
-    }    
+var __num = 1
 
+class ItemCreateCard extends React.Component {
     handleNameChange(event) {
         this.__name = event.target.value;
         console.log(this.__name);
@@ -26,54 +17,72 @@ class ItemCreateCard extends React.Component {
         this.__fileName = event.target.value;
         console.log(this.__fileName);
     }
+    componentDidMount() {
+        // consider doing this in component did update too
+        console.log("UPGRADED!");
+        // This upgrades all upgradable components (i.e. with 'mdl-js-*' class)
+        componentHandler.upgradeDom();
+
+        // We could have done this manually for each component
+        /*
+        * var submitButton = this.refs.submit.getDOMNode();
+        * componentHandler.upgradeElement(submitButton, "MaterialButton");
+        * componentHandler.upgradeElement(submitButton, "MaterialRipple");
+        */
+    }    
     render() {
         const style_card = {
-            width: "100%;",
-            maxWidth: "320px;",
-            marginTop: "50px;",
-            flexDirection: "column;",
-            marginLeft: "auto;",        
-            marginRight: "auto;",
-            paddingRight:"10px;",
-            paddingLeft:"10px;",
+            width: "100%",
+            maxWidth: "320px",
+            marginTop: "50px",
+            flexDirection: "column",
+            marginLeft: "auto",        
+            marginRight: "auto",
+            paddingRight:"10px",
+            paddingLeft:"10px",
         };
         const style_small_image = {
             width : "100%",
             height: "100px",
-            display: "flex;",
-            alignItems: "center;",
-            marginBottom: "20px;",
-            background: "rgba(0,0,0,0.1);",
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "20px",
+            background: "rgba(0,0,0,0.1)",
         };
         const style_save_button = {
-            marginBottom: "0px;",
+            marginBottom: "0px",
         }
         const style_add_image = {
-            marginRight: "15px;",
-            marginLeft: "15px;",
+            marginRight: "15px",
+            marginLeft: "15px",
         }
         const style_actions = {
-            display: "flex;",
-            flexDirection: "row-reverse;",
+            display: "flex",
+            flexDirection: "row-reverse",
         }
-        
+        const __id1 = "ItemCreateCard"+__num;
+        __num += 1;
+        const __id2 = "ItemCreateCard"+__num;
+        __num += 1;
+        console.log(__id1)
+        console.log(__id2)        
         return (
             <div className="mdl-card mdl-shadow--4dp" style={style_card}>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
                         className="mdl-textfield__input"
                         type="text"
-                        id="sample3"
+                        id={__id1}
                         onChange={this.handleNameChange.bind(this)}></input>
-                    <label className="mdl-textfield__label" for="sample3">שם המוצר</label>
+                    <label className="mdl-textfield__label" htmlFor={__id1}>שם המוצר</label>
                 </div>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
                         className="mdl-textfield__input"
                         type="text"
-                        id="sample4"
+                        id={__id2}
                         onChange={this.handleShortDescChange.bind(this)}></input>
-                    <label className="mdl-textfield__label" for="sample4">תאור קצר</label>
+                    <label className="mdl-textfield__label" htmlFor={__id2}>תאור קצר</label>
                 </div>
                 
                 <input id="fileinput1" type="file" style={{display:"None"}} onChange={this.handleFileChange.bind(this)}></input>

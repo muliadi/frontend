@@ -12,7 +12,8 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['react', 'es2015']
+                    presets: ['react', 'es2015', 'stage-0'],
+                    plugins: ['react-relay']
                 }
             }
         ]
@@ -28,7 +29,5 @@ module.exports = {
                 warnings: false
             }
         }),
-        // new webpack.IgnorePlugin(/react/),
-        // new webpack.IgnorePlugin(/react-dom/),
     ]
 };
