@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Relay from 'react-relay';
 
 import ItemCard from './ItemCard.js';
 import ItemCreateCard from './ItemCreateCard.js';
@@ -9,39 +10,39 @@ import {lang} from '../lang/heb.js';
 
 //import HomeRoute from '../routes/home_route.js';
 
-import Relay from 'react-relay';
+
 
 
 const Main = class extends React.Component {
     render() {
         var style_grid = {
-            marginLeft: "auto",        
+            marginLeft: "auto",
             marginRight: "auto",
-            maxWidth: "1400px"        
+            maxWidth: "1400px"
         };
         var style_cell = {
-            marginLeft: "auto",        
+            marginLeft: "auto",
             marginRight: "auto",
         };
-        
+
         const clicked = () => {
             console.log("Clicked!!!");
         }
-        
+
         console.log(this.props.store);
         return (
             <div className="mdl-grid" style={style_grid}>
                 {
                     this.props.store.edges.map(item => {
-                        return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}> 
+                        return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
                         <ItemCard
                             name={item.node.name}
                             short_desc={item.node.short_desc}
                             image={item.node.small_image.base64data}>
-                        </ItemCard>                        
+                        </ItemCard>
                         </div>
                     })
-                    
+
                 }
             <ItemCreateCard clicked={clicked}></ItemCreateCard>
             </div>
@@ -73,7 +74,7 @@ fragments: {
                     short_desc
                     small_image {
                         base64data
-                    }   
+                    }
                 }
             }
         }
@@ -91,4 +92,3 @@ let rootComponent = <Relay.RootContainer
   Component={MainContainer}
   route={new HackerNewsRoute()} />;
 ReactDOM.render(rootComponent, mountNode);
-
