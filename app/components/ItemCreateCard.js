@@ -1,25 +1,48 @@
 /* jshint esversion: 6*/
 
 import React from "react"
+import Relay from 'react-relay';
 
-var __num = 1
+import AddItemMutation from "../mutations/addItem.js"
 
 class ItemCreateCard extends React.Component {
+    constructor(props){
+        super(props)
+        this.state ={
+            base64data: null,
+            name: "",
+            shortDesc: "",
+        }
+    }    
     handleNameChange(event) {
-        this.__name = event.target.value;
-        console.log(this.__name);
+        this.setState({name: event.target.value});
     }
     handleShortDescChange(event) {
-        this.__shortDesc = event.target.value;
-        console.log(this.__shortDesc);
+        this.setState({shortDesc: event.target.value});
     }
     handleFileChange(event) {
         this.__fileName = event.target.value;
-        console.log(this.__fileName);
+        var file = event.target.files[0]
+        if (file) {
+            // create reader
+            var reader = new FileReader();
+            reader.readAsDataURL(file)
+            reader.onload = function(e) {
+                // browser completed reading file - display it
+                const data = e.target.result.split(",")[1];
+                this.setState({base64data: data})
+            }.bind(this);
+        }
+    }
+    handleSaveItem(event) {
+        Relay.Store.commitUpdate(new AddItemMutation({
+            name: this.state.name,
+            shortDesc: this.state.shortDesc,
+            imageBase64Data: this.state.base64data,
+        }));
     }
     componentDidMount() {
         // consider doing this in component did update too
-        console.log("UPGRADED!");
         // This upgrades all upgradable components (i.e. with 'mdl-js-*' class)
         componentHandler.upgradeDom();
 
@@ -47,7 +70,6 @@ class ItemCreateCard extends React.Component {
             display: "flex",
             alignItems: "center",
             marginBottom: "20px",
-            background: "rgba(0,0,0,0.1)",
         };
         const style_save_button = {
             marginBottom: "0px",
@@ -60,56 +82,68 @@ class ItemCreateCard extends React.Component {
             display: "flex",
             flexDirection: "row-reverse",
         }
-        const __id1 = "ItemCreateCard"+__num;
-        __num += 1;
-        const __id2 = "ItemCreateCard"+__num;
-        __num += 1;
-        console.log(__id1)
-        console.log(__id2)        
+        if (this.state.base64data != null) {
+            style_small_image.background = "url('data:image;base64,"+this.state.base64data+"') center / cover";
+            style_small_image.height = "300px";
+            style_small_image.alignItems = "flex-end";
+            style_add_image.background = "rgba(200,200,200,1.0)"          
+        }
+        else {
+            style_small_image.background = "rgba(0,0,0,0.1)";             
+        }
         return (
             <div className="mdl-card mdl-shadow--4dp" style={style_card}>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
                         className="mdl-textfield__input"
                         type="text"
-                        id={__id1}
+                        id="item_create_card_1"
                         onChange={this.handleNameChange.bind(this)}></input>
-                    <label className="mdl-textfield__label" htmlFor={__id1}>שם המוצר</label>
+                    <label className="mdl-textfield__label" htmlFor="item_create_card_1">שם המוצר</label>
                 </div>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
                         className="mdl-textfield__input"
                         type="text"
-                        id={__id2}
+                        id="item_create_card_2"
                         onChange={this.handleShortDescChange.bind(this)}></input>
-                    <label className="mdl-textfield__label" htmlFor={__id2}>תאור קצר</label>
+                    <label className="mdl-textfield__label" htmlFor="item_create_card_1">תאור קצר</label>
                 </div>
                 
                 <input id="fileinput1" type="file" style={{display:"None"}} onChange={this.handleFileChange.bind(this)}></input>
                                 
                 <div style={style_small_image}>
-                    <button
-                        className="mdl-button mdl-js-button mdl-button--fab"
-                        style={style_add_image}
-                        onClick={()=>(document.getElementById('fileinput1').click())}>
-                        <i className="material-icons">add</i>
-                    </button>
-                    הוסף תמונה
+                    {this.state.base64data == null ? <div>
+                        <button
+                            className="mdl-button mdl-js-button mdl-button--fab"
+                            style={style_add_image}
+                            onClick={()=>(document.getElementById('fileinput1').click())}>                        
+                            <i className="material-icons">add</i>
+                        </button>
+                        הוסף תמונה                        
+                    </div> : null}
                 </div>
                 
                 <div className="mdl-card__actions mdl-card--border" style={style_actions}>
-                    <button style={style_save_button}
+                    <button
+                        style={style_save_button}
                         className="mdl-button mdl-js-button mdl-js-ripple-effect"
-                        onClick={this.props.clicked}>
+                        onClick={this.handleSaveItem.bind(this)}>
                         שמור
                     </button>
+                    
+                    {this.state.base64data != null ? 
+                        <button
+                            style={style_save_button}
+                            className="mdl-button mdl-js-button mdl-js-ripple-effect"
+                            onClick={()=>(document.getElementById('fileinput1').click())}>                        
+                            שנה תמונה
+                        </button> : null}                         
                 </div>                
             </div> 
         );
     }
 }
-
-// TODO: add propTypes
 
 export default ItemCreateCard;
 
