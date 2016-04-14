@@ -25,8 +25,6 @@ const Main = class extends React.Component {
         const clicked = () => {
             console.log("Clicked!!!");
         }
-
-        console.log(this.props.items.items);
         return (
             <div>
                 <div className="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
@@ -39,8 +37,7 @@ const Main = class extends React.Component {
                     <div className="mdl-tabs__panel is-active" id="starks-panel">
                         <div className="mdl-grid" style={style_grid}>
                             {
-                                // TODO: refactor this items.items thing. Should be view.items
-                                this.props.items.items.edges.map(item => {
+                                this.props.view.items.edges.map(item => {
                                     return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
                                         <ItemCard
                                             name={item.node.name}
@@ -77,7 +74,7 @@ const Main = class extends React.Component {
 
 const mainContainer = Relay.createContainer(Main, {
     fragments: {
-        items: () => Relay.QL`
+        view: () => Relay.QL`
         fragment on view {
             items(first: 30) {
                 edges{

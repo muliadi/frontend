@@ -5,12 +5,12 @@ import Relay from 'react-relay';
 export default class itemsRoute extends Relay.Route {
     static routeName = 'itemsRoute';
     static queries = {
-        items: ((Component) => {
+        view: ((Component) => {
             // Component is our Item
             return Relay.QL`
        query {
             view {
-                ${Component.getFragment('items')},
+                ${Component.getFragment('view')},
             }
         }
     `}),
