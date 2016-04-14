@@ -16,93 +16,98 @@ import Relay from 'react-relay';
 const Main = class extends React.Component {
     render() {
         const style_grid = {
-            marginLeft: "auto",        
+            marginLeft: "auto",
             marginRight: "auto",
-            maxWidth: "1400px"        
+            maxWidth: "1400px"
         };
         const style_cell = {
-            marginLeft: "auto",        
+            marginLeft: "auto",
             marginRight: "auto",
         };
         const clicked = () => {
             console.log("Clicked!!!");
         }
-        
-        console.log(this.props.items);
+
+        console.log(this.props.items.items);
         return (
             <div>
                 <div className="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-                <div className="mdl-tabs__tab-bar">
-                    <a href="#starks-panel" className="mdl-tabs__tab is-active">מוצרים</a>
-                    <a href="#lannisters-panel" className="mdl-tabs__tab">ספקים</a>
-                    <a href="#targaryens-panel" className="mdl-tabs__tab">הסלים שלי</a>
-                </div>
+                    <div className="mdl-tabs__tab-bar">
+                        <a href="#starks-panel" className="mdl-tabs__tab is-active">מוצרים</a>
+                        <a href="#lannisters-panel" className="mdl-tabs__tab">ספקים</a>
+                        <a href="#targaryens-panel" className="mdl-tabs__tab">הסלים שלי</a>
+                    </div>
 
-                <div className="mdl-tabs__panel is-active" id="starks-panel">                
-                    <div className="mdl-grid" style={style_grid}>
-                        {
-                            this.props.items.edges.map(item => {
-                                return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}> 
-                                <ItemCard
-                                    name={item.node.name}
-                                    short_desc={item.node.short_desc}
-                                    image={item.node.small_image.base64data}>
-                                </ItemCard>                        
-                                </div>
-                            })
-                            
-                        }
-                    <ItemCreateCard></ItemCreateCard>
-                    </div>                
-                </div>
-                <div className="mdl-tabs__panel" id="lannisters-panel">
-                    <ul>
-                    <li>Tywin</li>
-                    <li>Cersei</li>
-                    <li>Jamie</li>
-                    <li>Tyrion</li>
-                    </ul>
-                </div>
-                <div className="mdl-tabs__panel" id="targaryens-panel">
-                    <ul>
-                    <li>Viserys</li>
-                    <li>Daenerys</li>
-                    </ul>
-                </div>
+                    <div className="mdl-tabs__panel is-active" id="starks-panel">
+                        <div className="mdl-grid" style={style_grid}>
+                            {
+                                this.props.items.items.edges.map(item => {
+                                    return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                                        <ItemCard
+                                            name={item.node.name}
+                                            short_desc={item.node.short_desc}
+                                            image={item.node.small_image.base64data}>
+                                        </ItemCard>
+                                    </div>
+                                })
+
+                            }
+                            <ItemCreateCard></ItemCreateCard>
+                        </div>
+                    </div>
+                    <div className="mdl-tabs__panel" id="lannisters-panel">
+                        <ul>
+                            <li>Tywin</li>
+                            <li>Cersei</li>
+                            <li>Jamie</li>
+                            <li>Tyrion</li>
+                        </ul>
+                    </div>
+                    <div className="mdl-tabs__panel" id="targaryens-panel">
+                        <ul>
+                            <li>Viserys</li>
+                            <li>Daenerys</li>
+                        </ul>
+                    </div>
                 </div>
                 <Footer></Footer>
-            </div>                       
+            </div>
         );
     }
 };
 
 const mainContainer = Relay.createContainer(Main, {
-fragments: {
-    items: () => Relay.QL`
-        fragment on itemConnection {
-            edges {
-                node {
-                    name
-                    short_desc
-                    small_image {
-                        base64data
-                    }   
+    fragments: {
+        items: () => Relay.QL`
+        fragment on view {
+            items(first: 30) {
+                edges{
+                    node {
+                        ... on item {
+                            name
+                            short_desc
+                            small_image {
+                                base64data
+                            } 
+                        }  
+                    }
                 }
             }
         }
     `,
-  },});
+    },
+});
 
 Relay.injectNetworkLayer(
-  new Relay.DefaultNetworkLayer(window.location.origin + '/graphql')
+    new Relay.DefaultNetworkLayer(window.location.origin + '/graphql')
 );
 
 document.title = lang.document_title;
 
 let mountNode = document.getElementById('app');
 let rootComponent = <Relay.RootContainer
-  Component={mainContainer}
-  route={new itemsRoute()} />;
+    Component={mainContainer}
+    route={new itemsRoute() } />;
 ReactDOM.render(rootComponent, mountNode);
 
 // TODO: see here for upgrading components: http://quaintous.com/2015/07/09/react-components-with-mdl/
