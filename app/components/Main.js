@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Relay from 'react-relay';
 
 import Footer from './footer.js';
 import ItemCard from './ItemCard.js';
@@ -9,9 +10,6 @@ import ItemCreateCard from './ItemCreateCard.js';
 import {lang} from '../lang/heb.js';
 
 import itemsRoute from '../routes/items_route.js';
-
-import Relay from 'react-relay';
-
 
 const Main = class extends React.Component {
     render() {
