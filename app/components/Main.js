@@ -39,12 +39,13 @@ const Main = class extends React.Component {
                     <div className="mdl-tabs__panel is-active" id="starks-panel">
                         <div className="mdl-grid" style={style_grid}>
                             {
+                                // TODO: refactor this items.items thing. Should be view.items
                                 this.props.items.items.edges.map(item => {
                                     return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
                                         <ItemCard
                                             name={item.node.name}
                                             short_desc={item.node.short_desc}
-                                            image={item.node.small_image.base64data}>
+                                            image_id={item.node.small_image.id}>
                                         </ItemCard>
                                     </div>
                                 })
@@ -85,7 +86,7 @@ const mainContainer = Relay.createContainer(Main, {
                             name
                             short_desc
                             small_image {
-                                base64data
+                                id
                             } 
                         }  
                     }

@@ -1,11 +1,11 @@
 /* jshint esversion: 6*/
 
-const ItemCard = ({name, short_desc, image}) => {
+const ItemCard = ({name, short_desc, image_id}) => {
     const style_card = {
         width: "100%",
         maxWidth: "320px",
         height: "320px",
-        background: "url('data:image;base64,"+image+"') center / cover",        
+        background: "url('/content/"+image_id+"') center / cover",        
         flexDirection: "column-reverse",
         marginLeft: "auto",        
         marginRight: "auto",        
