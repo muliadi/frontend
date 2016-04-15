@@ -3,8 +3,7 @@
 import React from "react"
 import Relay from 'react-relay';
 
-// TODO: implement such a mutation for users
-//import AddItemMutation from "../mutations/addItem.js"
+import AddUserMutation from "../mutations/addUser.js"
 
 class UserCreateCard extends React.Component {
     constructor(props){
@@ -48,15 +47,13 @@ class UserCreateCard extends React.Component {
         }
     }
     handleSaveItem(event) {
-        // Implement!
-        
-        console.log("saving user!")
-        
-        // Relay.Store.commitUpdate(new AddItemMutation({
-        //     name: this.state.name,
-        //     shortDesc: this.state.shortDesc,
-        //     imageBase64Data: this.state.base64data,
-        // }));
+        Relay.Store.commitUpdate(new AddUserMutation({
+            full_name: this.state.full_name,
+            login_id: this.state.login_id,
+            mail: this.state.mail,
+            password: this.state.pass1,
+            imageBase64Data: this.state.base64data,
+        }));
     }
     componentDidMount() {
         // consider doing this in component did update too
@@ -151,14 +148,14 @@ class UserCreateCard extends React.Component {
                     <label className="mdl-textfield__label" htmlFor="user_create_card_4">שוב אותה סיסמה</label>
                 </div>
                 
-                <input id="fileinput1" type="file" style={{display:"None"}} onChange={this.handleFileChange.bind(this)}></input>
+                <input id="fileinput2" type="file" style={{display:"None"}} onChange={this.handleFileChange.bind(this)}></input>
                                 
                 <div style={style_small_image}>
                     {this.state.base64data == null ? <div>
                         <button
                             className="mdl-button mdl-js-button mdl-button--fab"
                             style={style_add_image}
-                            onClick={()=>(document.getElementById('fileinput1').click())}>                        
+                            onClick={()=>(document.getElementById('fileinput2').click())}>                        
                             <i className="material-icons">add</i>
                         </button>
                         הוסף תמונה                        
