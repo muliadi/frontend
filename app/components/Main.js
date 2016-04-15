@@ -132,8 +132,11 @@ const mainContainer = Relay.createContainer(Main, {
     },
 });
 
+
 Relay.injectNetworkLayer(
-    new Relay.DefaultNetworkLayer(window.location.origin + '/graphql')
+    new Relay.DefaultNetworkLayer(window.location.origin + '/graphql', {
+        credentials: 'same-origin',        
+    })
 );
 
 document.title = lang.document_title;
