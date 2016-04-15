@@ -3,8 +3,8 @@
 import Relay from 'react-relay';
 
 
-export default class itemsRoute extends Relay.Route {
-    static routeName = 'itemsRoute';
+export default class viewRoute extends Relay.Route {
+    static routeName = 'viewRoute';
     static queries = {
         view: ((Component) => {
             // Component is our Item

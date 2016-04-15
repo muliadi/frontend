@@ -7,13 +7,15 @@ import Relay from 'react-relay';
 import Footer from './footer.js';
 
 import ItemCard from './ItemCard.js';
-import UserCard from './UserCard.js';
 import ItemCreateCard from './ItemCreateCard.js';
+import UserCard from './UserCard.js';
+import UserCreateCard from './UserCreateCard.js';
 
 import {lang} from '../lang/heb.js';
 
-import itemsRoute from '../routes/items_route.js';
+import viewRoute from '../routes/view_route.js';
 
+// TODO: break the tabs into a component each
 const Main = class extends React.Component {
     render() {
         const style_grid = {
@@ -70,7 +72,7 @@ const Main = class extends React.Component {
                                 })
 
                             }
-                            <ItemCreateCard></ItemCreateCard>
+                            <UserCreateCard></UserCreateCard>
                         </div>
                     </div>
                     <div className="mdl-tabs__panel" id="sapakim-panel">
@@ -139,7 +141,7 @@ document.title = lang.document_title;
 let mountNode = document.getElementById('app');
 let rootComponent = <Relay.RootContainer
     Component={mainContainer}
-    route={new itemsRoute() } />;
+    route={new viewRoute() } />;
 ReactDOM.render(rootComponent, mountNode);
 
 // TODO: see here for upgrading components: http://quaintous.com/2015/07/09/react-components-with-mdl/
