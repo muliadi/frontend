@@ -13,6 +13,8 @@ import LoggedUserInfo from './LoggedUserInfo.js';
 import UserCreateCard from './UserCreateCard.js';
 import UserLoginCard from './UserLoginCard.js';
 
+import LogOutMutation from '../mutations/logOut.js';
+
 import {lang} from '../lang/heb.js';
 
 import viewRoute from '../routes/view_route.js';
@@ -40,6 +42,11 @@ const Main = class extends React.Component {
         const style_login_button = {
             color: "rgb(230,230,230)",
             fontSize: "19px",
+        }
+        const logOut = ()=>{
+            console.log("logging out!");
+            document.getElementsByClassName('mdl-layout__drawer-button')[0].click();            
+            Relay.Store.commitUpdate(new LogOutMutation());            
         }
         return (
             <div className="mdl-layout__container">
@@ -80,7 +87,9 @@ const Main = class extends React.Component {
                                 <div>                       
                                     <LoggedUserInfo mail={this.props.view.me.mail} login_id={this.props.view.me.login_id} full_name={this.props.view.me.full_name} image_id={this.props.view.me.small_image.id}></LoggedUserInfo>
                                     <nav className="mdl-navigation">
-                                        <a className="mdl-navigation__link" href="">צא</a>
+                                        <a className="mdl-navigation__link"
+                                            onClick={logOut}>
+                                            צא</a>
                                         <a className="mdl-navigation__link" href="">עדכן פרטים</a>
                                         <a className="mdl-navigation__link" href="">השאר פידבק!</a>
                                     </nav>

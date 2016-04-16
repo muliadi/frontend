@@ -1,10 +1,6 @@
 /* jshint esversion: 6*/
 
 const LoggedUserInfo = ({login_id, full_name, mail, image_id}) => {
-    console.log(login_id)
-    console.log(full_name)
-    console.log(image_id)
-    console.log(mail)
     const style_card = {
         maxWidth: "210px",
         marginTop: "30px",
