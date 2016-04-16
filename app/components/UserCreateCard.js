@@ -78,6 +78,7 @@ class UserCreateCard extends React.Component {
             marginRight: "auto",
             paddingRight:"10px",
             paddingLeft:"10px",
+            backgroundColor:"rgba(0,0,0,0.0)",
         };
         const style_small_image = {
             width : "100%",
@@ -108,6 +109,7 @@ class UserCreateCard extends React.Component {
         }
         return (
             <div className="mdl-card" style={style_card}>
+                <p>הרשם כמשתמש חדש במערכת</p>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
                         className="mdl-textfield__input"
@@ -122,7 +124,7 @@ class UserCreateCard extends React.Component {
                         type="text"
                         id="user_create_card_2"
                         onChange={this.handleLoginIDChange.bind(this)}></input>
-                    <label className="mdl-textfield__label" htmlFor="user_create_card_1">שם משתמש</label>
+                    <label className="mdl-textfield__label" htmlFor="user_create_card_2">שם משתמש</label>
                 </div>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
@@ -136,9 +138,9 @@ class UserCreateCard extends React.Component {
                     <input
                         className="mdl-textfield__input"
                         type="password"
-                        id="user_create_card_3"
+                        id="user_create_card_4"
                         onChange={this.handlePass1Change.bind(this)}></input>
-                    <label className="mdl-textfield__label" htmlFor="user_create_card_3">סיסמה</label>
+                    <label className="mdl-textfield__label" htmlFor="user_create_card_4">סיסמה</label>
                 </div>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
@@ -163,13 +165,13 @@ class UserCreateCard extends React.Component {
                     </div> : null}
                 </div>
                 
-                <div className="mdl-card__actions mdl-card--border" style={style_actions}>
+                <div className="mdl-card__actions" style={style_actions}>
                     <button
                         style={style_save_button}
-                        className="mdl-button mdl-js-button mdl-js-ripple-effect"
+                        className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
                         onClick={this.handleSaveItem.bind(this)}
                         id="UserCreateCard_Save_Button">
-                        שמור
+                        הרשם
                     </button>
                     
                     {this.state.base64data != null ? 

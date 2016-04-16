@@ -9,7 +9,9 @@ import Footer from './footer.js';
 import ItemCard from './ItemCard.js';
 import ItemCreateCard from './ItemCreateCard.js';
 import UserCard from './UserCard.js';
+import LoggedUserInfo from './LoggedUserInfo.js';
 import UserCreateCard from './UserCreateCard.js';
+import UserLoginCard from './UserLoginCard.js';
 
 import {lang} from '../lang/heb.js';
 
@@ -32,6 +34,7 @@ const Main = class extends React.Component {
             width: "35px",
             marginRight: "15px",
             borderRadius: "7px",
+            cursor:"pointer",
             background: "url('/content/" + this.props.view.me.small_image.id + "') center / cover",
         }
         const style_login_button = {
@@ -50,14 +53,14 @@ const Main = class extends React.Component {
                             <nav className="mdl-navigation">
                                 {
                                     this.props.view.me.is_logged ?
-                                        <div style={style_logged_image_small} xxxxxx
+                                        <div style={style_logged_image_small}
                                             onClick={()=>(document.getElementsByClassName('mdl-layout__drawer-button')[0].click())}>
                                         </div>
                                         :
                                         <button id="show-dialog-new-user" className="mdl-button mdl-js-button"
                                             style={style_login_button}
-                                            onClick={show_dialog_new_user}>
-                                            כנס \ הירשם
+                                            onClick={()=>(document.getElementsByClassName('mdl-layout__drawer-button')[0].click())}>
+                                            רישום וכניסה
                                         </button>
                                 }
                             </nav>
@@ -73,26 +76,30 @@ const Main = class extends React.Component {
 
                     <div className="mdl-layout__drawer">
                         <span className="mdl-layout-title">שוק הספקים</span>
+                            {this.props.view.me.is_logged ?          
+                                <div>                       
+                                    <LoggedUserInfo mail={this.props.view.me.mail} login_id={this.props.view.me.login_id} full_name={this.props.view.me.full_name} image_id={this.props.view.me.small_image.id}></LoggedUserInfo>
+                                    <nav className="mdl-navigation">
+                                        <a className="mdl-navigation__link" href="">צא</a>
+                                        <a className="mdl-navigation__link" href="">עדכן פרטים</a>
+                                        <a className="mdl-navigation__link" href="">השאר פידבק!</a>
+                                    </nav>
+                                </div>                                    
+                                :
+                                <div className="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                                    <div className="mdl-tabs__tab-bar">
+                                        <a href="#new-user-panel" className="mdl-tabs__tab is-active">רישום</a>
+                                        <a href="#login-panel" className="mdl-tabs__tab">כניסה</a>
+                                    </div>
 
-                            <div className="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-                            <div className="mdl-tabs__tab-bar">
-                                <a href="#new-user-panel" className="mdl-tabs__tab is-active">הירשם</a>
-                                <a href="#login-panel" className="mdl-tabs__tab">היכנס</a>
-                            </div>
-
-                            <div className="mdl-tabs__panel is-active" id="new-user-panel">
-                                <UserCreateCard savedCallback={()=>(document.getElementsByClassName('mdl-layout__drawer-button')[0].click())}></UserCreateCard>
-                            </div>
-                            <div className="mdl-tabs__panel" id="login-panel">
-                                <ul>
-                                <li>Tywin</li>
-                                <li>Cersei</li>
-                                <li>Jamie</li>
-                                <li>Tyrion</li>
-                                </ul>
-                            </div>
-                            </div>
-
+                                    <div className="mdl-tabs__panel is-active" id="new-user-panel">
+                                        <UserCreateCard savedCallback={()=>(document.getElementsByClassName('mdl-layout__drawer-button')[0].click())}></UserCreateCard>
+                                    </div>
+                                    <div className="mdl-tabs__panel" id="login-panel">
+                                        <UserLoginCard loginCallback={()=>(document.getElementsByClassName('mdl-layout__drawer-button')[0].click())}></UserLoginCard>
+                                    </div>
+                                </div>
+                            }
                         
                     </div>
 
@@ -195,6 +202,8 @@ const mainContainer = Relay.createContainer(Main, {
             me {
                 is_logged
                 login_id
+                full_name
+                mail
                 small_image {
                     id
                 }
