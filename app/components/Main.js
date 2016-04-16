@@ -10,8 +10,7 @@ import ItemCard from './ItemCard.js';
 import ItemCreateCard from './ItemCreateCard.js';
 import UserCard from './UserCard.js';
 import LoggedUserInfo from './LoggedUserInfo.js';
-import UserCreateCard from './UserCreateCard.js';
-import UserLoginCard from './UserLoginCard.js';
+import LogInOrCreateUser from './LogInOrCreateUser.js';
 
 import LogOutMutation from '../mutations/logOut.js';
 
@@ -45,8 +44,8 @@ const Main = class extends React.Component {
         }
         const logOut = ()=>{
             console.log("logging out!");
-            document.getElementsByClassName('mdl-layout__drawer-button')[0].click();            
             Relay.Store.commitUpdate(new LogOutMutation());            
+            document.getElementsByClassName('mdl-layout__drawer-button')[0].click();            
         }
         return (
             <div className="mdl-layout__container">
@@ -95,19 +94,7 @@ const Main = class extends React.Component {
                                     </nav>
                                 </div>                                    
                                 :
-                                <div className="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-                                    <div className="mdl-tabs__tab-bar">
-                                        <a href="#new-user-panel" className="mdl-tabs__tab is-active">רישום</a>
-                                        <a href="#login-panel" className="mdl-tabs__tab">כניסה</a>
-                                    </div>
-
-                                    <div className="mdl-tabs__panel is-active" id="new-user-panel">
-                                        <UserCreateCard savedCallback={()=>(document.getElementsByClassName('mdl-layout__drawer-button')[0].click())}></UserCreateCard>
-                                    </div>
-                                    <div className="mdl-tabs__panel" id="login-panel">
-                                        <UserLoginCard loginCallback={()=>(document.getElementsByClassName('mdl-layout__drawer-button')[0].click())}></UserLoginCard>
-                                    </div>
-                                </div>
+                                <LogInOrCreateUser callback={()=>(document.getElementsByClassName('mdl-layout__drawer-button')[0].click())}></LogInOrCreateUser>
                             }
                         
                     </div>

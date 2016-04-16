@@ -3,7 +3,7 @@
 import React from "react"
 import Relay from 'react-relay';
 
-import AddUserMutation from "../mutations/addUser.js"
+import LogInMutation from "../mutations/logIn.js"
 
 class UserLoginCard extends React.Component {
     constructor(props){
@@ -22,14 +22,10 @@ class UserLoginCard extends React.Component {
     handleLogin(event) {
         console.log("logging in now!")
         this.props.loginCallback();
-        // TODO: implement!
-        // Relay.Store.commitUpdate(new AddUserMutation({
-        //     full_name: this.state.full_name,
-        //     login_id: this.state.login_id,
-        //     mail: this.state.mail,
-        //     password: this.state.pass1,
-        //     imageBase64Data: this.state.base64data,
-        // }));
+        Relay.Store.commitUpdate(new LogInMutation({
+            login_id: this.state.login_id,
+            password: this.state.pass1,
+        }));
     }
     componentDidMount() {
         // consider doing this in component did update too
