@@ -47,6 +47,7 @@ class UserCreateCard extends React.Component {
         }
     }
     handleSaveItem(event) {
+        this.props.savedCallback();
         Relay.Store.commitUpdate(new AddUserMutation({
             full_name: this.state.full_name,
             login_id: this.state.login_id,
@@ -71,7 +72,7 @@ class UserCreateCard extends React.Component {
         const style_card = {
             width: "100%",
             maxWidth: "320px",
-            marginTop: "50px",
+            marginTop: "10px",
             flexDirection: "column",
             marginLeft: "auto",        
             marginRight: "auto",
@@ -106,7 +107,7 @@ class UserCreateCard extends React.Component {
             style_small_image.background = "rgba(0,0,0,0.1)";             
         }
         return (
-            <div className="mdl-card mdl-shadow--4dp" style={style_card}>
+            <div className="mdl-card" style={style_card}>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
                         className="mdl-textfield__input"
@@ -166,7 +167,8 @@ class UserCreateCard extends React.Component {
                     <button
                         style={style_save_button}
                         className="mdl-button mdl-js-button mdl-js-ripple-effect"
-                        onClick={this.handleSaveItem.bind(this)}>
+                        onClick={this.handleSaveItem.bind(this)}
+                        id="UserCreateCard_Save_Button">
                         שמור
                     </button>
                     

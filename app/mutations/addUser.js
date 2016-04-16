@@ -19,7 +19,10 @@ export default class AddUserMutation extends Relay.Mutation {
     getFatQuery() {
         return Relay.QL`
       fragment on addUserPayload @relay(pattern: true) {
-          view {users}
+          view {
+              users
+              me
+            }
       }
     `;
     }

@@ -27,70 +27,135 @@ const Main = class extends React.Component {
             marginLeft: "auto",
             marginRight: "auto",
         };
-        const clicked = () => {
-            console.log("Clicked!!!");
+        const style_logged_image_small = {
+            height: "35px",
+            width: "35px",
+            marginRight: "15px",
+            borderRadius: "7px",
+            background: "url('/content/" + this.props.view.me.small_image.id + "') center / cover",
+        }
+        const style_login_button = {
+            color: "rgb(230,230,230)",
+            fontSize: "19px",
         }
         return (
-            <div>
-                <div className="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-                    <div className="mdl-tabs__tab-bar">
-                        <a href="#items-panel" className="mdl-tabs__tab is-active">מוצרים</a>
-                        <a href="#users-panel" className="mdl-tabs__tab">משתמשים</a>
-                        <a href="#sapakim-panel" className="mdl-tabs__tab">ספקים</a>
-                        <a href="#baskets-panel" className="mdl-tabs__tab">הסלים שלי</a>
-                    </div>
+            <div className="mdl-layout__container">
 
-                    <div className="mdl-tabs__panel is-active" id="items-panel">
-                        <div className="mdl-grid" style={style_grid}>
-                            {
-                                this.props.view.items.edges.map(item => {
-                                    return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
-                                        <ItemCard
-                                            name={item.node.name}
-                                            short_desc={item.node.short_desc}
-                                            image_id={item.node.small_image.id}>
-                                        </ItemCard>
-                                    </div>
-                                })
+                <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+                    <header className="mdl-layout__header mdl-layout__header--waterfall">
+                        <div className="mdl-layout__header-row">
+                            <span className="mdl-layout-title">שוק הספקים</span>
+                            <div className="mdl-layout-spacer"></div>
 
-                            }
-                            <ItemCreateCard></ItemCreateCard>
+                            <nav className="mdl-navigation">
+                                {
+                                    this.props.view.me.is_logged ?
+                                        <div style={style_logged_image_small} xxxxxx
+                                            onClick={()=>(document.getElementsByClassName('mdl-layout__drawer-button')[0].click())}>
+                                        </div>
+                                        :
+                                        <button id="show-dialog-new-user" className="mdl-button mdl-js-button"
+                                            style={style_login_button}
+                                            onClick={show_dialog_new_user}>
+                                            כנס \ הירשם
+                                        </button>
+                                }
+                            </nav>
+
                         </div>
-                    </div>
-                    <div className="mdl-tabs__panel" id="users-panel">
-                        <div className="mdl-grid" style={style_grid}>
-                            {
-                                this.props.view.users.edges.map(user => {
-                                    return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
-                                        <UserCard
-                                            login_id={user.node.login_id}
-                                            full_name={user.node.full_name}
-                                            mail={user.node.mail}
-                                            image_id={user.node.small_image.id}>
-                                        </UserCard>
-                                    </div>
-                                })
-
-                            }
-                            <UserCreateCard></UserCreateCard>
+                        <div className="mdl-layout__tab-bar mdl-js-ripple-effect">
+                            <a href="#scroll-tab-1" className="mdl-layout__tab is-active">כל המוצרים</a>
+                            <a href="#scroll-tab-2" className="mdl-layout__tab">כל המשתמשים</a>
+                            <a href="#scroll-tab-3" className="mdl-layout__tab">כל הספקים</a>
+                            <a href="#scroll-tab-4" className="mdl-layout__tab">הסל שלי</a>
                         </div>
+                    </header>
+
+                    <div className="mdl-layout__drawer">
+                        <span className="mdl-layout-title">שוק הספקים</span>
+
+                            <div className="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                            <div className="mdl-tabs__tab-bar">
+                                <a href="#new-user-panel" className="mdl-tabs__tab is-active">הירשם</a>
+                                <a href="#login-panel" className="mdl-tabs__tab">היכנס</a>
+                            </div>
+
+                            <div className="mdl-tabs__panel is-active" id="new-user-panel">
+                                <UserCreateCard savedCallback={()=>(document.getElementsByClassName('mdl-layout__drawer-button')[0].click())}></UserCreateCard>
+                            </div>
+                            <div className="mdl-tabs__panel" id="login-panel">
+                                <ul>
+                                <li>Tywin</li>
+                                <li>Cersei</li>
+                                <li>Jamie</li>
+                                <li>Tyrion</li>
+                                </ul>
+                            </div>
+                            </div>
+
+                        
                     </div>
-                    <div className="mdl-tabs__panel" id="sapakim-panel">
-                        <ul>
-                            <li>Tywin</li>
-                            <li>Cersei</li>
-                            <li>Jamie</li>
-                            <li>Tyrion</li>
-                        </ul>
-                    </div>
-                    <div className="mdl-tabs__panel" id="baskets-panel">
-                        <ul>
-                            <li>Viserys</li>
-                            <li>Daenerys</li>
-                        </ul>
-                    </div>
+
+                    <main className="mdl-layout__content">
+                        <section className="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+                            <div className="page-content">
+
+
+                                <div className="mdl-grid" style={style_grid}>
+                                    {
+                                        this.props.view.items.edges.map(item => {
+                                            return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                                                <ItemCard
+                                                    name={item.node.name}
+                                                    short_desc={item.node.short_desc}
+                                                    image_id={item.node.small_image.id}>
+                                                </ItemCard>
+                                            </div>
+                                        })
+
+                                    }
+                                    <ItemCreateCard></ItemCreateCard>
+                                </div>
+
+
+                            </div>
+                        </section>
+                        <section className="mdl-layout__tab-panel" id="scroll-tab-2">
+                            <div className="page-content">
+
+
+                                <div className="mdl-grid" style={style_grid}>
+                                    {
+                                        this.props.view.users.edges.map(user => {
+                                            return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                                                <UserCard
+                                                    login_id={user.node.login_id}
+                                                    full_name={user.node.full_name}
+                                                    mail={user.node.mail}
+                                                    image_id={user.node.small_image.id}>
+                                                </UserCard>
+                                            </div>
+                                        })
+
+                                    }
+                                </div>
+
+
+
+                            </div>
+                        </section>
+                        <section className="mdl-layout__tab-panel" id="scroll-tab-3">
+                            <div className="page-content">1234567</div>
+                        </section>
+                        <section className="mdl-layout__tab-panel" id="scroll-tab-4">
+                            <div className="page-content">1234567</div>
+                        </section>
+
+                        <Footer></Footer>
+
+                    </main>
                 </div>
-                <Footer></Footer>
+
             </div>
         );
     }
@@ -126,7 +191,14 @@ const mainContainer = Relay.createContainer(Main, {
                         }
                     }
                 }
-            }            
+            }      
+            me {
+                is_logged
+                login_id
+                small_image {
+                    id
+                }
+            }      
         }
     `,
     },
@@ -135,7 +207,7 @@ const mainContainer = Relay.createContainer(Main, {
 
 Relay.injectNetworkLayer(
     new Relay.DefaultNetworkLayer(window.location.origin + '/graphql', {
-        credentials: 'same-origin',        
+        credentials: 'same-origin',
     })
 );
 
@@ -148,3 +220,7 @@ let rootComponent = <Relay.RootContainer
 ReactDOM.render(rootComponent, mountNode);
 
 // TODO: see here for upgrading components: http://quaintous.com/2015/07/09/react-components-with-mdl/
+
+
+
+
