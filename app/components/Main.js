@@ -6,34 +6,19 @@ import Relay from 'react-relay';
 
 import Footer from './footer.js';
 
-import ItemCard from './ItemCard.js';
-import ItemCreateCard from './ItemCreateCard.js';
-import SapakCreateCard from './SapakCreateCard.js';
-import UserCard from './UserCard.js';
-import SapakCard from './SapakCard.js';
+import ItemGrid from './ItemGrid.js';
+import UserGrid from './UserGrid.js';
+import SapakGrid from './SapakGrid.js';
 import LoggedUserInfo from './LoggedUserInfo.js';
 import LogInOrCreateUser from './LogInOrCreateUser.js';
-
 import LogOutMutation from '../mutations/logOut.js';
 
 import {lang} from '../lang/heb.js';
 
 import viewRoute from '../routes/view_route.js';
 
-// TODO: break the tabs into a component each
-// TODO: general naming conventions... are we using camelCase? PascalCase? under_scores? for files? for private fields? for public? 
-
 const Main = class extends React.Component {
     render() {
-        const style_grid = {
-            marginLeft: "auto",
-            marginRight: "auto",
-            maxWidth: "1400px"
-        };
-        const style_cell = {
-            marginLeft: "auto",
-            marginRight: "auto",
-        };
         const style_logged_image_small = {
             height: "35px",
             width: "35px",
@@ -47,13 +32,11 @@ const Main = class extends React.Component {
             fontSize: "19px",
         }
         const logOut = () => {
-            console.log("logging out!");
             Relay.Store.commitUpdate(new LogOutMutation());
             document.getElementsByClassName('mdl-layout__drawer-button')[0].click();
         }
         return (
             <div className="mdl-layout__container">
-
                 <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                     <header className="mdl-layout__header mdl-layout__header--waterfall">
                         <div className="mdl-layout__header-row">
@@ -74,7 +57,6 @@ const Main = class extends React.Component {
                                         </button>
                                 }
                             </nav>
-
                         </div>
                         <div className="mdl-layout__tab-bar mdl-js-ripple-effect">
                             <a href="#scroll-tab-1" className="mdl-layout__tab is-active">כל המוצרים</a>
@@ -100,72 +82,22 @@ const Main = class extends React.Component {
                             :
                             <LogInOrCreateUser callback={() => (document.getElementsByClassName('mdl-layout__drawer-button')[0].click()) }></LogInOrCreateUser>
                         }
-
                     </div>
 
                     <main className="mdl-layout__content">
                         <section className="mdl-layout__tab-panel is-active" id="scroll-tab-1">
                             <div className="page-content">
-                                <div className="mdl-grid" style={style_grid}>
-                                    {
-                                        this.props.view.items.edges.map(item => {
-                                            return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
-                                                <ItemCard
-                                                    name={item.node.name}
-                                                    short_desc={item.node.short_desc}
-                                                    image_id={item.node.small_image.id}>
-                                                </ItemCard>
-                                            </div>
-                                        })
-
-                                    }
-                                    <ItemCreateCard></ItemCreateCard>
-                                </div>
+                                <ItemGrid view={this.props.view}></ItemGrid>
                             </div>
                         </section>
                         <section className="mdl-layout__tab-panel" id="scroll-tab-2">
                             <div className="page-content">
-                                <div className="mdl-grid" style={style_grid}>
-                                    {
-                                        this.props.view.users.edges.map(user => {
-                                            return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
-                                                <UserCard
-                                                    login_id={user.node.login_id}
-                                                    full_name={user.node.full_name}
-                                                    mail={user.node.mail}
-                                                    image_id={user.node.small_image.id}>
-                                                </UserCard>
-                                            </div>
-                                        })
-
-                                    }
-                                </div>
+                                <UserGrid view={this.props.view}></UserGrid>
                             </div>
                         </section>
                         <section className="mdl-layout__tab-panel" id="scroll-tab-3">
                             <div className="page-content">
-                                <div className="mdl-grid" style={style_grid}>
-                                    {
-                                        this.props.view.sapakim.edges.map(sapak => {
-                                            return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
-                                                <SapakCard
-                                                    name={sapak.node.name}
-                                                    mail={sapak.node.mail}
-                                                    city={sapak.node.city}
-                                                    shortDesc={sapak.node.short_desc}
-                                                    creator_img_id={sapak.node.creator.small_image.id}
-                                                    image_id={sapak.node.small_image.id}>
-                                                </SapakCard>
-                                            </div>
-                                        })
-
-                                    }
-                                </div>
-                                {this.props.view.me.is_logged ?
-                                    <SapakCreateCard></SapakCreateCard>
-                                :
-                                    null
-                                }
+                                <SapakGrid view={this.props.view}></SapakGrid>
                             </div>
                         </section>
                         <section className="mdl-layout__tab-panel" id="scroll-tab-4">
@@ -176,64 +108,18 @@ const Main = class extends React.Component {
 
                     </main>
                 </div>
-
             </div>
         );
     }
 };
 
 const mainContainer = Relay.createContainer(Main, {
-    // TODO: refactor this data int child components...
     fragments: {
-        view: () => Relay.QL`
+        view: (xxx) => Relay.QL`
         fragment on view {
-            items(first: 30) {
-                edges{
-                    node {
-                        ... on item {
-                            name
-                            short_desc
-                            small_image {
-                                id
-                            } 
-                        }  
-                    }
-                }
-            }
-            users(first:30) {
-                edges {
-                    node {
-                        ... on user {
-                            login_id
-                            full_name
-                            mail
-                            small_image {
-                                id
-                            }
-                        }
-                    }
-                }
-            }      
-            sapakim(first:30) {
-                edges {
-                    node {
-                        ... on sapak {
-                            name
-                            City
-                            mail
-                            short_desc
-                            small_image {
-                                id
-                            }
-                            creator {
-                                small_image {
-                                    id
-                                }
-                            }
-                        }
-                    }
-                }
-            }      
+            ${ItemGrid.getFragment('view')},
+            ${UserGrid.getFragment('view')},
+            ${SapakGrid.getFragment('view')},
             me {
                 is_logged
                 login_id
@@ -248,7 +134,6 @@ const mainContainer = Relay.createContainer(Main, {
     },
 });
 
-
 Relay.injectNetworkLayer(
     new Relay.DefaultNetworkLayer(window.location.origin + '/graphql', {
         credentials: 'same-origin',
@@ -262,9 +147,4 @@ let rootComponent = <Relay.RootContainer
     Component={mainContainer}
     route={new viewRoute() } />;
 ReactDOM.render(rootComponent, mountNode);
-
-// TODO: see here for upgrading components: http://quaintous.com/2015/07/09/react-components-with-mdl/
-
-
-
 

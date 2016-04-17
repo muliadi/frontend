@@ -28,16 +28,7 @@ class UserLoginCard extends React.Component {
         }));
     }
     componentDidMount() {
-        // consider doing this in component did update too
-        // This upgrades all upgradable components (i.e. with 'mdl-js-*' class)
         componentHandler.upgradeDom();
-
-        // We could have done this manually for each component
-        /*
-        * var submitButton = this.refs.submit.getDOMNode();
-        * componentHandler.upgradeElement(submitButton, "MaterialButton");
-        * componentHandler.upgradeElement(submitButton, "MaterialRipple");
-        */
     }    
     render() {
         const style_card = {
