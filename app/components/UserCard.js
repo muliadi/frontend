@@ -44,6 +44,4 @@ const UserCard = ({login_id, full_name, mail, image_id}) => {
     );    
 }
 
-// TODO: add propTypes
-
 export default UserCard
