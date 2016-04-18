@@ -1,7 +1,6 @@
 /* jshint esversion: 6 */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
 
 import Footer from './footer.js';
@@ -15,10 +14,9 @@ import LogOutMutation from '../mutations/logOut.js';
 
 import {lang} from '../lang/heb.js';
 
-import viewRoute from '../routes/view_route.js';
-
-const Main = class extends React.Component {
+const MainSub = class extends React.Component {
     render() {
+        document.title = lang.document_title;
         const style_logged_image_small = {
             height: "35px",
             width: "35px",
@@ -113,7 +111,7 @@ const Main = class extends React.Component {
     }
 };
 
-const mainContainer = Relay.createContainer(Main, {
+const Main = Relay.createContainer(MainSub, {
     fragments: {
         view: (xxx) => Relay.QL`
         fragment on view {
@@ -134,17 +132,5 @@ const mainContainer = Relay.createContainer(Main, {
     },
 });
 
-Relay.injectNetworkLayer(
-    new Relay.DefaultNetworkLayer(window.location.origin + '/graphql', {
-        credentials: 'same-origin',
-    })
-);
-
-document.title = lang.document_title;
-
-let mountNode = document.getElementById('app');
-let rootComponent = <Relay.RootContainer
-    Component={mainContainer}
-    route={new viewRoute() } />;
-ReactDOM.render(rootComponent, mountNode);
+export default Main
 
