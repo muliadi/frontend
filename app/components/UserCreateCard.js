@@ -107,9 +107,18 @@ class UserCreateCard extends React.Component {
         }),
         {
                 onFailure: (e) => {
+                    console.log(e.getError())
+                    const errMsg = e.getError().source.errors[0].message;
+                    var msg = "";
+                    if ((errMsg.contains("ID")) && ((errMsg.contains("already exists")))) {
+                        msg = "שם משתמש כבר קיים, אנא בחר אחר";
+                    } 
+                    else if ((errMsg.contains("Mail")) && ((errMsg.contains("already exists")))) {
+                        msg = "מייל כבר קיים, אנא בחר אחר";
+                    } 
                     this.setState({
                         communicating: false,
-                        error: "שם משתמש קיים, אנא בחר אחר",
+                        error: msg,
                     })
                 },
                 onSuccess: () => {
