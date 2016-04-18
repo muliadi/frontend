@@ -4,6 +4,7 @@ import React from "react"
 import Relay from 'react-relay';
 
 import AddUserMutation from "../mutations/addUser.js"
+import CommRound from './commRound.js'
 
 class UserCreateCard extends React.Component {
     constructor(props){
@@ -15,22 +16,43 @@ class UserCreateCard extends React.Component {
             mail: "",
             pass1: "",
             pass2: "",
+            error: null,
+            communicating: false,
         }
     }    
     handleFullNameChange(event) {
-        this.setState({full_name: event.target.value});
+        this.setState({
+            full_name: event.target.value,
+            error: null,
+        });
     }
     handleMailChange(event) {
-        this.setState({mail: event.target.value});
+        this.setState({
+            mail: event.target.value,
+            error: null,
+        });
     }
     handleLoginIDChange(event) {
-        this.setState({login_id: event.target.value});
+        this.setState({
+            login_id: event.target.value,
+            error: null,
+        });
     }
     handlePass1Change(event) {
-        this.setState({pass1: event.target.value});
+        this.setState({
+            pass1: event.target.value,
+            error: null,
+        });
     }
     handlePass2Change(event) {
-        this.setState({pass2: event.target.value});
+        var err = null;
+        if (this.state.pass1 != event.target.value) {
+            err = "הסיסמאות לא מתאימות";
+        }
+        this.setState({
+            pass2: event.target.value,
+            error: err,
+        });
     }
     handleFileChange(event) {
         this.__fileName = event.target.value;
@@ -42,19 +64,59 @@ class UserCreateCard extends React.Component {
             reader.onload = function(e) {
                 // browser completed reading file - display it
                 const data = e.target.result.split(",")[1];
-                this.setState({base64data: data})
+                this.setState({base64data: data, error: null});
             }.bind(this);
         }
     }
     handleSaveItem(event) {
-        this.props.savedCallback();
+        if (this.state.full_name=="") {
+            this.setState({error: "אנא הכנס שם מלא"});
+            return;
+        }
+        if (this.state.login_id=="") {
+            this.setState({error: "אנא הכנס שם משתמש"});
+            return;
+        }
+        if (this.state.mail=="") {
+            this.setState({error: "אנא הכנס מייל"});
+            return;
+        }
+        if (this.state.pass1=="") {
+            this.setState({error: "אנא הכנס סיסמה"});
+            return;
+        }
+        if (this.state.pass2=="") {
+            this.setState({error: "אנא הכנס סיסמה גם בשדה השני"});
+            return;
+        }
+        if (this.state.pass1!=this.state.pass2) {
+            this.setState({error: "הסיסמאות לא מתאימות"});
+            return;
+        }
+        if (this.state.base64data==null) {
+            this.setState({error: "אנא הוסף תמונה"});
+            return;
+        }
+        this.setState({communicating: true})
         Relay.Store.commitUpdate(new AddUserMutation({
             full_name: this.state.full_name,
             login_id: this.state.login_id,
             mail: this.state.mail,
             password: this.state.pass1,
             imageBase64Data: this.state.base64data,
-        }));
+        }),
+        {
+                onFailure: (e) => {
+                    this.setState({
+                        communicating: false,
+                        error: "שם משתמש קיים, אנא בחר אחר",
+                    })
+                },
+                onSuccess: () => {
+                    this.setState({ communicating: false })
+                    document.location.hash = "#/users"
+                },
+        });
     }
     componentDidMount() {
         componentHandler.upgradeDom();
@@ -101,6 +163,10 @@ class UserCreateCard extends React.Component {
         return (
             <div className="mdl-card" style={style_card}>
                 <p>הרשם כמשתמש חדש במערכת</p>
+                {
+                    this.state.error != null ?
+                        <p style={{color:"red"}}>{this.state.error}</p> : null
+                }                
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
                         className="mdl-textfield__input"
@@ -157,21 +223,28 @@ class UserCreateCard extends React.Component {
                 </div>
                 
                 <div className="mdl-card__actions" style={style_actions}>
-                    <button
-                        style={style_save_button}
-                        className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                        onClick={this.handleSaveItem.bind(this)}
-                        id="UserCreateCard_Save_Button">
-                        הרשם
-                    </button>
-                    
-                    {this.state.base64data != null ? 
-                        <button
-                            style={style_save_button}
-                            className="mdl-button mdl-js-button mdl-js-ripple-effect"
-                            onClick={()=>(document.getElementById('fileinput1').click())}>                        
-                            שנה תמונה
-                        </button> : null}                         
+
+                    {this.state.communicating ?
+                        <CommRound style={{ marginRight: "20px", marginTop: "5px" }}></CommRound>                        
+                    :
+                        <div>
+                            {this.state.base64data != null ? 
+                                <button
+                                    style={style_save_button}
+                                    className="mdl-button mdl-js-button mdl-js-ripple-effect"
+                                    onClick={()=>(document.getElementById('fileinput1').click())}>                        
+                                    שנה תמונה
+                                </button> : null
+                            }                        
+                            <button
+                                style={style_save_button}
+                                className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                                onClick={this.handleSaveItem.bind(this)}
+                                id="UserCreateCard_Save_Button">
+                                הרשם
+                            </button>                            
+                        </div>
+                    }                         
                 </div>                
             </div> 
         );

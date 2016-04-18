@@ -26,6 +26,4 @@ const LoggedUserInfo = ({login_id, full_name, mail, image_id}) => {
 }
 // TODO: add a button to change user details
 
-// TODO: add propTypes
-
 export default LoggedUserInfo

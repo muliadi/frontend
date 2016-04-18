@@ -5,7 +5,7 @@ const ItemCard = ({name, short_desc, image_id}) => {
         width: "100%",
         maxWidth: "320px",
         height: "320px",
-        background: "url('/content/"+image_id+"') center / cover",        
+        background: "url('/static/content/"+image_id+"') center / cover",        
         flexDirection: "column-reverse",
         marginLeft: "auto",        
         marginRight: "auto",        

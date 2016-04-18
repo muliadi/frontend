@@ -5,7 +5,7 @@ const SapakCard = ({name, city, shortDesc, image_id, creator_img_id}) => {
         width: "100%",
         maxWidth: "320px",
         height: "320px",
-        background: "url('/content/"+image_id+"') center / cover",        
+        background: "url('/static/content/"+image_id+"') center / cover",        
         flexDirection: "column-reverse",
         marginLeft: "auto",        
         marginRight: "auto",        
@@ -32,7 +32,7 @@ const SapakCard = ({name, city, shortDesc, image_id, creator_img_id}) => {
         width: "45px",
         borderRadius: "7px",
         cursor: "pointer",
-        background: "url('/content/" + creator_img_id + "') center / cover",
+        background: "url('/static/content/" + creator_img_id + "') center / cover",
     }
     return (
         <div className="mdl-card mdl-shadow--4dp" style={style_card}>
