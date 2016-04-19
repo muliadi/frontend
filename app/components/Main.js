@@ -7,6 +7,7 @@ import MainFrame from './MainFrame.js';
 import ItemGrid from './ItemGrid.js';
 import UserGrid from './UserGrid.js';
 import SapakGrid from './SapakGrid.js';
+import MailVerification from './MailVerification.js';
 import LogInOrCreateUser from './LogInOrCreateUser.js'
 
 const MainSub = class extends React.Component {
@@ -21,6 +22,7 @@ const MainSub = class extends React.Component {
         const args = document.location.hash.slice(1).split("/").filter((s)=>(s!=""));
         const argNum = args.length;
         const arg1 = argNum >= 1 ? args[0] : null;
+        const arg2 = argNum >= 2 ? args[1] : null;
         if (argNum>0) {
             switch (arg1) {
                 case "items":
@@ -34,6 +36,13 @@ const MainSub = class extends React.Component {
                     break;                        
                 case "login":
                     this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
+                    break;                        
+                case "verification":
+                    if (argNum!=2) {
+                        this.setState({pageToRender: <div>404 Not Found</div> });
+                        break;
+                    }
+                    this.setState({pageToRender: <MailVerification hash={arg2}></MailVerification> });
                     break;                        
                 default:
                     this.setState({pageToRender: <div>404 Not Found</div> });

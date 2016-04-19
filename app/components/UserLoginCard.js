@@ -4,7 +4,6 @@ import React from "react"
 import Relay from 'react-relay';
 
 import LogInMutation from "../mutations/logIn.js"
-import Comm from './comm.js'
 import CommRound from './commRound.js'
 
 class UserLoginCard extends React.Component {
@@ -38,7 +37,6 @@ class UserLoginCard extends React.Component {
             this.setState({error: "אנא הכנס שם משתמש"});
             return
         }        
-        console.log(this.state.pass1)
         if (this.state.pass1=="") {
             this.setState({error: "אנא הכנס סיסמה"});
             return
