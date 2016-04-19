@@ -28,7 +28,7 @@ const ItemCard = ({name, short_desc, image_id}) => {
         lineHeight: "1.2",
     };
     return (
-        <div className="mdl-card mdl-shadow--4dp" style={style_card}>
+        <div className="mdl-card mdl-shadow--8dp" style={style_card}>
             <div style={style_shadow}>
                 <div>
                     {name}

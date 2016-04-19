@@ -67,17 +67,13 @@ class UserLoginCard extends React.Component {
     render() {
         const style_card = {
             width: "100%",
-            maxWidth: "320px",
-            marginTop: "10px",
-            flexDirection: "column",
+            maxWidth: "500px",
             marginLeft: "auto",
             marginRight: "auto",
-            paddingRight: "10px",
-            paddingLeft: "10px",
-            backgroundColor: "rgba(0,0,0,0.0)",
+            alignItems:"center",
         };
         const style_save_button = {
-            marginBottom: "0px",
+            margin: "10px",
         }
         const style_login_button = {
             marginBottom: "0px",
@@ -90,13 +86,13 @@ class UserLoginCard extends React.Component {
             <div className="mdl-card" style={style_card}>
                 {
                     this.props.is_logged ?
-                        <p>כנס עם משתמש אחר</p>                    
+                        <h6>כנס עם משתמש אחר</h6>                    
                       :
-                        <p>כנס עם משתמש קיים</p>
+                        <h6>כנס עם משתמש קיים</h6>
                 }
                 {
                     this.state.error != null ?
-                        <p style={{color:"red"}}>{this.state.error}</p> : null
+                        <h7 style={{color:"red"}}>{this.state.error}</h7> : null
                 }
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input
@@ -117,7 +113,7 @@ class UserLoginCard extends React.Component {
 
                 <div className="mdl-card__actions" style={style_actions}>
                     {this.state.communicating ?
-                        <CommRound style={{ marginRight: "20px", marginTop: "5px" }}></CommRound>
+                        <CommRound style={{ margin: "10px"}}></CommRound>
                         :
                         <button
                             style={style_save_button}
