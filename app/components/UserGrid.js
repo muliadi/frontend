@@ -9,9 +9,6 @@ import UserCreateCard from './UserCreateCard.js'
 class UserGridSub extends React.Component {
     render() {
         const style_grid = {
-            marginLeft: "auto",
-            marginRight: "auto",
-            maxWidth: "1400px"
         };
         const style_cell = {
             marginLeft: "auto",

@@ -53,7 +53,6 @@ const MainSub = class extends React.Component {
             this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid> });            
         }            
     }        
-    
     componentWillMount() {
         this.getPageToRender();        
     }

@@ -3,15 +3,12 @@
 import React from 'react';
 import Relay from 'react-relay';
 
-import SapakCard from './UserCard.js'
+import SapakCard from './SapakCard.js'
 import SapakCreateCard from './SapakCreateCard.js'
 
 class SapakGridSub extends React.Component {
     render() {
         const style_grid = {
-            marginLeft: "auto",
-            marginRight: "auto",
-            maxWidth: "1400px"
         };
         const style_cell = {
             marginLeft: "auto",

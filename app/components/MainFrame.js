@@ -6,34 +6,116 @@ import Relay from 'react-relay';
 import {lang} from '../lang/heb.js';
 
 class MainFrameSub extends React.Component {
+    componentDidMount() {
+        componentHandler.upgradeDom();
+    }    
     render() {
-        document.title = lang.document_title;        
+        const avatar_path = this.props.view.me.is_logged ?
+            "/static/content/"+this.props.view.me.small_image.id
+        :
+            "static/login.png";
+        const style_avatar = {
+            width: "35px",
+            height: "35px",
+            marginRight:"25px",
+            borderRadius: "10px",
+            cursor:"pointer",
+            background: "url('"+avatar_path+"') center / cover",        
+        }
+        document.title = lang.document_title;
+        const closeDrawer = ()=>{
+            document.getElementsByClassName("mdl-layout__drawer-button")[0].click()
+        }
+        const style_nav_link = {
+            fontSize: "17px",
+        }       
+        const style_nav_link_mouse_over = (e)=>{
+            e.target.style.borderBottom = "5px solid red";
+            e.target.style.marginBottom = "-5px";
+            
+        }
+        const style_nav_link_mouse_out = (e)=>{
+            e.target.style.borderBottom = "0px solid red";
+            e.target.style.marginBottom = "0px";
+        }
+        const style_page_content = {
+            paddingTop: "30px",
+            maxWidth: "1400px",
+            marginRight: "auto",
+            marginLeft: "auto",
+        }
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-            <header className="mdl-layout__header">
-                <div className="mdl-layout__header-row">
-                <span className="mdl-layout-title">שוק הספקים</span>
-                <div className="mdl-layout-spacer"></div>
-                <nav className="mdl-navigation mdl-layout--large-screen-only">
-                    <a className="mdl-navigation__link" href="/#/items">מוצרים</a>
-                    <a className="mdl-navigation__link" href="/#/sapakim">ספקים</a>
-                    <a className="mdl-navigation__link" href="/#/users">משתמשים</a>
-                </nav>
+                <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px"}}>
+                    <div className="mdl-layout__header-row">
+                        <span className="mdl-layout-title">שוק הספקים</span>
+                        <div className="mdl-layout-spacer"></div>                        
+                        <nav className="mdl-navigation">
+                            <a className="mdl-navigation__link"
+                               style={style_nav_link}
+                               onMouseOver={style_nav_link_mouse_over}
+                               onMouseOut={style_nav_link_mouse_out}
+                               href="/#/items">מוצרים</a>
+                            <a className="mdl-navigation__link"
+                               style={style_nav_link}
+                               onMouseOver={style_nav_link_mouse_over}
+                               onMouseOut={style_nav_link_mouse_out}
+                               href="/#/sapakim">ספקים</a>
+                            <a className="mdl-navigation__link"
+                               style={style_nav_link}
+                               onMouseOver={style_nav_link_mouse_over}
+                               onMouseOut={style_nav_link_mouse_out}
+                               href="/#/users">משתמשים</a>
+                               
+                             {
+                                 this.props.view.me.is_logged ?
+                                    <div>
+                                        <div style={style_avatar}
+                                            id="avatar_user" ></div>
+                                        <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_user">
+                                            הינך רשום כ-{this.props.view.me.login_id}
+                                        </div>
+                                        <ul className="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                                            htmlFor="avatar_user">
+                                            <li className="mdl-menu__item mdl-menu__item--full-bleed-divider">צא</li>
+                                            <li className="mdl-menu__item">היכנס בתור משתמש אחר</li>
+                                        </ul>                                                                            
+                                    </div>
+                                :
+                                <div>
+                                    <div
+                                        style={style_avatar}
+                                        onClick={()=>{document.location="/#/login"}}
+                                        href="/#/login"
+                                        id="avatar_login11"
+                                    ></div>                                    
+                                    <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_login11">
+                                        הירשם או כנס למערכת
+                                    </div>                                    
+                                </div>
+                             }   
+                        </nav>
+                    </div>
+                </header>
+                <div className="mdl-layout__drawer">
+                    <span className="mdl-layout-title">שוק הספקים</span>
+                    <nav className="mdl-navigation">
+                    <a className="mdl-navigation__link"
+                        onClick={closeDrawer}
+                        href="/#/items">מוצרים</a>
+                    <a className="mdl-navigation__link"
+                        onClick={closeDrawer}
+                        href="/#/sapakim">ספקים</a>
+                    <a className="mdl-navigation__link"
+                        onClick={closeDrawer}
+                        href="/#/users">משתמשים</a>
+                    </nav>
                 </div>
-            </header>
-            <div className="mdl-layout__drawer">
-                <span className="mdl-layout-title">שוק הספקים</span>
-                <nav className="mdl-navigation">
-                <a className="mdl-navigation__link" href="/#/items">מוצרים</a>
-                <a className="mdl-navigation__link" href="/#/sapakim">ספקים</a>
-                <a className="mdl-navigation__link" href="/#/users">משתמשים</a>
-                </nav>
-            </div>
-            <main className="mdl-layout__content">
-                <div className="page-content">
-                    {this.props.children}
-                </div>
-            </main>
+                <main className="mdl-layout__content">
+                    <div className="page-content" style={style_page_content}>
+                        {this.props.children}
+                    </div>
+                </main>
             </div>    
         );
     }
@@ -57,95 +139,3 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
 });
 
 export default MainFrame
-
-
-        // const style_logged_image_small = {
-        //     height: "35px",
-        //     width: "35px",
-        //     marginRight: "15px",
-        //     borderRadius: "7px",
-        //     cursor: "pointer",
-        //     background: "url('/content/" + this.props.view.me.small_image.id + "') center / cover",
-        // }
-        // const style_login_button = {
-        //     color: "rgb(230,230,230)",
-        //     fontSize: "19px",
-        // }
-        // const logOut = () => {
-        //     Relay.Store.commitUpdate(new LogOutMutation());
-        //     document.getElementsByClassName('mdl-layout__drawer-button')[0].click();
-        // }
-        // return (
-        //     <div className="mdl-layout__container">
-        //         <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        //             <header className="mdl-layout__header mdl-layout__header--waterfall">
-        //                 <div className="mdl-layout__header-row">
-        //                     <span className="mdl-layout-title">שוק הספקים</span>
-        //                     <div className="mdl-layout-spacer"></div>
-        //                     <nav className="mdl-navigation">
-        //                         {
-        //                             this.props.view.me.is_logged ?
-        //                                 <div style={style_logged_image_small}
-        //                                     onClick={() => (document.getElementsByClassName('mdl-layout__drawer-button')[0].click()) }>
-        //                                 </div>
-        //                                 :
-        //                                 <button id="show-dialog-new-user" className="mdl-button mdl-js-button"
-        //                                     style={style_login_button}
-        //                                     onClick={() => (document.getElementsByClassName('mdl-layout__drawer-button')[0].click()) }>
-        //                                     רישום וכניסה
-        //                                 </button>
-        //                         }
-        //                     </nav>
-        //                 </div>
-        //                 <div className="mdl-layout__tab-bar mdl-js-ripple-effect">
-        //                     <a href="#scroll-tab-1" className="mdl-layout__tab is-active">כל המוצרים</a>
-        //                     <a href="#scroll-tab-2" className="mdl-layout__tab">כל המשתמשים</a>
-        //                     <a href="#scroll-tab-3" className="mdl-layout__tab">כל הספקים</a>
-        //                     <a href="#scroll-tab-4" className="mdl-layout__tab">הסל שלי</a>
-        //                 </div>
-        //             </header>
-
-        //             <div className="mdl-layout__drawer">
-        //                 <span className="mdl-layout-title">שוק הספקים</span>
-        //                 {this.props.view.me.is_logged ?
-        //                     <div>
-        //                         <LoggedUserInfo mail={this.props.view.me.mail} login_id={this.props.view.me.login_id} full_name={this.props.view.me.full_name} image_id={this.props.view.me.small_image.id}></LoggedUserInfo>
-        //                         <nav className="mdl-navigation">
-        //                             <a className="mdl-navigation__link"
-        //                                 onClick={logOut}>
-        //                                 צא</a>
-        //                             <a className="mdl-navigation__link" href="">עדכן פרטים</a>
-        //                             <a className="mdl-navigation__link" href="">השאר פידבק!</a>
-        //                         </nav>
-        //                     </div>
-        //                     :
-        //                     <LogInOrCreateUser callback={() => (document.getElementsByClassName('mdl-layout__drawer-button')[0].click()) }></LogInOrCreateUser>
-        //                 }
-        //             </div>
-
-        //             <main className="mdl-layout__content">
-        //                 <section className="mdl-layout__tab-panel is-active" id="scroll-tab-1">
-        //                     <div className="page-content">
-        //                         <ItemGrid view={this.props.view}></ItemGrid>
-        //                     </div>
-        //                 </section>
-        //                 <section className="mdl-layout__tab-panel" id="scroll-tab-2">
-        //                     <div className="page-content">
-        //                         <UserGrid view={this.props.view}></UserGrid>
-        //                     </div>
-        //                 </section>
-        //                 <section className="mdl-layout__tab-panel" id="scroll-tab-3">
-        //                     <div className="page-content">
-        //                         <SapakGrid view={this.props.view}></SapakGrid>
-        //                     </div>
-        //                 </section>
-        //                 <section className="mdl-layout__tab-panel" id="scroll-tab-4">
-        //                     <div className="page-content">1234567</div>
-        //                 </section>
-
-        //                 <Footer></Footer>
-
-        //             </main>
-        //         </div>
-        //     </div>
-        // );
