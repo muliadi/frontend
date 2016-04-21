@@ -66,7 +66,8 @@ class MailVerification extends React.Component {
                 }
                 {
                     this.state.communicating ?
-                        <div>
+                        <div style={{textAlign:"center"}}>
+                            <h6>מעדכנים נתונים</h6>
                             <CommRound style={{ margin: "10px"}}></CommRound>
                         </div>                    
                       :

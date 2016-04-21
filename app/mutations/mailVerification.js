@@ -4,7 +4,7 @@ import Relay from 'react-relay';
 
 export default class MailVerificationMutation extends Relay.Mutation {
     getMutation() {
-        return Relay.QL`mutation {verification}`;
+        return Relay.QL`mutation {mailVerification}`;
     }
     getVariables() {
         const v = {
@@ -14,7 +14,7 @@ export default class MailVerificationMutation extends Relay.Mutation {
     }
     getFatQuery() {
         return Relay.QL`
-      fragment on verificationPayload @relay(pattern: true) {
+      fragment on mailVerificationPayload @relay(pattern: true) {
           view {
               me
             }
