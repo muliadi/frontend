@@ -11,8 +11,6 @@
         "babel-loader": "*",
         "babel-plugin-react-relay" : "*"
     },
-    "graphql": {
-        "url": "http://0.0.0.0:8080/static/schema.json"
-    } 
+    "react-relay-schema": "http://0.0.0.0:8080/static/schema.json"
 }
 
