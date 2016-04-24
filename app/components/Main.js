@@ -10,6 +10,20 @@ import SapakGrid from './SapakGrid.js';
 import MailVerification from './MailVerification.js';
 import LogInOrCreateUser from './LogInOrCreateUser.js'
 
+// TODO: move two functions below to own module...
+function writeCookie (key, value, days) {
+    var date = new Date();
+    // Default at 365 days.
+    days = days || 365;
+    // Get unix milliseconds at current time plus number of days
+    date.setTime(+ date + (days * 86400000)); //24 * 60 * 60 * 1000
+    document.cookie = key + "=" + value + "; expires=" + date.toGMTString()+"; path=/";
+};
+function setSapakimCookie(val) {
+  writeCookie("SAPAKIM", val, 101)
+}
+
+
 const MainSub = class extends React.Component {
     constructor(props) {
         super(props)
@@ -54,6 +68,7 @@ const MainSub = class extends React.Component {
         }            
     }        
     componentWillMount() {
+        setSapakimCookie(this.props.view.current_session)
         this.getPageToRender();        
     }
     render() {        
@@ -79,6 +94,7 @@ const Main = Relay.createContainer(MainSub, {
                         id
                     }
                 }
+                current_session
             }
         `,
     },
