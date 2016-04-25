@@ -14,7 +14,6 @@ class UserCreateCard extends React.Component {
             full_name: "",
             mail: "",
             pass1: "",
-            pass2: "",
             error: null,
             communicating: false,
             success: false,
@@ -36,16 +35,6 @@ class UserCreateCard extends React.Component {
         this.setState({
             pass1: event.target.value,
             error: null,
-        });
-    }
-    handlePass2Change(event) {
-        var err = null;
-        if (this.state.pass1 != event.target.value) {
-            err = "הסיסמאות לא מתאימות";
-        }
-        this.setState({
-            pass2: event.target.value,
-            error: err,
         });
     }
     handleFileChange(event) {
@@ -75,14 +64,6 @@ class UserCreateCard extends React.Component {
             this.setState({ error: "אנא הכנס סיסמה" });
             return;
         }
-        if (this.state.pass2 == "") {
-            this.setState({ error: "אנא הכנס סיסמה גם בשדה השני" });
-            return;
-        }
-        if (this.state.pass1 != this.state.pass2) {
-            this.setState({ error: "הסיסמאות לא מתאימות" });
-            return;
-        }
         if (this.state.base64data == null) {
             this.setState({ error: "אנא הוסף תמונה" });
             return;
@@ -99,10 +80,7 @@ class UserCreateCard extends React.Component {
                     console.log(e.getError())
                     const errMsg = e.getError().source.errors[0].message;
                     var msg = "";
-                    if ((errMsg.contains("ID")) && ((errMsg.contains("already exists")))) {
-                        msg = "שם משתמש כבר קיים, אנא בחר אחר";
-                    }
-                    else if ((errMsg.contains("Mail")) && ((errMsg.contains("already exists")))) {
+                    if ((errMsg.indexOf("Mail") > -1) && (errMsg.indexOf("already exists") > -1)) {
                         msg = "מייל כבר קיים, אנא בחר אחר";
                     }
                     this.setState({
@@ -206,13 +184,6 @@ class UserCreateCard extends React.Component {
                                         type="password"
                                         onChange={this.handlePass1Change.bind(this) }></input>
                                     <label className="mdl-textfield__label">סיסמה</label>
-                                </div>
-                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input
-                                        className="mdl-textfield__input"
-                                        type="password"
-                                        onChange={this.handlePass2Change.bind(this) }></input>
-                                    <label className="mdl-textfield__label">שוב אותה סיסמה</label>
                                 </div>
                             </div>
                             
