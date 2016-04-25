@@ -40,7 +40,7 @@ class MainFrameSub extends React.Component {
         }
         const style_page_content = {
             paddingTop: "30px",
-            maxWidth: "1400px",
+            maxWidth: "auto",
             marginRight: "auto",
             marginLeft: "auto",
         }
