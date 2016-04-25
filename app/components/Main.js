@@ -5,6 +5,7 @@ import Relay from 'react-relay';
 
 import MainFrame from './MainFrame.js';
 import ItemGrid from './ItemGrid.js';
+import LandingPage from './LandingPage.js';
 import UserGrid from './UserGrid.js';
 import SapakGrid from './SapakGrid.js';
 import MailVerification from './MailVerification.js';
@@ -36,7 +37,24 @@ const MainSub = class extends React.Component {
         const args = document.location.hash.slice(1).split("/").filter((s)=>(s!=""));
         const argNum = args.length;
         const arg1 = argNum >= 1 ? args[0] : null;
-        const arg2 = argNum >= 2 ? args[1] : null;
+        const arg2 = argNum >= 2 ? args[1] : null;        
+
+        if (!this.props.view.me.is_logged) {
+            
+            switch (arg1) {
+                case "login":
+                    this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
+                    break;                        
+                default:
+                    this.setState({pageToRender: <LandingPage view={this.props.view}></LandingPage> });            
+                    break;
+            }
+            return;
+        }
+
+        // User is logged in:
+        
+        
         if (argNum>0) {
             switch (arg1) {
                 case "items":
