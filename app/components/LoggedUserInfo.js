@@ -1,6 +1,6 @@
 /* jshint esversion: 6*/
 
-const LoggedUserInfo = ({login_id, full_name, mail, image_id}) => {
+const LoggedUserInfo = ({full_name, mail, image_id}) => {
     const style_card = {
         maxWidth: "210px",
         marginTop: "30px",
@@ -18,7 +18,6 @@ const LoggedUserInfo = ({login_id, full_name, mail, image_id}) => {
     return (
         <div className="mdl-card" style={style_card}>
             <div style={style_image}></div>
-            <p>{login_id}</p>
             <p>{full_name}</p>
             <p>{mail}</p>
         </div>

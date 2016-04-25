@@ -1,6 +1,6 @@
 /* jshint esversion: 6*/
 
-const UserCard = ({login_id, full_name, mail, image_id}) => {
+const UserCard = ({full_name, mail, image_id}) => {
     const style_card = {
         width: "100%",
         maxWidth: "320px",
@@ -30,9 +30,6 @@ const UserCard = ({login_id, full_name, mail, image_id}) => {
     return (
         <div className="mdl-card mdl-shadow--4dp" style={style_card}>
             <div style={style_shadow}>
-                <div>
-                    {login_id}
-                </div>
                 <div style={style_short_desc}>
                     {full_name}
                 </div>

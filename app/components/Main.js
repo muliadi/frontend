@@ -45,6 +45,13 @@ const MainSub = class extends React.Component {
                 case "login":
                     this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
                     break;                        
+                case "mail_verification":
+                    if (argNum!=2) {
+                        this.setState({pageToRender: <div>404 Not Found</div> });
+                        break;
+                    }
+                    this.setState({pageToRender: <MailVerification hash={arg2}></MailVerification> });
+                    break;                        
                 default:
                     this.setState({pageToRender: <LandingPage view={this.props.view}></LandingPage> });            
                     break;

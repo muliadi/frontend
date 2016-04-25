@@ -56,7 +56,7 @@ class MainFrameSub extends React.Component {
                         // TODO: implement
                     },
                     onSuccess: () => {
-                        document.location = "/";
+                        document.location = "/#";
                     },
                 });            
         }
@@ -89,7 +89,7 @@ class MainFrameSub extends React.Component {
                                         <div style={style_avatar}
                                             id="avatar_user" ></div>
                                         <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_user">
-                                            הינך רשום כ-{this.props.view.me.login_id}
+                                            הינך מחובר כ-{this.props.view.me.mail}
                                         </div>
                                         <ul className="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
                                             htmlFor="avatar_user">
@@ -144,7 +144,6 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
             fragment on view {
                 me {
                     is_logged
-                    login_id
                     mail
                     small_image {
                         id

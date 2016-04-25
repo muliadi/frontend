@@ -8,7 +8,7 @@ export default class LogInMutation extends Relay.Mutation {
     }
     getVariables() {
         const v = {
-            login_id: this.props.login_id,
+            mail: this.props.mail,
             password: this.props.password,
         };
         return v

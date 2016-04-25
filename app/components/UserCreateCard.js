@@ -12,7 +12,6 @@ class UserCreateCard extends React.Component {
         this.state = {
             base64data: null,
             full_name: "",
-            login_id: "",
             mail: "",
             pass1: "",
             pass2: "",
@@ -30,12 +29,6 @@ class UserCreateCard extends React.Component {
     handleMailChange(event) {
         this.setState({
             mail: event.target.value,
-            error: null,
-        });
-    }
-    handleLoginIDChange(event) {
-        this.setState({
-            login_id: event.target.value,
             error: null,
         });
     }
@@ -74,10 +67,6 @@ class UserCreateCard extends React.Component {
             this.setState({ error: "אנא הכנס שם מלא" });
             return;
         }
-        if (this.state.login_id == "") {
-            this.setState({ error: "אנא הכנס שם משתמש" });
-            return;
-        }
         if (this.state.mail == "") {
             this.setState({ error: "אנא הכנס מייל" });
             return;
@@ -101,7 +90,6 @@ class UserCreateCard extends React.Component {
         this.setState({ communicating: true })
         Relay.Store.commitUpdate(new AddUserMutation({
             full_name: this.state.full_name,
-            login_id: this.state.login_id,
             mail: this.state.mail,
             password: this.state.pass1,
             imageBase64Data: this.state.base64data,
@@ -204,13 +192,6 @@ class UserCreateCard extends React.Component {
                                         type="text"
                                         onChange={this.handleFullNameChange.bind(this) }></input>
                                     <label className="mdl-textfield__label">שם מלא</label>
-                                </div>
-                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input
-                                        className="mdl-textfield__input"
-                                        type="text"
-                                        onChange={this.handleLoginIDChange.bind(this) }></input>
-                                    <label className="mdl-textfield__label">שם משתמש</label>
                                 </div>
                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input

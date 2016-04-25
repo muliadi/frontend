@@ -9,7 +9,6 @@ export default class AddUserMutation extends Relay.Mutation {
     getVariables() {
         const v = {
             full_name: this.props.full_name,
-            login_id: this.props.login_id,
             password: this.props.password,
             mail: this.props.mail,
             base64Data: this.props.imageBase64Data,
