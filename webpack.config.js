@@ -3,7 +3,7 @@ var webpack = require('webpack');
 module.exports = {
     entry: "./app/app.js",
     output: {
-        filename: "/Users/medved/Projects/GoProjects/src/sapakim_be/static/bundle.js"
+        filename: process.env.SAPAKIM_BUNDLE_FILE_NAME_AND_PATH
     },
     module: {
         loaders: [
