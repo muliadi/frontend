@@ -108,7 +108,7 @@ class MainFrameSub extends React.Component {
                                         הירשם או כנס למערכת
                                     </div>                                    
                                     <ul style={{display:"none"}}>
-                                        <li></li>
+                                        <li> belive it or not but this is needed to prevent an mdl vs react thingy. It's here so react doesn;t need to remove the nodes</li>
                                     </ul>                                                                            
                                 </div>
                              }   
