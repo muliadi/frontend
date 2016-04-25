@@ -1,0 +1,1 @@
+var MainMenu = React.component

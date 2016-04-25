@@ -16,6 +16,7 @@ class ItemGridSub extends React.Component {
         };        
         return (
             <div className="mdl-grid" style={style_grid}>
+               
                 {
                     this.props.view.items.edges.map(item => {
                         return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>

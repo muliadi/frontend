@@ -1,16 +1,15 @@
 {
-    "private": true,
-    "name" : "sapakim_be",
-    "version" : "0.0.0",
-    "dependencies": {
-        "webpack": "*",
-        "react-relay": "*",
-        "babel-preset-react": "*",
-        "babel-preset-es2015": "*",
-        "babel-preset-stage-0": "*",
-        "babel-loader": "*",
-        "babel-plugin-react-relay" : "*"
-    },
-    "react-relay-schema": "http://0.0.0.0:8080/static/schema.json"
+  "private": true,
+  "name": "sapakim_be",
+  "version": "0.0.0",
+  "dependencies": {
+    "babel-loader": "*",
+    "babel-plugin-react-relay": "*",
+    "babel-preset-es2015": "*",
+    "babel-preset-react": "*",
+    "babel-preset-stage-0": "*",
+    "react-relay": "^0.8.0",
+    "webpack": "*"
+  },
+  "react-relay-schema": "http://0.0.0.0:8080/static/schema.json"
 }
-

@@ -3,7 +3,7 @@ var webpack = require('webpack');
 module.exports = {
     entry: "./app/app.js",
     output: {
-        filename: "/Users/ariel/goprojects/src/sapakim_be/static/bundle.js"
+        filename: "/Users/medved/Projects/GoProjects/src/sapakim_be/static/bundle.js"
     },
     module: {
         loaders: [
