@@ -7,8 +7,6 @@ import {lang} from '../lang/heb.js';
 
 import LogOutMutation from '../mutations/logOut.js'
 
-// TODO: ther's a bug hile logging out! see console, before its refreshed
-
 class MainFrameSub extends React.Component {
     componentDidMount() {
         componentHandler.upgradeDom();
