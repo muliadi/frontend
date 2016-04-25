@@ -7,6 +7,9 @@ import UserCard from './UserCard.js'
 import UserCreateCard from './UserCreateCard.js'
 
 class UserGridSub extends React.Component {
+    componentDidMount() {
+        componentHandler.upgradeDom();
+    } 
     render() {
         const style_grid = {
         };

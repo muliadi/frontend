@@ -5,10 +5,14 @@ import Relay from 'react-relay';
 
 import {lang} from '../lang/heb.js';
 
+import LogOutMutation from '../mutations/logOut.js'
+
+// TODO: ther's a bug hile logging out! see console, before its refreshed
+
 class MainFrameSub extends React.Component {
     componentDidMount() {
         componentHandler.upgradeDom();
-    }    
+    } 
     render() {
         const avatar_path = this.props.view.me.is_logged ?
             "/static/content/"+this.props.view.me.small_image.id
@@ -44,6 +48,18 @@ class MainFrameSub extends React.Component {
             marginRight: "auto",
             marginLeft: "auto",
         }
+        
+        const logout = ()=>{
+            Relay.Store.commitUpdate(new LogOutMutation({}),
+                {
+                    onFailure: (e) => {
+                        // TODO: implement
+                    },
+                    onSuccess: () => {
+                        document.location = "/";
+                    },
+                });            
+        }
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px"}}>
@@ -77,8 +93,9 @@ class MainFrameSub extends React.Component {
                                         </div>
                                         <ul className="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
                                             htmlFor="avatar_user">
-                                            <li className="mdl-menu__item mdl-menu__item--full-bleed-divider">צא</li>
-                                            <li className="mdl-menu__item">היכנס בתור משתמש אחר</li>
+                                            <li className="mdl-menu__item"
+                                                onClick={logout}>
+                                                צא</li>
                                         </ul>                                                                            
                                     </div>
                                 :
