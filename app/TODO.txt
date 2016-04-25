@@ -1,7 +1,3 @@
-DONE! 1) use mail as login_id
-DONE! 2) mail validation not necessary before login
-DONE! 3) fix logout bug!
-DONE! 4) use only one password field
 5) after user is registered, login and redirect to profile
 6) profile: restaurant data, personal data, mail verification status
 7) restaurant card: 
