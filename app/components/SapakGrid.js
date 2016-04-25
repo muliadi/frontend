@@ -7,6 +7,9 @@ import SapakCard from './SapakCard.js'
 import SapakCreateCard from './SapakCreateCard.js'
 
 class SapakGridSub extends React.Component {
+    componentDidMount() {
+        componentHandler.upgradeDom();
+    } 
     render() {
         const style_grid = {
         };

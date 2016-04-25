@@ -7,6 +7,9 @@ import ItemCard from './ItemCard.js'
 import ItemCreateCard from './ItemCreateCard.js'
 
 class ItemGridSub extends React.Component {
+    componentDidMount() {
+        componentHandler.upgradeDom();
+    } 
     render() {
         const style_grid = {
         };

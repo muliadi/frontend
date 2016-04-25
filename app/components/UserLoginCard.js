@@ -4,7 +4,7 @@ import React from "react"
 import Relay from 'react-relay';
 
 import LogInMutation from "../mutations/logIn.js"
-import CommRound from './commRound.js'
+import CommRound from './commRound.js' 
 
 class UserLoginCard extends React.Component {
     constructor(props) {
@@ -55,7 +55,7 @@ class UserLoginCard extends React.Component {
                 },
                 onSuccess: () => {
                     this.setState({ communicating: false })
-                    document.location.hash = "#/users"
+                    document.location="/#/users";
                 },
             });
     }
