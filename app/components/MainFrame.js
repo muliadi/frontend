@@ -47,9 +47,8 @@ class MainFrameSub extends React.Component {
             maxWidth: "1400px",
             marginRight: "auto",
             marginLeft: "auto",
-        }
-        
-        const logout = ()=>{
+        }  
+        const logout = (e)=>{
             Relay.Store.commitUpdate(new LogOutMutation({}),
                 {
                     onFailure: (e) => {
@@ -59,7 +58,7 @@ class MainFrameSub extends React.Component {
                         document.location = "/#";
                     },
                 });            
-        }
+        }                             
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px"}}>
@@ -87,7 +86,8 @@ class MainFrameSub extends React.Component {
                                  this.props.view.me.is_logged ?
                                     <div>
                                         <div style={style_avatar}
-                                            id="avatar_user" ></div>
+                                            id="avatar_user">
+                                        </div>
                                         <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_user">
                                             הינך מחובר כ-{this.props.view.me.mail}
                                         </div>
@@ -109,6 +109,9 @@ class MainFrameSub extends React.Component {
                                     <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_login11">
                                         הירשם או כנס למערכת
                                     </div>                                    
+                                    <ul style={{display:"none"}}>
+                                        <li></li>
+                                    </ul>                                                                            
                                 </div>
                              }   
                         </nav>
