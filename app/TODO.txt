@@ -1,3 +1,7 @@
+TODO On Google Docs
+https://docs.google.com/a/crazyduck.co/spreadsheets/d/1EYUVq3E64ppb6TnnpG6cz08SzDK67YWC4lsU3VG5Djs/edit?usp=sharing
+
+
 5) after user is registered, login and redirect to profile
 6) profile: restaurant data, personal data, mail verification status
 7) restaurant card: 
@@ -13,6 +17,7 @@
 כולם מסומנים בהתחלה
 
 שעות הספקה מארבע בבבוקר עש עשר בלילה עם דיפולטים
+
 
 
 
