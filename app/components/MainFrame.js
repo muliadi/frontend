@@ -17,10 +17,10 @@ class MainFrameSub extends React.Component {
         :
             "static/login.png";
         const style_avatar = {
-            width: "35px",
-            height: "35px",
+            width: "30px",
+            height: "30px",
             marginRight:"25px",
-            borderRadius: "10px",
+            borderRadius: "100px",
             cursor:"pointer",
             background: "url('"+avatar_path+"') center / cover",        
         }
@@ -29,16 +29,19 @@ class MainFrameSub extends React.Component {
             document.getElementsByClassName("mdl-layout__drawer-button")[0].click()
         }
         const style_nav_link = {
+            color:"rgb(66,66,66)",
             fontSize: "17px",
         }       
         const style_nav_link_mouse_over = (e)=>{
-            e.target.style.borderBottom = "5px solid red";
-            e.target.style.marginBottom = "-5px";
+           e.target.style.color = "rgb(68,138,255)";
+           // e.target.style.borderBottom = "5px solid red";
+           // e.target.style.marginBottom = "-5px";
             
         }
         const style_nav_link_mouse_out = (e)=>{
-            e.target.style.borderBottom = "0px solid red";
-            e.target.style.marginBottom = "0px";
+            e.target.style.color = "rgb(66, 66, 66)";
+           // e.target.style.borderBottom = "0px solid red";
+           // e.target.style.marginBottom = "0px";
         }
         const style_page_content = {
             paddingTop: "30px",
@@ -59,11 +62,11 @@ class MainFrameSub extends React.Component {
         }                             
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-                <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px"}}>
+                <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242"}}>
                     <div className="mdl-layout__header-row">
                         <span className="mdl-layout-title">שוק הספקים</span>
                         <div className="mdl-layout-spacer"></div>                        
-                        <nav className="mdl-navigation">
+                        <nav className="mdl-navigation" >
                             <a className="mdl-navigation__link"
                                style={style_nav_link}
                                onMouseOver={style_nav_link_mouse_over}
