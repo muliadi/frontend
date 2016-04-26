@@ -13,7 +13,7 @@ const LoggedUserInfo = ({full_name, mail, image_id}) => {
         height: "150px",
         borderRadius: "20px",
         marginBottom:"30px",
-        background: "url('/content/"+image_id+"') center / cover",        
+        background: "url('/static/content/"+image_id+"') center / cover",        
     };
     return (
         <div className="mdl-card" style={style_card}>
