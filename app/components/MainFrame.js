@@ -7,8 +7,6 @@ import {lang} from '../lang/heb.js';
 
 import LogOutMutation from '../mutations/logOut.js'
 
-// TODO: ther's a bug hile logging out! see console, before its refreshed
-
 class MainFrameSub extends React.Component {
     componentDidMount() {
         componentHandler.upgradeDom();
@@ -47,19 +45,18 @@ class MainFrameSub extends React.Component {
             maxWidth: "auto",
             marginRight: "auto",
             marginLeft: "auto",
-        }
-        
-        const logout = ()=>{
+        }  
+        const logout = (e)=>{
             Relay.Store.commitUpdate(new LogOutMutation({}),
                 {
                     onFailure: (e) => {
                         // TODO: implement
                     },
                     onSuccess: () => {
-                        document.location = "/";
+                        document.location = "/#";
                     },
                 });            
-        }
+        }                             
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px"}}>
@@ -87,9 +84,10 @@ class MainFrameSub extends React.Component {
                                  this.props.view.me.is_logged ?
                                     <div>
                                         <div style={style_avatar}
-                                            id="avatar_user" ></div>
+                                            id="avatar_user">
+                                        </div>
                                         <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_user">
-                                            הינך רשום כ-{this.props.view.me.login_id}
+                                            הינך מחובר כ-{this.props.view.me.mail}
                                         </div>
                                         <ul className="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
                                             htmlFor="avatar_user">
@@ -109,6 +107,9 @@ class MainFrameSub extends React.Component {
                                     <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_login11">
                                         הירשם או כנס למערכת
                                     </div>                                    
+                                    <ul style={{display:"none"}}>
+                                        <li> belive it or not but this is needed to prevent an mdl vs react thingy. It's here so react doesn;t need to remove the nodes</li>
+                                    </ul>                                                                            
                                 </div>
                              }   
                         </nav>
@@ -144,7 +145,6 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
             fragment on view {
                 me {
                     is_logged
-                    login_id
                     mail
                     small_image {
                         id

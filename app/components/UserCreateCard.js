@@ -12,10 +12,8 @@ class UserCreateCard extends React.Component {
         this.state = {
             base64data: null,
             full_name: "",
-            login_id: "",
             mail: "",
             pass1: "",
-            pass2: "",
             error: null,
             communicating: false,
             success: false,
@@ -33,26 +31,10 @@ class UserCreateCard extends React.Component {
             error: null,
         });
     }
-    handleLoginIDChange(event) {
-        this.setState({
-            login_id: event.target.value,
-            error: null,
-        });
-    }
     handlePass1Change(event) {
         this.setState({
             pass1: event.target.value,
             error: null,
-        });
-    }
-    handlePass2Change(event) {
-        var err = null;
-        if (this.state.pass1 != event.target.value) {
-            err = "הסיסמאות לא מתאימות";
-        }
-        this.setState({
-            pass2: event.target.value,
-            error: err,
         });
     }
     handleFileChange(event) {
@@ -74,24 +56,12 @@ class UserCreateCard extends React.Component {
             this.setState({ error: "אנא הכנס שם מלא" });
             return;
         }
-        if (this.state.login_id == "") {
-            this.setState({ error: "אנא הכנס שם משתמש" });
-            return;
-        }
         if (this.state.mail == "") {
             this.setState({ error: "אנא הכנס מייל" });
             return;
         }
         if (this.state.pass1 == "") {
             this.setState({ error: "אנא הכנס סיסמה" });
-            return;
-        }
-        if (this.state.pass2 == "") {
-            this.setState({ error: "אנא הכנס סיסמה גם בשדה השני" });
-            return;
-        }
-        if (this.state.pass1 != this.state.pass2) {
-            this.setState({ error: "הסיסמאות לא מתאימות" });
             return;
         }
         if (this.state.base64data == null) {
@@ -101,7 +71,6 @@ class UserCreateCard extends React.Component {
         this.setState({ communicating: true })
         Relay.Store.commitUpdate(new AddUserMutation({
             full_name: this.state.full_name,
-            login_id: this.state.login_id,
             mail: this.state.mail,
             password: this.state.pass1,
             imageBase64Data: this.state.base64data,
@@ -111,10 +80,7 @@ class UserCreateCard extends React.Component {
                     console.log(e.getError())
                     const errMsg = e.getError().source.errors[0].message;
                     var msg = "";
-                    if ((errMsg.contains("ID")) && ((errMsg.contains("already exists")))) {
-                        msg = "שם משתמש כבר קיים, אנא בחר אחר";
-                    }
-                    else if ((errMsg.contains("Mail")) && ((errMsg.contains("already exists")))) {
+                    if ((errMsg.indexOf("Mail") > -1) && (errMsg.indexOf("already exists") > -1)) {
                         msg = "מייל כבר קיים, אנא בחר אחר";
                     }
                     this.setState({
@@ -208,13 +174,6 @@ class UserCreateCard extends React.Component {
                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input
                                         className="mdl-textfield__input"
-                                        type="text"
-                                        onChange={this.handleLoginIDChange.bind(this) }></input>
-                                    <label className="mdl-textfield__label">שם משתמש</label>
-                                </div>
-                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input
-                                        className="mdl-textfield__input"
                                         type="mail"
                                         onChange={this.handleMailChange.bind(this) }></input>
                                     <label className="mdl-textfield__label">מייל</label>
@@ -225,13 +184,6 @@ class UserCreateCard extends React.Component {
                                         type="password"
                                         onChange={this.handlePass1Change.bind(this) }></input>
                                     <label className="mdl-textfield__label">סיסמה</label>
-                                </div>
-                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input
-                                        className="mdl-textfield__input"
-                                        type="password"
-                                        onChange={this.handlePass2Change.bind(this) }></input>
-                                    <label className="mdl-textfield__label">שוב אותה סיסמה</label>
                                 </div>
                             </div>
                             

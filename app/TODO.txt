@@ -1,0 +1,18 @@
+5) after user is registered, login and redirect to profile
+6) profile: restaurant data, personal data, mail verification status
+7) restaurant card: 
+
+שם העסק
+סם החברה
+ח״פ/ע״מ
+כתובת העסק
+
+ימי הספקה
+מא עד ו
+
+כולם מסומנים בהתחלה
+
+שעות הספקה מארבע בבבוקר עש עשר בלילה עם דיפולטים
+
+
+

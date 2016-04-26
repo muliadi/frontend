@@ -10,15 +10,15 @@ class UserLoginCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            login_id: "",
+            mail: "",
             pass1: "",
             communicating: false,
             error: null,
         }
     }
-    handleLoginIDChange(event) {
+    handleMailChange(event) {
         this.setState({
-            login_id: event.target.value,
+            mail: event.target.value,
             error: null,
         });
     }
@@ -29,21 +29,17 @@ class UserLoginCard extends React.Component {
         });
     }
     handleLogin(event) {
-        if (this.state.login_id=="") {
-            this.setState({error: "אנא הכנס שם משתמש"});
+        if (this.state.mail=="") {
+            this.setState({error: "אנא הכנס מייל"});
             return
         }
-        if (this.state.login_id=="") {
-            this.setState({error: "אנא הכנס שם משתמש"});
-            return
-        }        
         if (this.state.pass1=="") {
             this.setState({error: "אנא הכנס סיסמה"});
             return
         }
         this.setState({ communicating: true })
         Relay.Store.commitUpdate(new LogInMutation({
-            login_id: this.state.login_id,
+            mail: this.state.mail,
             password: this.state.pass1,
         }),
             {
@@ -97,8 +93,8 @@ class UserLoginCard extends React.Component {
                         className="mdl-textfield__input"
                         type="text"
                         id="user_login_card_1"
-                        onChange={this.handleLoginIDChange.bind(this) }></input>
-                    <label className="mdl-textfield__label" htmlFor="item_login_card_1">שם משתמש</label>
+                        onChange={this.handleMailChange.bind(this) }></input>
+                    <label className="mdl-textfield__label" htmlFor="item_login_card_1">מייל</label>
                 </div>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input

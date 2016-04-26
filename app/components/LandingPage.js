@@ -4,6 +4,9 @@ import React from 'react';
 import Relay from 'react-relay';
 
 class LandingPage extends React.Component {
+    componentDidMount() {
+        componentHandler.upgradeDom();
+    } 
     render() {
         const style_big_background_image = {
             // TODO: optimize image size
