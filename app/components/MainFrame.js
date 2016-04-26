@@ -64,9 +64,9 @@ class MainFrameSub extends React.Component {
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242"}}>
                     <div className="mdl-layout__header-row">
-                        <span className="mdl-layout-title">שוק הספקים</span>
+                        <img src="static/Orderoo-logo.png" style={{height:"60px"}}></img>
                         <div className="mdl-layout-spacer"></div>                        
-                        <nav className="mdl-navigation" >
+                        <nav className="mdl-navigation mdl-layout--large-screen-only" >
                             <a className="mdl-navigation__link"
                                style={style_nav_link}
                                onMouseOver={style_nav_link_mouse_over}
@@ -118,18 +118,45 @@ class MainFrameSub extends React.Component {
                         </nav>
                     </div>
                 </header>
-                <div className="mdl-layout__drawer">
-                    <span className="mdl-layout-title">שוק הספקים</span>
+                <div className="mdl-layout__drawer mdl-layout--small-screen-only">
+                    <img src="static/Orderoo-logo.png" style={{height:"auto", width:"110px", marginTop:"20px", marginLeft:"auto", marginRight:"auto"}}></img>
                     <nav className="mdl-navigation">
-                    <a className="mdl-navigation__link"
-                        onClick={closeDrawer}
-                        href="/#/items">מוצרים</a>
-                    <a className="mdl-navigation__link"
-                        onClick={closeDrawer}
-                        href="/#/sapakim">ספקים</a>
-                    <a className="mdl-navigation__link"
-                        onClick={closeDrawer}
-                        href="/#/users">משתמשים</a>
+                        {
+                                 this.props.view.me.is_logged ?
+                                    <div style={{flexDirection:"row", display:"flex", alignItems:"center"}}>
+                                        <div style={style_avatar}
+                                            id="avatar_user"
+                                            onClick={document.location="/#/profile"}>
+                                        </div>
+                                       <div style={{marginRight:"20px"}}>
+                                      {this.props.view.me.full_name}
+                                       </div>                                                                   
+                                    </div>
+                                :
+                                <div>
+                                    <div
+                                        style={style_avatar}
+                                        onClick={()=>{document.location="/#/login"; closeDrawer()}}
+                                        href="/#/login"
+                                        id="avatar_login11"
+                                    ></div>                                    
+                                    <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_login11">
+                                        הירשם או כנס למערכת
+                                    </div>                                    
+                                    <ul style={{display:"none"}}>
+                                        <li> belive it or not but this is needed to prevent an mdl vs react thingy. It's here so react doesn;t need to remove the nodes</li>
+                                    </ul>                                                                            
+                                </div>
+                             }   
+                        <a className="mdl-navigation__link"
+                            onClick={closeDrawer}
+                            href="/#/items">מוצרים</a>
+                        <a className="mdl-navigation__link"
+                            onClick={closeDrawer}
+                            href="/#/sapakim">ספקים</a>
+                        <a className="mdl-navigation__link"
+                            onClick={closeDrawer}
+                            href="/#/users">משתמשים</a>
                     </nav>
                 </div>
                 <main className="mdl-layout__content">
@@ -149,6 +176,7 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
                 me {
                     is_logged
                     mail
+                    full_name
                     small_image {
                         id
                     }
