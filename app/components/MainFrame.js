@@ -126,7 +126,7 @@ class MainFrameSub extends React.Component {
                                     <div style={{flexDirection:"row", display:"flex", alignItems:"center"}}>
                                         <div style={style_avatar}
                                             id="avatar_user"
-                                            onClick={document.location="/#/profile"}>
+                                            onClick={()=>{document.location="/#/profile"}}>
                                         </div>
                                        <div style={{marginRight:"20px"}}>
                                       {this.props.view.me.full_name}
