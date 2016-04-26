@@ -12,7 +12,9 @@ class ProfilePageSub extends React.Component {
     } 
     render() {
         const style_sidebar = {
-            background: "white",
+            background: "rgba(51,172,113,0.0)",
+            borderLeft: "solid 1px grey",
+            paddingTop: "30px",
             marginTop: "-7px",
             marginRight: "-7px",
             marginBottom: "-7px",

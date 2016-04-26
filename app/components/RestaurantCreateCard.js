@@ -21,6 +21,7 @@ class RestaurantCreateCard extends React.Component {
             error: null,
             communicating: false,
             success: false,
+            isCompany: true,
         }
     }
     handleRestaurantNameChange(event) {
@@ -153,7 +154,7 @@ class RestaurantCreateCard extends React.Component {
                     </div>                
                 :                
                     <div className="mdl-card" style={style_card}>
-                        <h6>הכנס פירטי המסעדה / העסק</h6>
+                        <h6>הכנס פרטי המסעדה / העסק</h6>
                         {
                             this.state.error != null ?
                                 <h7 style={{ color: "red" }}>{this.state.error}</h7> : null
@@ -177,20 +178,24 @@ class RestaurantCreateCard extends React.Component {
                             <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
                             
                                 <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-1">
-                                    <input type="radio" id="option-1" className="mdl-radio__button" name="options" value="1"/>
-                                    <span className="mdl-radio__label">First</span>
+                                    <input
+                                        type="radio"
+                                        id="option-1"
+                                        className="mdl-radio__button"
+                                        name="options"
+                                        value="1"
+                                        onClick={()=>{this.setState({isCompany: true})}}/>
+                                    <span className="mdl-radio__label">חברה בע״מ</span>
                                 </label>
                                 <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-2">
-                                    <input type="radio" id="option-2" className="mdl-radio__button" name="options" value="2"/>
-                                    <span className="mdl-radio__label">Second</span>
-                                </label>
-                                <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-3">
-                                    <input type="radio" id="option-3" className="mdl-radio__button" name="options" value="3" />
-                                    <span className="mdl-radio__label">Third</span>
-                                </label>
-                                <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-4">
-                                    <span className="mdl-radio__label">Fourth</span>
-                                    <input type="radio" id="option-4" className="mdl-radio__button" name="options" value="4"/>
+                                    <input
+                                        type="radio"
+                                        id="option-2"
+                                        className="mdl-radio__button"
+                                        name="options"
+                                        value="2"
+                                        onClick={()=>{this.setState({isCompany: false})}}/>
+                                    <span className="mdl-radio__label">עוסק מורשה</span>
                                 </label>
                                                             
                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -198,14 +203,18 @@ class RestaurantCreateCard extends React.Component {
                                         className="mdl-textfield__input"
                                         type="text"
                                         onChange={this.handleRestaurantNameChange.bind(this) }></input>
-                                    <label className="mdl-textfield__label">שם העסק</label>
+                                    <label className="mdl-textfield__label">שם המסעדה</label>
                                 </div>
                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input
                                         className="mdl-textfield__input"
                                         type="text"
                                         onChange={this.handleCompanyNameChange.bind(this) }></input>
-                                    <label className="mdl-textfield__label">שם החברה</label>
+                                    <label className="mdl-textfield__label">
+                                        {
+                                            this.state.isCompany? "שם החברה" : "שם העסק"
+                                        }
+                                    </label>
                                 </div>
                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input
@@ -219,8 +228,48 @@ class RestaurantCreateCard extends React.Component {
                                         className="mdl-textfield__input"
                                         type="text"
                                         onChange={this.handleRestaurantNumsChange.bind(this) }></input>
-                                    <label className="mdl-textfield__label">ח״ע / ח״פ</label>
+                                    <label className="mdl-textfield__label">
+                                        {
+                                            !this.state.isCompany? "ע״מ" : "ח״פ"
+                                        }
+                                    </label>
                                 </div>
+                                
+                                
+                                <div>
+                                    <div>
+                                        <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-1">
+                                            <input type="checkbox" id="checkbox-1" className="mdl-checkbox__input" />
+                                            <span className="mdl-checkbox__label">א</span>
+                                        </label>
+                                        
+<input className="mdl-slider mdl-js-slider" type="range"
+  min="0" max="100" value="25" tabindex="0"></input>
+                                          
+                                    </div>                                
+                                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-2">
+                                        <input type="checkbox" id="checkbox-2" className="mdl-checkbox__input" />
+                                        <span className="mdl-checkbox__label">ב</span>
+                                    </label>                                
+                                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-3">
+                                        <input type="checkbox" id="checkbox-3" className="mdl-checkbox__input" />
+                                        <span className="mdl-checkbox__label">ג</span>
+                                    </label>                                
+                                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-4">
+                                        <input type="checkbox" id="checkbox-4" className="mdl-checkbox__input" />
+                                        <span className="mdl-checkbox__label">ד</span>
+                                    </label>                                
+                                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-5">
+                                        <input type="checkbox" id="checkbox-5" className="mdl-checkbox__input" />
+                                        <span className="mdl-checkbox__label">ה</span>
+                                    </label>                                
+                                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-6">
+                                        <input type="checkbox" id="checkbox-6" className="mdl-checkbox__input" />
+                                        <span className="mdl-checkbox__label">ו</span>
+                                    </label>                                
+                                </div>
+                                
+                                
                             </div>
                             
                             <div className="mdl-card__actions" style={style_actions}>
