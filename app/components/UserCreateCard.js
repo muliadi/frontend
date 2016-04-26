@@ -16,7 +16,6 @@ class UserCreateCard extends React.Component {
             pass1: "",
             error: null,
             communicating: false,
-            success: false,
         }
     }
     handleFullNameChange(event) {
@@ -89,7 +88,8 @@ class UserCreateCard extends React.Component {
                     })
                 },
                 onSuccess: () => {
-                    this.setState({ communicating: false, success: true })
+                    this.setState({ communicating: false })
+                    document.location = "/#/profile";                    
                 },
             });
     }
@@ -135,85 +135,78 @@ class UserCreateCard extends React.Component {
         }
         return (
             <div>
-            {
-                this.state.success ?
-                    <div className="mdl-card" style={style_card}>
-                        <h6>כדי לסיים את ההרשמה אנא לחץ על הקישור במייל ששלחנו</h6>
-                    </div>                
-                :                
-                    <div className="mdl-card" style={style_card}>
-                        <h6>הרשם כמשתמש חדש במערכת</h6>
-                        {
-                            this.state.error != null ?
-                                <h7 style={{ color: "red" }}>{this.state.error}</h7> : null
-                        }                
-                        <div className="mdl-grid">
-                            <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
-                                <input id="fileinput2" type="file" style={{ display: "None" }} onChange={this.handleFileChange.bind(this) }></input>
+                <div className="mdl-card" style={style_card}>
+                    <h6>הרשם כמשתמש חדש במערכת</h6>
+                    {
+                        this.state.error != null ?
+                            <h7 style={{ color: "red" }}>{this.state.error}</h7> : null
+                    }                
+                    <div className="mdl-grid">
+                        <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+                            <input id="fileinput2" type="file" style={{ display: "None" }} onChange={this.handleFileChange.bind(this) }></input>
 
-                                <div style={style_small_image}>
-                                    {this.state.base64data == null ? 
-                                        <button
-                                            className="mdl-button mdl-js-button mdl-button--fab"
-                                            style={style_add_image}
-                                            onClick={() => (document.getElementById('fileinput2').click()) }>
-                                            <i className="material-icons"></i>
-                                        </button>
-                                    : null}
-                                </div>
-                            </div>
-                        
-                            <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
-                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input
-                                        className="mdl-textfield__input"
-                                        type="text"
-                                        onChange={this.handleFullNameChange.bind(this) }></input>
-                                    <label className="mdl-textfield__label">שם מלא</label>
-                                </div>
-                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input
-                                        className="mdl-textfield__input"
-                                        type="mail"
-                                        onChange={this.handleMailChange.bind(this) }></input>
-                                    <label className="mdl-textfield__label">מייל</label>
-                                </div>
-                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input
-                                        className="mdl-textfield__input"
-                                        type="password"
-                                        onChange={this.handlePass1Change.bind(this) }></input>
-                                    <label className="mdl-textfield__label">סיסמה</label>
-                                </div>
-                            </div>
-                            
-                            <div className="mdl-card__actions" style={style_actions}>
-
-                                {this.state.communicating ?
-                                    <CommRound style={{ marginRight: "20px", marginTop: "5px" }}></CommRound>
-                                    :
-                                    <div>
-                                        {this.state.base64data != null ?
-                                            <button
-                                                style={style_save_button}
-                                                className="mdl-button mdl-js-button mdl-js-ripple-effect"
-                                                onClick={() => (document.getElementById('fileinput2').click()) }>
-                                                שנה תמונה
-                                            </button> : null
-                                        }
-                                        <button
-                                            style={style_save_button}
-                                            className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                                            onClick={this.handleSaveItem.bind(this) }
-                                            id="UserCreateCard_Save_Button">
-                                            הרשם
-                                        </button>
-                                    </div>
-                                }
+                            <div style={style_small_image}>
+                                {this.state.base64data == null ? 
+                                    <button
+                                        className="mdl-button mdl-js-button mdl-button--fab"
+                                        style={style_add_image}
+                                        onClick={() => (document.getElementById('fileinput2').click()) }>
+                                        <i className="material-icons"></i>
+                                    </button>
+                                : null}
                             </div>
                         </div>
+                    
+                        <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+                            <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input
+                                    className="mdl-textfield__input"
+                                    type="text"
+                                    onChange={this.handleFullNameChange.bind(this) }></input>
+                                <label className="mdl-textfield__label">שם מלא</label>
+                            </div>
+                            <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input
+                                    className="mdl-textfield__input"
+                                    type="mail"
+                                    onChange={this.handleMailChange.bind(this) }></input>
+                                <label className="mdl-textfield__label">מייל</label>
+                            </div>
+                            <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input
+                                    className="mdl-textfield__input"
+                                    type="password"
+                                    onChange={this.handlePass1Change.bind(this) }></input>
+                                <label className="mdl-textfield__label">סיסמה</label>
+                            </div>
+                        </div>
+                        
+                        <div className="mdl-card__actions" style={style_actions}>
+
+                            {this.state.communicating ?
+                                <CommRound style={{ marginRight: "20px", marginTop: "5px" }}></CommRound>
+                                :
+                                <div>
+                                    {this.state.base64data != null ?
+                                        <button
+                                            style={style_save_button}
+                                            className="mdl-button mdl-js-button mdl-js-ripple-effect"
+                                            onClick={() => (document.getElementById('fileinput2').click()) }>
+                                            שנה תמונה
+                                        </button> : null
+                                    }
+                                    <button
+                                        style={style_save_button}
+                                        className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                                        onClick={this.handleSaveItem.bind(this) }
+                                        id="UserCreateCard_Save_Button">
+                                        הרשם
+                                    </button>
+                                </div>
+                            }
+                        </div>
                     </div>
-            }
+                </div>
             </div>
         );
     }

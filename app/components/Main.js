@@ -10,6 +10,7 @@ import UserGrid from './UserGrid.js';
 import SapakGrid from './SapakGrid.js';
 import MailVerification from './MailVerification.js';
 import LogInOrCreateUser from './LogInOrCreateUser.js'
+import ProfilePage from './ProfilePage.js'
 
 // TODO: move two functions below to own module...
 function writeCookie (key, value, days) {
@@ -75,6 +76,9 @@ const MainSub = class extends React.Component {
                 case "login":
                     this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
                     break;                        
+                case "profile":
+                    this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage> });
+                    break;                        
                 case "mail_verification":
                     if (argNum!=2) {
                         this.setState({pageToRender: <div>404 Not Found</div> });
@@ -112,6 +116,7 @@ const Main = Relay.createContainer(MainSub, {
                 ${ItemGrid.getFragment('view')},
                 ${UserGrid.getFragment('view')},
                 ${SapakGrid.getFragment('view')},
+                ${ProfilePage.getFragment('view')},
                 me {
                     is_logged
                     small_image {
