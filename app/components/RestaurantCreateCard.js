@@ -162,7 +162,6 @@ class RestaurantCreateCard extends React.Component {
                                 <h7 style={{ color: "red" }}>{this.state.error}</h7> : null
                         }                
                         <div className="mdl-grid">
-                            <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
                                 <input id="fileinput2" type="file" style={{ display: "None" }} onChange={this.handleFileChange.bind(this) }></input>
 
                                 <div style={style_small_image}>
@@ -175,7 +174,6 @@ class RestaurantCreateCard extends React.Component {
                                         </button>
                                     : null}
                                 </div>
-                            </div>
                         
                             <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
                             
@@ -237,17 +235,25 @@ class RestaurantCreateCard extends React.Component {
                                             !this.state.isCompany? "ע״מ" : "ח״פ"
                                         }
                                     </label>
-                                </div>
-                                
-                                
+                                </div>                                
+                            </div>
+                            
+                            
+                            
+                            
+                            <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
                                 <div style={{width: "100%"}}>
+                                    <div  style={{marginBottom:"20px"}}>
+                                        <h7>בחר ימי ושעות הספקה</h7>
+                                    </div>
                                     {
-                                        [0,1,2,3,4,5].map((dayNum, i)=>(<TimeRange dayNum={dayNum} checked={true} />))
+                                        [5,4,3,2,1,0].map((dayNum, i)=>(<TimeRange key={i} dayNum={dayNum} checked={true} />))
                                     }
                                 </div>
-                                
-                                
                             </div>
+                            
+                            
+                            
                             
                             <div className="mdl-card__actions" style={style_actions}>
 
