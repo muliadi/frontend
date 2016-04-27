@@ -48,7 +48,7 @@ class TimeRange extends React.Component {
                 <div style={{width:"100%", marginTop:"6px"}}>
                     <ReactSlider min={0} max={72} defaultValue={[this.state.left, this.state.right]} onChange={(value)=>{this.setState({left: value[0], right:value[1]})}} withBars />
                 </div>
-                <div style={{width:"70px", marginTop:"3px"}}>
+                <div style={{width:"70px", marginTop:"3px", marginRight:"5px"}}>
                     {left_hr}:{left_mn}
                 </div>
                 
