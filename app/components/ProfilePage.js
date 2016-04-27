@@ -38,9 +38,13 @@ class ProfilePageSub extends React.Component {
                     >
                     </LoggedUserInfo>
                 </div>
-                <div className="mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+                <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
+                </div>
+                <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
                     <RestaurantCreateCard>
                     </RestaurantCreateCard>
+                </div>
+                <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
                 </div>
             </div>
         );

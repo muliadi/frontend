@@ -6,6 +6,8 @@ import Relay from 'react-relay';
 import AddUserMutation from "../mutations/addUser.js"
 import CommRound from './commRound.js'
 
+import TimeRange from './TimeRange.js'
+
 class RestaurantCreateCard extends React.Component {
     constructor(props) {
         super(props)
@@ -238,36 +240,10 @@ class RestaurantCreateCard extends React.Component {
                                 </div>
                                 
                                 
-                                <div>
-                                    <div>
-                                        <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-1">
-                                            <input type="checkbox" id="checkbox-1" className="mdl-checkbox__input" />
-                                            <span className="mdl-checkbox__label">א</span>
-                                        </label>
-                                        
-
-                                          
-                                    </div>                                
-                                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-2">
-                                        <input type="checkbox" id="checkbox-2" className="mdl-checkbox__input" />
-                                        <span className="mdl-checkbox__label">ב</span>
-                                    </label>                                
-                                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-3">
-                                        <input type="checkbox" id="checkbox-3" className="mdl-checkbox__input" />
-                                        <span className="mdl-checkbox__label">ג</span>
-                                    </label>                                
-                                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-4">
-                                        <input type="checkbox" id="checkbox-4" className="mdl-checkbox__input" />
-                                        <span className="mdl-checkbox__label">ד</span>
-                                    </label>                                
-                                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-5">
-                                        <input type="checkbox" id="checkbox-5" className="mdl-checkbox__input" />
-                                        <span className="mdl-checkbox__label">ה</span>
-                                    </label>                                
-                                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-6">
-                                        <input type="checkbox" id="checkbox-6" className="mdl-checkbox__input" />
-                                        <span className="mdl-checkbox__label">ו</span>
-                                    </label>                                
+                                <div style={{width: "100%"}}>
+                                    {
+                                        [0,1,2,3,4,5].map((dayNum, i)=>(<TimeRange dayNum={dayNum} checked={true} />))
+                                    }
                                 </div>
                                 
                                 
