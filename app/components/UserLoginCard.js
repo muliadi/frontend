@@ -29,7 +29,6 @@ class UserLoginCard extends React.Component {
         });
     }
     handleLogin(event) {
-        console.log("logging in!");
         if (this.state.mail=="") {
             this.setState({error: "אנא הכנס מייל"});
             return
