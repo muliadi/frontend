@@ -126,15 +126,19 @@ class MainFrameSub extends React.Component {
                     <nav className="mdl-navigation">
                         {
                                  this.props.view.me.is_logged ?
-                                    <div style={{flexDirection:"row", display:"flex", alignItems:"center"}}>
+                                    <div style={{flexDirection:"row", display:"flex", alignItems:"center", margin:"20px 0px 20px 0px"}}>
                                         <div style={style_avatar}
                                             id="avatar_user"
                                             onClick={()=>{document.location="/#/profile"}}>
                                         </div>
-                                       <div style={{marginRight:"20px"}}>
-                                      {this.props.view.me.full_name}
-                                       </div>                                                                   
-                                    </div>
+                                        <div style={{marginRight:"20px", fontSize:"14px"}}>
+                                            {this.props.view.me.full_name}
+                                        </div>
+                                        <div className="mdl-layout-spacer"></div> 
+                                        <button style={{marginLeft:"5px", backgroundColor:"rgba(51,172,113,1)", maxHeight: "20px", lineHeight:"12px", fontSize:"12px", maxWidth:"70px"}} className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                        היתנתק
+                                </button>                                                                   
+                                   </div>
                                 :
                                 <div>
                                     <div
