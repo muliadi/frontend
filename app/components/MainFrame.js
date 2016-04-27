@@ -56,7 +56,7 @@ class MainFrameSub extends React.Component {
                         // TODO: implement
                     },
                     onSuccess: () => {
-                        document.location = "/#";
+                        document.location = "/#/loggedout";
                     },
                 });            
         }                             
