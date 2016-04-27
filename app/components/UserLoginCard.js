@@ -29,6 +29,7 @@ class UserLoginCard extends React.Component {
         });
     }
     handleLogin(event) {
+        console.log("logging in!");
         if (this.state.mail=="") {
             this.setState({error: "אנא הכנס מייל"});
             return
@@ -93,6 +94,7 @@ class UserLoginCard extends React.Component {
                         className="mdl-textfield__input"
                         type="text"
                         id="user_login_card_1"
+                        onKeyUp={(e)=>{if (e.keyCode==13) {this.handleLogin.bind(this)()}} }                        
                         onChange={this.handleMailChange.bind(this) }></input>
                     <label className="mdl-textfield__label" htmlFor="item_login_card_1">מייל</label>
                 </div>
@@ -101,6 +103,7 @@ class UserLoginCard extends React.Component {
                         className="mdl-textfield__input"
                         type="password"
                         id="user_create_card_4"
+                        onKeyUp={(e)=>{if (e.keyCode==13) {this.handleLogin.bind(this)()}} }                        
                         onChange={this.handlePass1Change.bind(this) }></input>
                     <label className="mdl-textfield__label" htmlFor="user_create_card_4">סיסמה</label>
                 </div>
