@@ -44,7 +44,7 @@ class MainFrameSub extends React.Component {
            // e.target.style.marginBottom = "0px";
         }
         const style_page_content = {
-            paddingTop: "30px",
+            paddingTop: "0px",
             maxWidth: "auto",
             marginRight: "auto",
             marginLeft: "auto",
@@ -62,11 +62,11 @@ class MainFrameSub extends React.Component {
         }                             
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-                <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242"}}>
-                    <div className="mdl-layout__header-row">
-                        <img src="static/Orderoo-logo.png" style={{height:"60px"}}></img>
-                        <div className="mdl-layout-spacer"></div>                        
-                        <nav className="mdl-navigation mdl-layout--large-screen-only" >
+                <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242", padding:"0 120px 0 120px"}}>
+                    <div className="mdl-layout__header-row" >
+                        <img src="static/Orderoo-logo.png" style={{height:"40px", float:"right"}}></img>
+                         <div className="mdl-layout-spacer"></div>                       
+                        <nav className="mdl-navigation mdl-layout--large-screen-only" style={{float:"left"}}>
                             <a className="mdl-navigation__link"
                                style={style_nav_link}
                                onMouseOver={style_nav_link_mouse_over}

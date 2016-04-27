@@ -243,8 +243,7 @@ class RestaurantCreateCard extends React.Component {
                                             <span className="mdl-checkbox__label">א</span>
                                         </label>
                                         
-<input className="mdl-slider mdl-js-slider" type="range"
-  min="0" max="100" value="25" tabindex="0"></input>
+
                                           
                                     </div>                                
                                     <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="checkbox-2">
