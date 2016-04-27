@@ -64,7 +64,10 @@ class MainFrameSub extends React.Component {
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242", padding:"0 120px 0 120px"}}>
                     <div className="mdl-layout__header-row" >
-                        <img src="static/Orderoo-logo.png" style={{height:"40px", float:"right"}}></img>
+                        <a href="/#">
+                            <img src="static/Orderoo-logo.png" style={{height:"40px", float:"right"}}>
+                            </img>
+                        </a>
                          <div className="mdl-layout-spacer"></div>                       
                         <nav className="mdl-navigation mdl-layout--large-screen-only" style={{float:"left"}}>
                             <a className="mdl-navigation__link"
