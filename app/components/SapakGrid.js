@@ -21,8 +21,8 @@ class SapakGridSub extends React.Component {
             <div>
                 <div className="mdl-grid" style={style_grid}>
                     {
-                        this.props.view.sapakim.edges.map(sapak => {
-                            return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                        this.props.view.sapakim.edges.map((sapak, i) => {
+                            return <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
                                 <SapakCard
                                     name={sapak.node.name}
                                     mail={sapak.node.mail}

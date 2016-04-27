@@ -20,8 +20,8 @@ class UserGridSub extends React.Component {
         return (
             <div className="mdl-grid" style={style_grid}>
                 {
-                    this.props.view.users.edges.map(user => {
-                        return <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                    this.props.view.users.edges.map((user, i) => {
+                        return <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
                             <UserCard
                                 full_name={user.node.full_name}
                                 mail={user.node.mail}
