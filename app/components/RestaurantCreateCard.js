@@ -153,7 +153,7 @@ class RestaurantCreateCard extends React.Component {
                         <h6>כדי לסיים את ההרשמה אנא לחץ על הקישור במייל ששלחנו</h6>
                     </div>                
                 :                
-                    <div className="mdl-card" style={style_card}>
+                    <div className="mdl-card mdl-shadow--8dp" style={style_card}>
                         <h6>הכנס פרטי המסעדה / העסק</h6>
                         {
                             this.state.error != null ?
@@ -177,26 +177,28 @@ class RestaurantCreateCard extends React.Component {
                         
                             <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
                             
-                                <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-1">
-                                    <input
-                                        type="radio"
-                                        id="option-1"
-                                        className="mdl-radio__button"
-                                        name="options"
-                                        value="1"
-                                        onClick={()=>{this.setState({isCompany: true})}}/>
-                                    <span className="mdl-radio__label">חברה בע״מ</span>
-                                </label>
-                                <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-2">
-                                    <input
-                                        type="radio"
-                                        id="option-2"
-                                        className="mdl-radio__button"
-                                        name="options"
-                                        value="2"
-                                        onClick={()=>{this.setState({isCompany: false})}}/>
-                                    <span className="mdl-radio__label">עוסק מורשה</span>
-                                </label>
+                                <div style={{width:"100%"}}>
+                                    <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-1"  style={{marginLeft:"15px"}}>
+                                        <input
+                                            type="radio"
+                                            id="option-1"
+                                            className="mdl-radio__button"
+                                            name="options"
+                                            value="1"
+                                            onClick={()=>{this.setState({isCompany: true})}}/>
+                                        <span className="mdl-radio__label">חברה בע״מ</span>
+                                    </label>
+                                    <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-2">
+                                        <input
+                                            type="radio"
+                                            id="option-2"
+                                            className="mdl-radio__button"
+                                            name="options"
+                                            value="2"
+                                            onClick={()=>{this.setState({isCompany: false})}}/>
+                                        <span className="mdl-radio__label">עוסק מורשה</span>
+                                    </label>
+                                </div>
                                                             
                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input

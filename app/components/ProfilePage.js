@@ -13,7 +13,7 @@ class ProfilePageSub extends React.Component {
     render() {
         const style_sidebar = {
             background: "rgba(51,172,113,0.0)",
-            borderLeft: "solid 1px grey",
+            //borderLeft: "solid 1px grey",
             paddingTop: "30px",
             marginTop: "-7px",
             marginRight: "-7px",
@@ -25,7 +25,8 @@ class ProfilePageSub extends React.Component {
             top: "0px",
             bottom: "0px",
             marginTop:"-20px",
-            marginBottom:"0px"
+            marginBottom:"0px",
+            paddingTop: "50px",
         }
         return (
             <div className="mdl-grid" style={style_grid}>        
