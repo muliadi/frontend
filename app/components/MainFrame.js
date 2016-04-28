@@ -33,7 +33,7 @@ class MainFrameSub extends React.Component {
             fontSize: "17px",
         }       
         const style_nav_link_mouse_over = (e)=>{
-           e.target.style.color = "rgb(68,138,255)";
+           e.target.style.color = "rgb(51, 172, 113)";
            // e.target.style.borderBottom = "5px solid red";
            // e.target.style.marginBottom = "-5px";
             
@@ -62,7 +62,7 @@ class MainFrameSub extends React.Component {
         }                             
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-                <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242", padding:"0 120px 0 120px"}}>
+                <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242", padding:"0 60px"}}>
                     <div className="mdl-layout__header-row" >
                         <a href="/#">
                             <img src="static/Orderoo-logo.png" style={{height:"40px", float:"right"}}>
@@ -88,28 +88,32 @@ class MainFrameSub extends React.Component {
                                
                              {
                                  this.props.view.me.is_logged ?
-                                    <div>
+                                    <div style={{flexDirection:"row", display:"flex", alignItems:"center", margin:"20px 0px 20px 0px"}}>
                                         <div style={style_avatar}
-                                            id="avatar_user">
+                                            id="avatar_user"
+                                            onClick={()=>{document.location="/#/profile"}}>
                                         </div>
+                                        <button style={{ marginRight:"10px",  maxHeight: "14px", lineHeight:"10px", fontSize:"11px"}} className="mdl-button mdl-js-button mdl-js-ripple-effect " onClick={()=>{logout()}}>         
+                                        היתנתק
+                                        </button>      
+                                        
                                         <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_user">
-                                            הינך מחובר כ-{this.props.view.me.mail}
+                                            הינך מחובר כ-{this.props.view.me.full_name}
                                         </div>
-                                        <ul className="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-                                            htmlFor="avatar_user">
-                                            <li className="mdl-menu__item"
-                                                onClick={logout}>
-                                                צא</li>
-                                        </ul>                                                                            
+                                                                                                                   
                                     </div>
                                 :
-                                <div>
+                                <div style={{flexDirection:"row", display:"flex", alignItems:"center", margin:"20px 0px 20px 0px"}}>
                                     <div
                                         style={style_avatar}
                                         onClick={()=>{document.location="/#/login"}}
                                         href="/#/login"
                                         id="avatar_login11"
-                                    ></div>                                    
+                                    ></div> 
+                                    <button style={{ marginRight:"10px",  maxHeight: "14px", lineHeight:"10px", fontSize:"11px"}} className="mdl-button mdl-js-button mdl-js-ripple-effect " onClick={()=>{document.location="/#/login"}}>
+                                        התחבר
+                                    </button>  
+                                                                     
                                     <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_login11">
                                         הירשם או כנס למערכת
                                     </div>                                    
@@ -129,24 +133,29 @@ class MainFrameSub extends React.Component {
                                     <div style={{flexDirection:"row", display:"flex", alignItems:"center", margin:"20px 0px 20px 0px"}}>
                                         <div style={style_avatar}
                                             id="avatar_user"
-                                            onClick={()=>{document.location="/#/profile"}}>
+                                            onClick={()=>{document.location="/#/profile"; closeDrawer()}}>
                                         </div>
                                         <div style={{marginRight:"20px", fontSize:"14px"}}>
                                             {this.props.view.me.full_name}
                                         </div>
                                         <div className="mdl-layout-spacer"></div> 
-                                        <button style={{marginLeft:"5px", backgroundColor:"rgba(51,172,113,1)", maxHeight: "20px", lineHeight:"12px", fontSize:"12px", maxWidth:"70px"}} className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                        <button style={{ marginLeft:"10px", backgroundColor:"rgba(51,172,113,1)", maxHeight: "18px", lineHeight:"12px", fontSize:"12px"}} className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={()=>{logout(); closeDrawer()}}>                                                                               
                                         היתנתק
                                 </button>                                                                   
                                    </div>
                                 :
-                                <div>
+                                <div style={{flexDirection:"row", display:"flex", alignItems:"center", margin:"20px 0px 20px 0px"}}>
                                     <div
                                         style={style_avatar}
+                                        
                                         onClick={()=>{document.location="/#/login"; closeDrawer()}}
                                         href="/#/login"
                                         id="avatar_login11"
-                                    ></div>                                    
+                                    ></div> 
+                                    <div className="mdl-layout-spacer"></div> 
+                                    <button style={{ marginLeft:"10px", backgroundColor:"rgba(51,172,113,1)", maxHeight: "18px", lineHeight:"12px", fontSize:"12px"}} className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={()=>{document.location="/#/login"; closeDrawer()}}>
+                                        התחבר
+                                </button>                                    
                                     <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_login11">
                                         הירשם או כנס למערכת
                                     </div>                                    
