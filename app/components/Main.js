@@ -6,6 +6,7 @@ import Relay from 'react-relay';
 import MainFrame from './MainFrame.js';
 import ItemGrid from './ItemGrid.js';
 import LandingPage from './LandingPage.js';
+import TermsAndConditions from './TermsAndConditions.js';
 import UserGrid from './UserGrid.js';
 import SapakGrid from './SapakGrid.js';
 import MailVerification from './MailVerification.js';
@@ -43,6 +44,9 @@ const MainSub = class extends React.Component {
         if (!this.props.view.me.is_logged) {
             
             switch (arg1) {
+                case "terms_and_conditions":
+                    this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions> });            
+                    break;
                 case "login":
                     this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
                     break;                        
@@ -64,6 +68,9 @@ const MainSub = class extends React.Component {
         
         if (argNum>0) {
             switch (arg1) {
+                case "terms_and_conditions":
+                    this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions> });            
+                    break;
                 case "items":
                     this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid> });
                     break;
