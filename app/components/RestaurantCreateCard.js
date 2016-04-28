@@ -18,8 +18,8 @@ class RestaurantCreateCard extends React.Component {
             restaurant_nums: "",
             address: "",
             drop_days: [true, true, true, true, true, true],
-            drop_time_start: 4,
-            drop_time_end: 0,
+            drop_time_start: ["7:45", "7:45", "7:45", "7:45", "7:45", "7:45"],
+            drop_time_end: ["15:45", "15:45", "15:45", "15:45", "15:45", "15:45"],
             error: null,
             communicating: false,
             success: false,
@@ -113,7 +113,6 @@ class RestaurantCreateCard extends React.Component {
     render() {
         const style_card = {
             width: "100%",
-            //maxWidth: "500px",
             marginLeft: "auto",
             marginRight: "auto",
             alignItems:"center",
@@ -148,7 +147,13 @@ class RestaurantCreateCard extends React.Component {
             style_small_image.background = "rgba(0,0,0,0.1)";
         }
         const onChange = (dayNum, checked, timeFrom, timeTo) => {
-            console.log(dayNum+" --- "+checked+" --- "+timeFrom+" --- "+timeTo);
+            const new_drop_days = this.state.drop_days.slice();
+            const new_drop_time_start = this.state.drop_time_start.slice();
+            const new_drop_time_end = this.state.drop_time_end.slice();
+            new_drop_days[dayNum] = checked;
+            new_drop_time_start[dayNum] = timeFrom;
+            new_drop_time_end[dayNum] = timeTo;
+            this.setState({drop_days: new_drop_days, drop_time_start: new_drop_time_start, drop_time_end: new_drop_time_end});
         }
         const timeRanges = [5,4,3,2,1,0].map((dayNum, i)=>(<TimeRange key={i} dayNum={dayNum} checked={true} onChange={onChange}/>))
         return (
