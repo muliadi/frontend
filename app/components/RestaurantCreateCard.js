@@ -3,7 +3,7 @@
 import React from "react"
 import Relay from 'react-relay';
 
-import AddUserMutation from "../mutations/addUser.js"
+import AddRestaurantMutation from "../mutations/addRestaurant.js"
 import CommRound from './commRound.js'
 
 import TimeRange from './TimeRange.js'
@@ -65,40 +65,40 @@ class RestaurantCreateCard extends React.Component {
         }
     }
     handleSaveItem(event) {
-        if (this.state.full_name == "") {
-            this.setState({ error: "אנא הכנס שם מלא" });
+        if (this.state.restaurant_name == "") {
+            this.setState({ error: "אנא הכנס שם המסעדה" });
             return;
         }
-        if (this.state.mail == "") {
-            this.setState({ error: "אנא הכנס מייל" });
+        if (this.state.company_name == "") {
+            this.setState({ error: "שם החברה או העוסק חסרים" });
             return;
         }
-        if (this.state.pass1 == "") {
-            this.setState({ error: "אנא הכנס סיסמה" });
+        if (this.state.restaurant_nums == "") {
+            this.setState({ error: "אנא הכנס מספר ע״מ או ח״פ" });
             return;
         }
-        if (this.state.base64data == null) {
-            this.setState({ error: "אנא הוסף תמונה" });
+        if (this.state.address == null) {
+            this.setState({ error: "כתובת חסרה" });
             return;
         }
         this.setState({ communicating: true })
-        Relay.Store.commitUpdate(new AddUserMutation({
-            full_name: this.state.full_name,
-            mail: this.state.mail,
-            password: this.state.pass1,
-            imageBase64Data: this.state.base64data,
+        console.log(this.state);
+        Relay.Store.commitUpdate(new AddRestaurantMutation({
+            name: this.state.restaurant_name,
+            address: this.state.address,
+            companyNum: this.state.restaurant_nums,
+            companyName: this.state.company_name,
+            dropTimeTo: this.state.drop_time_end,
+            dropTimeFrom: this.state.drop_time_start,
+            dropDays: this.state.drop_days
         }),
             {
                 onFailure: (e) => {
                     console.log(e.getError())
                     const errMsg = e.getError().source.errors[0].message;
-                    var msg = "";
-                    if ((errMsg.indexOf("Mail") > -1) && (errMsg.indexOf("already exists") > -1)) {
-                        msg = "מייל כבר קיים, אנא בחר אחר";
-                    }
                     this.setState({
                         communicating: false,
-                        error: msg,
+                        error: errMsg,
                     })
                 },
                 onSuccess: () => {
@@ -150,9 +150,9 @@ class RestaurantCreateCard extends React.Component {
             const new_drop_days = this.state.drop_days.slice();
             const new_drop_time_start = this.state.drop_time_start.slice();
             const new_drop_time_end = this.state.drop_time_end.slice();
-            new_drop_days[dayNum] = checked;
-            new_drop_time_start[dayNum] = timeFrom;
-            new_drop_time_end[dayNum] = timeTo;
+            new_drop_days[5-dayNum] = checked;
+            new_drop_time_start[5-dayNum] = timeFrom;
+            new_drop_time_end[5-dayNum] = timeTo;
             this.setState({drop_days: new_drop_days, drop_time_start: new_drop_time_start, drop_time_end: new_drop_time_end});
         }
         const timeRanges = [5,4,3,2,1,0].map((dayNum, i)=>(<TimeRange key={i} dayNum={dayNum} checked={true} onChange={onChange}/>))
@@ -161,7 +161,7 @@ class RestaurantCreateCard extends React.Component {
             {
                 this.state.success ?
                     <div className="mdl-card" style={style_card}>
-                        <h6>כדי לסיים את ההרשמה אנא לחץ על הקישור במייל ששלחנו</h6>
+                        <h6>המסעדה נשמרה בהצלחה!</h6>
                     </div>                
                 :                
                     <div className="mdl-card mdl-shadow--8dp" style={style_card}>
