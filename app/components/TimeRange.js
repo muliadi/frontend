@@ -21,35 +21,37 @@ class TimeRange extends React.Component {
             document.getElementById(this.state.id).click();
         }
     }
+    getTimeVal(v) {
+        v = 72-v
+        const hr = 4+Math.floor(v / 4)
+        var  mn = 15*(v % 4)
+        mn =  mn==0 ? "00" : mn
+        return hr + ":" + mn        
+    }
+    getTimeFrom() {
+        return this.getTimeVal(this.state.right)
+    }
+    getTimeTo() {
+        return this.getTimeVal(this.state.left)
+    }
     render() {
         const dayName = ["ו", "ה", "ד", "ג", "ב", "א"][this.props.dayNum]
-        
-        const left_v = 72-this.state.left
-        const right_v = 72-this.state.right
-        
-        const left_hr = 4+Math.floor(left_v / 4)
-        var left_mn = 15*(left_v % 4)
-        const right_hr = 4+Math.floor(right_v / 4)
-        var right_mn = 15*(right_v % 4)
-        right_mn = right_mn==0 ? "00" : right_mn
-        left_mn = left_mn==0 ? "00" : left_mn
-        
-        
+        this.props.onChange(this.props.dayNum, this.state.checked, this.getTimeFrom(), this.getTimeTo())
         return (
             <div style={{display:"flex", flexDirection:"row", borderBottom:"dotted rgba(0,0,0,0.1) 1px", height: "35px", marginTop:"7px"}}>
                 <label style={{width:"70px"}} className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor={this.state.id}>
-                    <input id={this.state.id} type="checkbox" className="mdl-checkbox__input" />
+                    <input id={this.state.id} type="checkbox" className="mdl-checkbox__input" onChange={(e)=>{this.setState({checked: e.target.checked})}}/>
                     <span className="mdl-checkbox__label">{dayName}</span>
                 </label>
                 
-                <div style={{width:"70px", marginTop:"3px"}}>
-                    {right_hr}:{right_mn}
+                <div style={{width:"80px", marginTop:"3px"}}>
+                    {this.getTimeFrom()}
                 </div>
                 <div style={{width:"100%", marginTop:"6px"}}>
                     <ReactSlider min={0} max={72} defaultValue={[this.state.left, this.state.right]} onChange={(value)=>{this.setState({left: value[0], right:value[1]})}} withBars />
                 </div>
-                <div style={{width:"70px", marginTop:"3px", marginRight:"5px"}}>
-                    {left_hr}:{left_mn}
+                <div style={{width:"80px", marginTop:"3px", marginRight:"5px"}}>
+                    {this.getTimeTo()}
                 </div>
                 
             </div>
