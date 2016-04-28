@@ -147,6 +147,10 @@ class RestaurantCreateCard extends React.Component {
         else {
             style_small_image.background = "rgba(0,0,0,0.1)";
         }
+        const onChange = (dayNum, checked, timeFrom, timeTo) => {
+            console.log(dayNum+" --- "+checked+" --- "+timeFrom+" --- "+timeTo);
+        }
+        const timeRanges = [5,4,3,2,1,0].map((dayNum, i)=>(<TimeRange key={i} dayNum={dayNum} checked={true} onChange={onChange}/>))
         return (
             <div>
             {
@@ -246,9 +250,7 @@ class RestaurantCreateCard extends React.Component {
                                     <div  style={{marginBottom:"20px"}}>
                                         <h7>בחר ימי ושעות הספקה</h7>
                                     </div>
-                                    {
-                                        [5,4,3,2,1,0].map((dayNum, i)=>(<TimeRange key={i} dayNum={dayNum} checked={true} />))
-                                    }
+                                    {timeRanges}
                                 </div>
                             </div>
                             
@@ -272,7 +274,7 @@ class RestaurantCreateCard extends React.Component {
                                         <button
                                             style={style_save_button}
                                             className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                                            onClick={this.handleSaveItem.bind(this) }
+                                            onClick={()=>{console.log(timeRanges[0].get); this.handleSaveItem.bind(this)() }}
                                             id="UserCreateCard_Save_Button">
                                             הרשם
                                         </button>
