@@ -31,7 +31,6 @@ class ItemGridSub extends React.Component {
                         </div>
                     })
                 }
-                <ItemCreateCard></ItemCreateCard>
             </div>
         );
     }

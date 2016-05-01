@@ -70,6 +70,16 @@ class MainFrameSub extends React.Component {
                         </a>
                          <div className="mdl-layout-spacer"></div>                       
                         <nav className="mdl-navigation mdl-layout--large-screen-only" style={{float:"left"}}>
+                            {
+                                this.props.view.me.is_founder?
+                                    <a className="mdl-navigation__link"
+                                        style={style_nav_link}
+                                        onMouseOver={style_nav_link_mouse_over}
+                                        onMouseOut={style_nav_link_mouse_out}
+                                        href="/#/admin">אדמין</a>
+                                :
+                                    null
+                            }
                             <a className="mdl-navigation__link"
                                style={style_nav_link}
                                onMouseOver={style_nav_link_mouse_over}
@@ -163,7 +173,18 @@ class MainFrameSub extends React.Component {
                                         <li> belive it or not but this is needed to prevent an mdl vs react thingy. It's here so react doesn;t need to remove the nodes</li>
                                     </ul>                                                                            
                                 </div>
-                             }   
+                             }
+                             
+                             
+                        {
+                            this.props.view.me.is_founder?
+                                <a className="mdl-navigation__link"
+                                    onClick={closeDrawer}
+                                    href="/#/admin">ארמין</a>
+                            :
+                                null
+                        }
+                                
                         <a className="mdl-navigation__link"
                             onClick={closeDrawer}
                             href="/#/items">מוצרים</a>
@@ -206,6 +227,7 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
             fragment on view {
                 me {
                     is_logged
+                    is_founder
                     mail
                     full_name
                     small_image {

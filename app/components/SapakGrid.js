@@ -36,11 +36,6 @@ class SapakGridSub extends React.Component {
 
                     }
                 </div>
-                {this.props.view.me.is_logged ?
-                    <SapakCreateCard></SapakCreateCard>
-                :
-                    null
-                }
             </div>
         );
     }

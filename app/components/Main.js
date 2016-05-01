@@ -12,6 +12,7 @@ import SapakGrid from './SapakGrid.js';
 import MailVerification from './MailVerification.js';
 import LogInOrCreateUser from './LogInOrCreateUser.js'
 import ProfilePage from './ProfilePage.js'
+import AdminPage from './AdminPage.js'
 
 // TODO: move two functions below to own module...
 function writeCookie (key, value, days) {
@@ -71,6 +72,9 @@ const MainSub = class extends React.Component {
                 case "terms_and_conditions":
                     this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions> });            
                     break;
+                case "admin":
+                    this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage> });
+                    break;
                 case "items":
                     this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid> });
                     break;
@@ -126,6 +130,7 @@ const Main = Relay.createContainer(MainSub, {
                 ${ProfilePage.getFragment('view')},
                 me {
                     is_logged
+                    is_founder
                     small_image {
                         id
                     }
