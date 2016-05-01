@@ -25,8 +25,10 @@ class ItemGridSub extends React.Component {
                         return <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
                             <ItemCard
                                 name={item.node.name}
-                                short_desc={item.node.short_desc}
-                                image_id={item.node.small_image.id}>
+                                price={item.node.price_in_agorot/100}
+                                image_id={item.node.small_image.id}
+                                unitsName={item.node.units.name}
+                                amount={item.node.amount}>
                             </ItemCard>
                         </div>
                     })
@@ -45,9 +47,13 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                         node {
                             ... on item {
                                 name
-                                short_desc
+                                amount
+                                price_in_agorot
                                 small_image {
                                     id
+                                }
+                                units {
+                                    name
                                 } 
                             }  
                         }

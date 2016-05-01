@@ -1,42 +1,53 @@
 /* jshint esversion: 6*/
 
-const ItemCard = ({name, short_desc, image_id}) => {
+const ItemCard = ({name, image_id, price, amount, unitsName}) => {
+    const style_card_title = {
+        background: "url('/static/content/"+image_id+"') center / cover",                
+    }
     const style_card = {
         width: "100%",
-        maxWidth: "320px",
-        height: "320px",
-        background: "url('/static/content/"+image_id+"') center / cover",        
-        flexDirection: "column-reverse",
+        maxWidth: "200px",
+        height: "300px",
+        // flexDirection: "column-reverse",
         marginLeft: "auto",        
         marginRight: "auto",        
     };
-    const style_shadow = {
-        width: "94%",
-        margin: "0px 0px 0px 0px",
-        background: "rgba(0,0,0,0.75)",
-        paddingTop: "10px",
-        paddingRight: "3%",
-        paddingLeft: "3%",
-        paddingBottom: "10px",
-        color: "rgba(255,255,255,0.95)",
-        fontSize: "22px"
+    const style_name = {
+        // marginTop: "7px",
+        // color: "rgba(215,215,215,0.95)",
+        // fontSize: "13px",
+        // lineHeight: "1.2",
     };
-    const style_short_desc = {
-        marginTop: "7px",
-        color: "rgba(215,215,215,0.95)",
-        fontSize: "13px",
-        lineHeight: "1.2",
+    const style_price = {
+        // marginTop: "7px",
+        // color: "rgba(215,215,215,0.95)",
+        // fontSize: "13px",
+        // lineHeight: "1.2",
     };
+    const style_units = {
+        // marginTop: "7px",
+        // color: "rgba(215,215,215,0.95)",
+        // fontSize: "13px",
+        // lineHeight: "1.2",
+    };    
     return (
         <div className="mdl-card mdl-shadow--8dp" style={style_card}>
-            <div style={style_shadow}>
-                <div>
+
+            <div className="mdl-card__title mdl-card--expand" style={style_card_title}>
+            </div>
+            
+            <div className="mdl-card__supporting-text">
+                <div style={style_name}>
                     {name}
                 </div>
-                <div style={style_short_desc}>
-                    {short_desc}
+                <div style={style_price}>
+                    {price} &#8362; 
                 </div>
-            </div>
+                <div style={style_units}>
+                    {amount} {unitsName}  
+                </div>
+            </div>        
+        
         </div>
     );    
 }
