@@ -67,7 +67,7 @@ const MainSub = class extends React.Component {
 
         // User is logged in
         
-        if (this.props.view.me.restaurants.length == 0) {
+        if ((this.props.view.me.restaurants.length == 0) && (!this.props.view.me.is_founder)) {
             this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage> });
             return;
         }
