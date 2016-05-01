@@ -1,7 +1,7 @@
 /* jshint esversion: 6*/
 
 var __idnum = 0
-const ItemCard = ({name, image_id, price, amount, unitsName}) => {
+const ItemCard = ({name, image_id, price, amount, unitsName, vendor_image_id}) => {
     const style_card_title = {
         background: "url('/static/content/"+image_id+"') center / cover",
         cursor: "pointer",                
@@ -21,6 +21,11 @@ const ItemCard = ({name, image_id, price, amount, unitsName}) => {
     const style_price = {
     };
     const style_units = {
+    };  
+    const style_vendor_logo = {
+        background: "url('/static/content/"+vendor_image_id+"') center / cover",
+        width: "20px",
+        height: "20px",
     };  
     const style_add_to_basket_button = {  
         //background: "rgb(51, 172, 113)",
@@ -67,6 +72,10 @@ const ItemCard = ({name, image_id, price, amount, unitsName}) => {
             <div className="mdl-tooltip mdl-tooltip--top" htmlFor={__id+"_2"}>
                 סה״כ בסל
             </div>
+            
+            <div style={style_vendor_logo}>
+            </div>
+            
             
             <div
                 className="mdl-card__title mdl-card--expand"
