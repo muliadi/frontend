@@ -24,6 +24,7 @@ export default class AddRestaurantMutation extends Relay.Mutation {
       fragment on addRestaurantPayload @relay(pattern: true) {
           view {
               restaurants
+              me
             }
       }
     `;

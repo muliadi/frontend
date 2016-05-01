@@ -65,7 +65,14 @@ const MainSub = class extends React.Component {
             return;
         }
 
-        // User is logged in:
+        // User is logged in
+        
+        if (this.props.view.me.restaurants.length == 0) {
+            this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage> });
+            return;
+        }
+        
+        // User has a shop        
         
         if (argNum>0) {
             switch (arg1) {
@@ -131,6 +138,7 @@ const Main = Relay.createContainer(MainSub, {
                 me {
                     is_logged
                     is_founder
+                    restaurants
                     small_image {
                         id
                     }

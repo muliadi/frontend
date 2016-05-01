@@ -180,7 +180,7 @@ class MainFrameSub extends React.Component {
                             this.props.view.me.is_founder?
                                 <a className="mdl-navigation__link"
                                     onClick={closeDrawer}
-                                    href="/#/admin">ארמין</a>
+                                    href="/#/admin">אדמין</a>
                             :
                                 null
                         }

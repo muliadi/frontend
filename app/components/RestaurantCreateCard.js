@@ -294,5 +294,20 @@ class RestaurantCreateCard extends React.Component {
     }
 }
 
+// const ProfilePage = Relay.createContainer(ProfilePageSub, {
+//     fragments: {
+//         view: () => Relay.QL`
+//             fragment on view {
+//                 me {
+//                     full_name
+//                     mail
+//                     small_image {
+//                         id
+//                     }
+//                 }
+//             }`,
+//     },
+// });
+
 export default RestaurantCreateCard;
 

@@ -14,18 +14,27 @@ class AdminPageSub extends React.Component {
     render() {
         return (
             <div>
-                <h1>
-                המוצרים
-                </h1>
-                <ItemGrid view={this.props.view} />
-                <h1>
-                הספקים
-                </h1>
-                <SapakGrid view={this.props.view} />
-                <h1>
-                המשתמשים
-                </h1>
-                <UserGrid view={this.props.view} />
+                {
+                    this.props.view.me.is_founder ?
+                        <div>
+                            <h1>
+                            המוצרים
+                            </h1>
+                            <ItemGrid view={this.props.view}></ItemGrid>
+                            <h1>
+                            הספקים
+                            </h1>
+                            <SapakGrid view={this.props.view}></SapakGrid>
+                            <h1>
+                            המשתמשים
+                            </h1>
+                            <UserGrid view={this.props.view}></UserGrid>
+                        </div>
+                    :
+                        <div>
+                            sorry, you cannot see this page
+                        </div>
+                }
             </div>
         );
     }
