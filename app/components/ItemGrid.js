@@ -19,7 +19,7 @@ class ItemGridSub extends React.Component {
         };        
         return (
             <div className="mdl-grid" style={style_grid}>
-                <div className="mdl-cell mdl-cell--3-col" style={{background:"green"}}>
+                <div className="mdl-cell mdl-cell--3-col" style={{background:"rgba(0, 128, 0, 0.2)"}}>
                 </div>            
                 <div className="mdl-cell mdl-cell--9-col">
                     <div className="mdl-grid" style={style_grid}>                
