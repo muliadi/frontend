@@ -57,6 +57,16 @@ const ItemCard = ({name, image_id, price, amount, unitsName}) => {
             onMouseOver={style_card_mouse_over}
             onMouseOut={style_card_mouse_out}
             style={style_card}>
+
+            <div className="mdl-tooltip mdl-tooltip--top" htmlFor={__id} >
+                הוסף אחד
+            </div>
+            <div className="mdl-tooltip mdl-tooltip--top" htmlFor={__id+"_1"}>
+                הורד אחד
+            </div>
+            <div className="mdl-tooltip mdl-tooltip--top" htmlFor={__id+"_2"}>
+                סה״כ בסל
+            </div>
             
             <div
                 className="mdl-card__title mdl-card--expand"
@@ -98,16 +108,6 @@ const ItemCard = ({name, image_id, price, amount, unitsName}) => {
                 </button>
                 
             </div>        
-        
-            <div className="mdl-tooltip" htmlFor={__id}>
-                הוסף אחד
-            </div>
-            <div className="mdl-tooltip" htmlFor={__id+"_1"}>
-                הורד אחד
-            </div>
-            <div className="mdl-tooltip" htmlFor={__id+"_2"}>
-                סה״כ בסל
-            </div>
         </div>
         
     );    
