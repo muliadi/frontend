@@ -41,7 +41,7 @@ class LandingPage extends React.Component {
                                 <button style={{marginLeft:"15px", backgroundColor:"rgba(51,172,113,1)"}} className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                         ספק
                                 </button>                                
-                                <button style={{ backgroundColor:"rgba(51,172,113,1)"}} className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                <button style={{ backgroundColor:"rgba(51,172,113,1)" }} className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onClick={()=>{document.location="/#/login"}}>
                                         מסעדן
                                 </button>                                
                             </div>     
