@@ -56,15 +56,18 @@ class LandingPage extends React.Component {
                         <i className="material-icons"></i>
                     </button>
                     </div>
-                    <section className="section section--welcome">
+                    <section className="section section--welcome" style={{align:"center"}}>
                         <div className="mdl-grid">
-                            <div className="mdl-cell mdl-cell--7-col mdl-cell--8-col-tablet" style={{ align:"center"}}>
-                            <div style={{ align:"center"}}>
-                                <header >
-                                <div style={{display: "block", color: "#808080", fontSize: "38px",fontWeight: "500", lineHeight: "1.3", margin: "0 1.75rem", textAlign: "right"}}>
-                               orderoo מחבר בין המסעדה לספק באופן ישיר ומקצועי
+                        <div className="mdl-layout-spacer"></div>
+                        <div className="mdl-cell mdl-cell--4-col mdl-cell--7-col-tablet" style={{backgroundImage:"url('/static/screenshot1.png')", backgroundPosition: "50% 20%", backgroundRepeat: "no-repeat", minWidth:"400px",minHeight: "400px",  backgroundSize: "contain", align:"center"}}>
+                            </div>
+                            <div className="mdl-cell mdl-cell--4-col mdl-cell--7-col-tablet" >
+                            
+                                
+                                <div style={{display: "block", color: "#808080", fontSize: "38px",fontWeight: "500", lineHeight: "1.3", margin: "0 30px", textAlign: "right"}}>
+                               orderoo מחבר בין המסעדה לספק<br/> באופן ישיר ומקצועי
                                 </div>
-                                <ul className='mdl-list'>
+                                <ul className='mdl-list' style={{marginRight: "30px"}}>
                                     <li className="mdl-list__item">
                                     <i className="material-icons" style={{marginLeft: "10px"}}>phone_missed</i>
                                         <span className="mdl-list__item-primary-content">חיבור ישיר ומיידי, ללא סוכנים ומתווכים</span>
@@ -83,11 +86,10 @@ class LandingPage extends React.Component {
                                         <span className="mdl-list__item-primary-content">בנה לך סל הזמנות מתוזמן וקבועה</span>
                                     </li>
                                 </ul>
-                                </header>
+                                
+                            
                             </div>
-                            </div>
-                            <div className="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet" style={{backgroundImage:"url('/static/screenshot1.png')", backgroundRepeat: "no-repeat", height: "400px", marginTop:"40px", backgroundSize: "contain", align:"center"}}>
-                            </div>
+                            <div className="mdl-layout-spacer"></div>
                          </div>
                     </section>
                 
