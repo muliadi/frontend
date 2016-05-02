@@ -7,10 +7,11 @@ export default class AddItemToBasketMutation extends Relay.Mutation {
         return Relay.QL`mutation {addItemToBasket}`;
     }
     getVariables() {
+        console.log("mut: "+this.props.itemID)
         const v = {
-            name: this.props.name,
-            shortDesc: this.props.shortDesc,
-            base64Data: this.props.imageBase64Data,
+            amount: this.props.amount,
+            remarks: this.props.remarks,
+            itemID: this.props.itemID,
         };
         return v
     }
