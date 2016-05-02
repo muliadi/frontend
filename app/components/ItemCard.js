@@ -73,8 +73,8 @@ const ItemCard = ({name, image_id, price, amount, unitsName, vendor_image_id}) =
                 סה״כ בסל
             </div>
             
-            <div style={style_vendor_logo}>
-            </div>
+             <div style={{backgroundImage:"url('/static/content/"+vendor_image_id+"')",backgroundPosition: "bottom right", backgroundRepeat: "no-repeat", backgroundSize: "60px", display: "inline-block", height: "20px", width: "100%", marginRight: "5px", marginBottom: "5px"}}>           
+           </div>
             
             
             <div
