@@ -25,8 +25,7 @@ class ItemGridSub extends React.Component {
                     <div className="mdl-grid" style={style_grid}>                
                         {
                             this.props.view.items.edges.map((item, i) => {
-                                return item.node.price_in_agorot < 0 ? nil :
-                                    <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                                return <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
                                         <ItemCard
                                             name={item.node.name}
                                             price={item.node.price_in_agorot/100}
