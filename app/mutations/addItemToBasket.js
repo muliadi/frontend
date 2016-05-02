@@ -2,9 +2,9 @@
 
 import Relay from 'react-relay';
 
-export default class AddItemMutation extends Relay.Mutation {
+export default class AddItemToBasketMutation extends Relay.Mutation {
     getMutation() {
-        return Relay.QL`mutation {addItem}`;
+        return Relay.QL`mutation {addItemToBasket}`;
     }
     getVariables() {
         const v = {
@@ -16,8 +16,11 @@ export default class AddItemMutation extends Relay.Mutation {
     }
     getFatQuery() {
         return Relay.QL`
-      fragment on addItemPayload @relay(pattern: true) {
-          view {items}
+      fragment on addItemToBasketPayload @relay(pattern: true) {
+          view {
+              current_baskets
+              current_items_in_baskets
+          }
       }
     `;
     }
