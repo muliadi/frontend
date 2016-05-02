@@ -22,7 +22,7 @@ class LandingPage extends React.Component {
         }
         const style_heading_text1 = {
             color: "white",
-            fontSize: "2.625rem",
+            fontSize: "3.025rem",
             textAlign:"center",
             margin: "1.75rem 0 2.625rem 0"
         }
@@ -31,12 +31,17 @@ class LandingPage extends React.Component {
                 <div className="hero hero--home" style={{position:"relative", textAlign:"center", verticalAlign:"middle"}}>
                     <div className="hero_bg-container" style={{backgroundImage:"url('/static/hero-bg-1200.jpg')",backgroundPosition: "bottom right", backgroundRepeat: "no-repeat", backgroundSize: "cover", display: "inline-block", width: "100%"}}>
                         <div className="hero_bg-container-overlay" style={{background: "none", padding: "12% 5%"}}>
+                            
                             <div style={style_heading1}>
-                                    הצטרפו עכשיו חינם!
+                                  חסוך בעלויות המזון ונהל אספקה לעסק שלך 
+                            </div>
+                            <div style={style_heading1}>
+                                    
                             </div>
                             <div style={style_heading_text1}>
-                                ניהול אספקה לעסק שלך
-                            </div>   
+                                    הצטרפו עכשיו חינם!
+                            </div>
+                             
                             <div style={{marginTop:"15px", textAlign:"center"}}>
                                 <button style={{marginLeft:"15px", backgroundColor:"rgba(51,172,113,1)"}} className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                         ספק
@@ -52,6 +57,19 @@ class LandingPage extends React.Component {
                     
                     </button>
                 </div>
+                <section className="section section--welcome">
+                    
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">6 (8 tablet)</div>
+                            <div class="mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet">4 (6 tablet)</div>
+                            <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone">2 (4 phone)</div>
+                        </div>
+                        
+                        
+                       
+                    
+                </section>
+                
                 <section className="section section--welcome section--text-left section--rev section--align-image-bottom">
                 <div class="aux">
                 </div>
