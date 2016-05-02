@@ -18,6 +18,7 @@ export default class LogInMutation extends Relay.Mutation {
       fragment on logInPayload @relay(pattern: true) {
           view {
               users
+              items
               me
             }
       }
