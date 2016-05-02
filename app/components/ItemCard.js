@@ -1,10 +1,30 @@
 /* jshint esversion: 6*/
 
+import Relay from 'react-relay';
+
+import AddItemToBasketMutation from "../mutations/addItemToBasket.js"
+
 var __idnum = 0
 class ItemCard extends React.Component {
     componentDidMount() {
         componentHandler.upgradeDom();
     }
+    handleAddItemToBasket(event) {
+        console.log("card: "+this.props.itemID)
+        Relay.Store.commitUpdate(new AddItemToBasketMutation({
+            amount: "1",
+            remarks: "just testing remarks",
+            itemID: this.props.itemID,
+        }),
+            {
+                onFailure: (e) => {
+                    console.log(e.getError())
+                },
+                onSuccess: () => {
+                    console.log("success!!!!!")
+                },
+            });
+    }    
     render() {
         const style_card_title = {
             background: "url('/static/content/"+this.props.image_id+"') center / cover",
@@ -106,6 +126,7 @@ class ItemCard extends React.Component {
                         >
                         <i
                             className="material-icons"
+                            onClick={this.handleAddItemToBasket.bind(this) }
                         >add</i>
                     </button>
 
