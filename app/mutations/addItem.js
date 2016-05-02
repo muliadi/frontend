@@ -31,3 +31,4 @@ export default class AddItemMutation extends Relay.Mutation {
     }
 }
 
+// TODO: it's not `addItem` but `createItem`

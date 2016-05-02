@@ -2,26 +2,22 @@
 
 import Relay from 'react-relay';
 
-export default class AddUserMutation extends Relay.Mutation {
+export default class AddItemMutation extends Relay.Mutation {
     getMutation() {
-        return Relay.QL`mutation {addUser}`;
+        return Relay.QL`mutation {addItem}`;
     }
     getVariables() {
         const v = {
-            full_name: this.props.full_name,
-            password: this.props.password,
-            mail: this.props.mail,
+            name: this.props.name,
+            shortDesc: this.props.shortDesc,
             base64Data: this.props.imageBase64Data,
         };
         return v
     }
     getFatQuery() {
         return Relay.QL`
-      fragment on addUserPayload @relay(pattern: true) {
-          view {
-              users
-              me
-            }
+      fragment on addItemPayload @relay(pattern: true) {
+          view {items}
       }
     `;
     }
@@ -35,4 +31,3 @@ export default class AddUserMutation extends Relay.Mutation {
     }
 }
 
-// TODO: it's not `addUser` but `createUser`
