@@ -53,22 +53,40 @@ class LandingPage extends React.Component {
                         </div>
                     </div>
                     <button className="hero__fab mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--fab mdl-shadow--4dp" style={{marginTop: "-1.75rem"}}>
-                    <i className="material-icons"></i>
-                    
+                        <i className="material-icons"></i>
                     </button>
-                </div>
-                <section className="section section--welcome">
-                    
-                        <div class="mdl-grid">
-                            <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">6 (8 tablet)</div>
-                            <div class="mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet">4 (6 tablet)</div>
-                            <div class="mdl-cell mdl-cell--2-col mdl-cell--4-col-phone">2 (4 phone)</div>
-                        </div>
-                        
-                        
-                       
-                    
-                </section>
+                    </div>
+                    <section className="section section--welcome">
+                        <div className="mdl-grid">
+                            <div className="mdl-cell mdl-cell--7-col mdl-cell--8-col-tablet" style={{ align:"center"}}>
+                            <div style={{ align:"center"}}>
+                                <header >
+                                <div style={{display: "block", color: "#444", fontSize: "42px",fontWeight: "100", lineHeight: "1.3", margin: "0 1.75rem", textAlign: "right"}}>
+                                באופן ישיר ומקצועי
+                                </div>
+                                <h2 className="section__title" > orderoo מחבר בין המסעדה לספק באופן ישיר ומקצועי</h2>
+                                <ul className='mdl-list'>
+                                    <li className="mdl-list__item">
+                                        <span className="mdl-list__item-primary-content">חיבור ישיר ומיידי, ללא סוכנים ומתווכים</span>
+                                    </li>
+                                    <li className="mdl-list__item">
+                                        <span className="mdl-list__item-primary-content">התחבר ובצעה הזמנה בכל שעה שנוח לך</span>
+                                    </li>
+                                    <li className="mdl-list__item">
+                                        <span className="mdl-list__item-primary-content">עבוד עם מערכת חכמה וידידותית, המתאימה לצרכיך</span>
+                                    </li>
+                                    <li className="mdl-list__item">
+                                        <span className="mdl-list__item-primary-content">בנה לך סל הזמנות מתוזמן וקבועה</span>
+                                    </li>
+                                </ul>
+                                </header>
+                            </div>
+                            </div>
+                            <div className="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet" style={{backgroundImage:"url('/static/screenshot1.png')", backgroundRepeat: "no-repeat", height: "300px",  backgroundSize: "contain", align:"center"}}>
+                            </div>
+                         </div>
+                    </section>
+                
                 
                 <section className="section section--welcome section--text-left section--rev section--align-image-bottom">
                 <div class="aux">
