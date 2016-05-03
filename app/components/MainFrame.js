@@ -34,6 +34,10 @@ class MainFrameSub extends React.Component {
         }       
         const style_sidebar = {
             backgroundColor: "rgba(0,128,0,0.2)",
+            marginTop: "-7px",
+            marginRight: "-7px",
+            marginBottom: "-7px",
+            paddingRight: "20px",
         }       
         const style_nav_link_mouse_over = (e)=>{
            e.target.style.color = "rgb(51, 172, 113)";
@@ -201,10 +205,22 @@ class MainFrameSub extends React.Component {
                 </div>
                 <main className="mdl-layout__content">
                     <div className="page-content" style={style_page_content}>
-                        {this.props.children}
+                        {
+                            this.props.sidebar?
+                                <div className="mdl-grid">
+                                    <div className="mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone" style={style_sidebar}>
+                                        1234567 Im the sidebar!
+                                    </div>
+                                    <div className="mdl-cell mdl-cell--8-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
+                                        {this.props.children}
+                                    </div>                                       
+                                </div>
+                            :
+                                this.props.children
+                        }
                     </div>
     
-                    <footer className="mdl-mini-footer" style={{ position:"relative", top:"400px"}} >
+                    <footer className="mdl-mini-footer">
                     
                     
                         <div className="mdl-mini-footer--middle-section " style={{margin:"auto"}} >

@@ -80,25 +80,25 @@ const MainSub = class extends React.Component {
         if (argNum>0) {
             switch (arg1) {
                 case "terms_and_conditions":
-                    this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions> });            
+                    this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>, sidebar: true });            
                     break;
                 case "admin":
-                    this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage> });
+                    this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>, sidebar: true });
                     break;
                 case "items":
                     this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid>, sidebar: true });
                     break;
                 case "users":
-                    this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid> });
+                    this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>, sidebar: true });
                     break;
                 case "sapakim":
-                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid> });
+                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: true });
                     break;                        
                 case "login":
                     this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
                     break;                        
                 case "profile":
-                    this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage> });
+                    this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage>, sidebar: true });
                     break;                        
                 case "mail_verification":
                     if (argNum!=2) {
