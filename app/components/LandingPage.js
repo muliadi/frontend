@@ -101,7 +101,7 @@ class LandingPage extends React.Component {
                                 מהיום אתה יכול לבצע את ההזמנות שלך ישירות באפליקצית orderoo אשר במכשירך הנייד. האפליקציה מאפשרת לך מעקב אחר תהליך ההזמנה האישור והאספקה הצפוי באופן מיידי. 
                                 </p>
                                 </div>
-                            <div className="mdl-cell mdl-cell--4-col mdl-cell--7-col-tablet" style={{backgroundImage:"url('/static/screenshot1.png')", backgroundPosition: "50% 20%", backgroundRepeat: "no-repeat", minWidth:"400px",minHeight: "400px",  backgroundSize: "contain", align:"center"}}>
+                            <div className="mdl-cell mdl-cell--4-col mdl-cell--7-col-tablet" style={{backgroundImage:"url('/static/screenshot2.png')", backgroundPosition: "50% 20%", backgroundRepeat: "no-repeat", minWidth:"400px",minHeight: "400px",  backgroundSize: "contain", align:"center"}}>
                             </div>
                             <div className="mdl-layout-spacer"></div>
                          </div>
@@ -134,7 +134,7 @@ class LandingPage extends React.Component {
                                     אפליקצית Orderoo יכולה לזכור את ההזמנות שלך על פי שם הספק או על פי יום ההזמנה או על פי ההזמנות האחרונות שביצעת או על פי עצי מוצר שאתה יכול להגדיר במערכת. רק הכנס לאחת האופציות לבחירתך, שנה כמויות ובצע הזמנה
                                 </p>
                                 </div>
-                            <div className="mdl-cell mdl-cell--4-col mdl-cell--7-col-tablet" style={{backgroundImage:"url('/static/screenshot1.png')", backgroundPosition: "50% 20%", backgroundRepeat: "no-repeat", minWidth:"400px",minHeight: "400px",  backgroundSize: "contain", align:"center"}}>
+                            <div className="mdl-cell mdl-cell--4-col mdl-cell--7-col-tablet" style={{backgroundImage:"url('/static/screenshot2.png')", backgroundPosition: "50% 20%", backgroundRepeat: "no-repeat", minWidth:"400px",minHeight: "400px",  backgroundSize: "contain", align:"center"}}>
                             </div>
                             <div className="mdl-layout-spacer"></div>
                          </div>
