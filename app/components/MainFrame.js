@@ -7,6 +7,8 @@ import {lang} from '../lang/heb.js';
 
 import LogOutMutation from '../mutations/logOut.js'
 
+import ItemsInBasketList from './itemsInBasketList.js'
+
 class MainFrameSub extends React.Component {
     componentDidMount() {
         componentHandler.upgradeDom();
@@ -111,7 +113,7 @@ class MainFrameSub extends React.Component {
                                             onClick={()=>{document.location="/#/profile"}}>
                                         </div>
                                         <button style={{ marginRight:"10px",  maxHeight: "14px", lineHeight:"10px", fontSize:"11px"}} className="mdl-button mdl-js-button mdl-js-ripple-effect " onClick={()=>{logout()}}>         
-                                        היתנתק
+                                            היתנתק
                                         </button>      
                                         
                                         <div className="mdl-tooltip mdl-tooltip--large" htmlFor="avatar_user">
@@ -208,10 +210,10 @@ class MainFrameSub extends React.Component {
                         {
                             this.props.sidebar?
                                 <div className="mdl-grid">
-                                    <div className="mdl-cell mdl-cell--4-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone" style={style_sidebar}>
-                                        1234567 Im the sidebar!
+                                    <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone" style={style_sidebar}>
+                                        <ItemsInBasketList view={this.props.view} />
                                     </div>
-                                    <div className="mdl-cell mdl-cell--8-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
+                                    <div className="mdl-cell mdl-cell--9-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
                                         {this.props.children}
                                     </div>                                       
                                 </div>
@@ -244,6 +246,7 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
     fragments: {
         view: () => Relay.QL`
             fragment on view {
+                ${ItemsInBasketList.getFragment('view')},                
                 me {
                     is_logged
                     is_founder
