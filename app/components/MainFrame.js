@@ -32,6 +32,9 @@ class MainFrameSub extends React.Component {
             color:"rgb(66,66,66)",
             fontSize: "17px",
         }       
+        const style_sidebar = {
+            backgroundColor: "rgba(0,128,0,0.2)",
+        }       
         const style_nav_link_mouse_over = (e)=>{
            e.target.style.color = "rgb(51, 172, 113)";
            // e.target.style.borderBottom = "5px solid red";
@@ -200,20 +203,20 @@ class MainFrameSub extends React.Component {
                     <div className="page-content" style={style_page_content}>
                         {this.props.children}
                     </div>
-                
-                <footer className="mdl-mini-footer" style={{ position:"relative", top:"400px"}} >
-                
-                
-                    <div className="mdl-mini-footer--middle-section " style={{margin:"auto"}} >
-                    <div style={{direction: "ltr"}}>  Copyright © 2016 CrazyDuck Ltd. All rights reserved.</div>
-					    
-					        <ul className="mdl-mini-footer--link-list">
-						        <li style={{margin:"auto"}}><a href="#/terms_and_conditions">תנאי שימוש</a></li>
-						        
-					        </ul>
-				        </div>
-                
-                </footer>
+    
+                    <footer className="mdl-mini-footer" style={{ position:"relative", top:"400px"}} >
+                    
+                    
+                        <div className="mdl-mini-footer--middle-section " style={{margin:"auto"}} >
+                        <div style={{direction: "ltr"}}>  Copyright © 2016 CrazyDuck Ltd. All rights reserved.</div>
+                            
+                                <ul className="mdl-mini-footer--link-list">
+                                    <li style={{margin:"auto"}}><a href="#/terms_and_conditions">תנאי שימוש</a></li>
+                                    
+                                </ul>
+                            </div>
+                    
+                    </footer>
                 </main>
 
             </div>    

@@ -33,10 +33,13 @@ const MainSub = class extends React.Component {
         super(props)
         this.state ={
             pageToRender: null,
+            sidebar: false,
         }
         window.onhashchange = this.getPageToRender.bind(this);        
     }    
     getPageToRender() {
+        this.setState({sidebar: false});
+        
         const args = document.location.hash.slice(1).split("/").filter((s)=>(s!=""));
         const argNum = args.length;
         const arg1 = argNum >= 1 ? args[0] : null;
@@ -83,7 +86,7 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage> });
                     break;
                 case "items":
-                    this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid> });
+                    this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid>, sidebar: true });
                     break;
                 case "users":
                     this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid> });
@@ -119,13 +122,14 @@ const MainSub = class extends React.Component {
     }
     render() {        
         return (
-            <MainFrame view={this.props.view}>
+            <MainFrame view={this.props.view} sidebar={this.state.sidebar}>
                 {this.state.pageToRender}
             </MainFrame>
         );
     }
 };
 
+// TODO: don't load ALL the data here... use better routing 
 const Main = Relay.createContainer(MainSub, {
     fragments: {
         view: () => Relay.QL`
