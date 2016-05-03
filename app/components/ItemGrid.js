@@ -23,6 +23,7 @@ class ItemGridSub extends React.Component {
                     this.props.view.items.edges.map((item, i) => {
                         return <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
                                 <ItemCard
+                                    is_logged={this.props.view.me.is_logged}
                                     name={item.node.name}
                                     price={item.node.price_in_agorot/100}
                                     image_id={item.node.small_image.id}
@@ -43,6 +44,9 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
     fragments: {
         view: () => Relay.QL`
             fragment on view {
+                me {
+                    is_logged
+                }
                 items(first: 30) {
                     edges{
                         node {

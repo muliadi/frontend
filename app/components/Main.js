@@ -53,7 +53,10 @@ const MainSub = class extends React.Component {
                     break;
                 case "login":
                     this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
-                    break;                        
+                    break;  
+                case "items":
+                    this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid>, sidebar: true });
+                    break;                      
                 case "mail_verification":
                     if (argNum!=2) {
                         this.setState({pageToRender: <div>404 Not Found</div> });

@@ -117,7 +117,9 @@ class ItemCard extends React.Component {
                         </div>
                     </div>
                 </div>
-                
+                 
+                 {  
+                           this.props.is_logged ?       
                 <div className="mdl-card__actions mdl-card--border" style={style_actions}>
                     <button
                         style={style_add_to_basket_button}
@@ -143,8 +145,14 @@ class ItemCard extends React.Component {
                         <i className="material-icons">remove</i>
                     </button>
                     
-                </div>        
+                </div> 
+                :
+                null
+             }
+                 
+                    
             </div>
+                
             
         ); 
     }   
