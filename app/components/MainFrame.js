@@ -35,7 +35,7 @@ class MainFrameSub extends React.Component {
             fontSize: "17px",
         }       
         const style_sidebar = {
-            backgroundColor: "rgba(0,128,0,0.2)",
+            backgroundColor: "whitesmoke",
             marginTop: "-7px",
             marginRight: "-7px",
             marginBottom: "-7px",
@@ -99,11 +99,7 @@ class MainFrameSub extends React.Component {
                                onMouseOver={style_nav_link_mouse_over}
                                onMouseOut={style_nav_link_mouse_out}
                                href="/#/sapakim">ספקים</a>
-                            <a className="mdl-navigation__link"
-                               style={style_nav_link}
-                               onMouseOver={style_nav_link_mouse_over}
-                               onMouseOut={style_nav_link_mouse_out}
-                               href="/#/users">משתמשים</a>
+                            
                                
                              {
                                  this.props.view.me.is_logged ?
@@ -208,17 +204,30 @@ class MainFrameSub extends React.Component {
                 <main className="mdl-layout__content">
                     <div className="page-content" style={style_page_content}>
                         {
-                            this.props.sidebar?
+                            (this.props.sidebar && this.props.view.me.is_logged )?
                                 <div className="mdl-grid">
-                                    <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone" style={style_sidebar}>
-                                        <ItemsInBasketList view={this.props.view} />
-                                    </div>
-                                    <div className="mdl-cell mdl-cell--9-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
-                                        {this.props.children}
-                                    </div>                                       
+                                   <div className="mdl-layout-spacer"></div>
+                                      
+                                        <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone" style={style_sidebar}>
+                                            <ItemsInBasketList view={this.props.view} />
+                                        </div>
+                                        
+                                        <div className="mdl-cell mdl-cell--9-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
+                                            {this.props.children}
+                                        </div> 
+                                    <div className="mdl-layout-spacer"></div>                                      
                                 </div>
                             :
-                                this.props.children
+                               
+                                 <div className="mdl-grid">
+                                   <div className="mdl-layout-spacer"></div>
+                                      
+                                                                              
+                                        <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
+                                            {this.props.children}
+                                        </div> 
+                                    <div className="mdl-layout-spacer"></div>                                      
+                                </div>
                         }
                     </div>
     

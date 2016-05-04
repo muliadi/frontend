@@ -3,6 +3,7 @@
 import Relay from 'react-relay';
 
 import AddItemToBasketMutation from "../mutations/addItemToBasket.js"
+import RemoveFromBasketMutation from "../mutations/removeItemFromBasket.js"
 
 var __idnum = 0
 class ItemCard extends React.Component {
@@ -10,6 +11,22 @@ class ItemCard extends React.Component {
         componentHandler.upgradeDom();
     }
     handleAddItemToBasket(event) {
+        console.log("card: "+this.props.itemID)
+        Relay.Store.commitUpdate(new AddItemToBasketMutation({
+            amount: "1",
+            remarks: "just testing remarks",
+            itemID: this.props.itemID,
+        }),
+            {
+                onFailure: (e) => {
+                    console.log(e.getError())
+                },
+                onSuccess: () => {
+                    console.log("success!!!!!")
+                },
+            });
+    }    
+    handleRemoveItemToBasket(event) {
         console.log("card: "+this.props.itemID)
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "1",
@@ -142,7 +159,9 @@ class ItemCard extends React.Component {
                         id={__id+"_1"}
                         className="mdl-button mdl-js-button mdl-button--primary"
                         >
-                        <i className="material-icons">remove</i>
+                        <i className="material-icons"
+                        onClick={this.handleRemoveItemToBasket.bind(this) }
+                        >remove</i>
                     </button>
                     
                 </div> 
@@ -150,6 +169,7 @@ class ItemCard extends React.Component {
                 null
              }
                  
+                   
                     
             </div>
                 

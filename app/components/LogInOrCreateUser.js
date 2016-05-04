@@ -39,7 +39,7 @@ class LogInOrCreateUser extends React.Component {
                                 <div className="mdl-tabs__tab-bar">
                                     <a href="#new-user-panel" className="mdl-tabs__tab is-active">רישום</a>
                                     <a href="#login-panel" className="mdl-tabs__tab">כניסה</a>
-                                    <a href="#forgotten-password-panel" className="mdl-tabs__tab">שחכתי סיסמה</a>
+                                    <a href="#forgotten-password-panel" className="mdl-tabs__tab">שכחתי סיסמה</a>
                                 </div>
                                 <div className="mdl-tabs__panel is-active" id="new-user-panel">
                                     <UserCreateCard></UserCreateCard>

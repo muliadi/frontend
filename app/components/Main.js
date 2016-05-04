@@ -54,6 +54,9 @@ const MainSub = class extends React.Component {
                 case "login":
                     this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
                     break;  
+                case "sapakim":
+                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: true });
+                    break;      
                 case "items":
                     this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid>, sidebar: true });
                     break;                      
