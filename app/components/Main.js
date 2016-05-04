@@ -124,9 +124,27 @@ const MainSub = class extends React.Component {
     }        
     componentWillMount() {
         setSapakimCookie(this.props.view.current_session)
-        this.getPageToRender();        
+        this.getPageToRender();
     }
-    render() {        
+    fixFooter() {
+        const c = document.getElementsByClassName("page-content")[0]
+        const p = document.getElementsByClassName("footer-pusher")[0]
+        const m = document.getElementsByClassName("mdl-layout__content")[0]
+        const f = document.getElementsByClassName("mdl-mini-footer")[0]
+        var p_height = m.clientHeight - f.clientHeight - c.clientHeight 
+        if (p_height < 0) {
+            p_height = 0
+        }        
+        p.style.height = p_height+"px";                    
+    }    
+    componentDidMount() {
+        this.fixFooter();
+        window.addEventListener("resize", this.fixFooter);        
+    }
+    componentDidUpdate() {
+        this.fixFooter();
+    }
+    render() {   
         return (
             <MainFrame view={this.props.view} sidebar={this.state.sidebar}>
                 {this.state.pageToRender}
