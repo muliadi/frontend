@@ -53,7 +53,7 @@ class MainFrameSub extends React.Component {
            // e.target.style.marginBottom = "0px";
         }
         const style_page_content = {
-            paddingTop: "15px",
+            paddingTop: "0px",
             paddingBottom: "20px",
             maxWidth: "auto",
             marginRight: "auto",
