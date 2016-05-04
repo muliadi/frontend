@@ -39,7 +39,7 @@ class MainFrameSub extends React.Component {
             marginTop: "-7px",
             marginRight: "-7px",
             marginBottom: "-7px",
-            paddingRight: "20px",
+            paddingRight: "0px",
         }       
         const style_nav_link_mouse_over = (e)=>{
            e.target.style.color = "rgb(51, 172, 113)";
@@ -219,15 +219,11 @@ class MainFrameSub extends React.Component {
                                 </div>
                             :
                                
-                                 <div className="mdl-grid">
-                                   <div className="mdl-layout-spacer"></div>
-                                      
-                                                                              
-                                        <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
+                                                                   
+                                        <div>
                                             {this.props.children}
                                         </div> 
-                                    <div className="mdl-layout-spacer"></div>                                      
-                                </div>
+                                    
                         }
                     </div>
     
