@@ -19,6 +19,27 @@ class ItemsInBasketListSub extends React.Component {
             padding: "1px",
             WebkitMarginBefore: "1px",
         };
+        const dt_small = {
+            padding: "1px",
+            WebkitMarginBefore: "1px",
+            width:"33px"
+        };
+         const th_price = {
+            padding: "1px",
+            WebkitMarginBefore: "1px",
+            width:"43px"
+        };
+        
+        const th_amount = {
+            padding: "1px",
+            WebkitMarginBefore: "1px",
+            width:"43px"
+        };
+        const th_pic = {
+            padding: "1px",
+            WebkitMarginBefore: "1px",
+            width:"60px"
+        };
         const style_list_item = {
             marginLeft: "auto",
             marginRight: "auto",
@@ -56,26 +77,27 @@ class ItemsInBasketListSub extends React.Component {
 
                 </div> 
               <table className="mdl-data-table mdl-js-data-table  mdl-shadow--2dp " style={table_style}>
-                            <thead>
+                            <thead style={style_list}>
                                 <tr>
-                                <th className="mdl-data-table__cell--non-numeric"></th>
-                                <th className="mdl-data-table__cell--non-numeric">מוצר</th>
-                                <th>קמות</th>
-                                <th>מחיר יחידה</th>
-                                <th className="mdl-data-table__cell--non-numeric"></th>
+                                <th className="mdl-data-table__cell--non-numeric" style={th_pic}></th>
+                                <th className="mdl-data-table__cell--non-numeric" style={style_list}>מוצר</th>
+                                <th style={th_amount}>קמות</th>
+                                <th style={th_price}>מחיר</th>
+                                <th className="mdl-data-table__cell--non-numeric" style={dt_small}></th>
                                 </tr>
                             </thead>   
                              <tbody>              
                     {
                         this.props.view.current_items_in_baskets.edges.map((item, i) => {
-                            return <tr key={i} >
-                                    <td>
-                                        <img src="/static/shopping-cart.png" alt="Shopping Cart" style={{height:"20px",marginTop:"-3px"}}></img> 
+                            return <tr key={i} style={style_list}>
+                                    <td style={style_list}>
+                                    
+                                        <img src={"/static/content/"+item.node.item.small_image.id} alt="Shopping Cart" style={{width:"50px",marginTop:"-0px"}}></img> 
                                     </td>
-                                    <td className="mdl-data-table__cell--non-numeric">{item.node.item.name} </td>
-                                    <td>25</td>
-                                    <td>$2.90</td>
-                                    <td>
+                                    <td className="mdl-data-table__cell--non-numeric" style={style_list}>{item.node.item.name} </td>
+                                    <td style={style_list}>{item.node.Amount}</td>
+                                    <td style={style_list}>{item.node.item.price_in_agorot/100} &#8362;</td>
+                                    <td style={dt_small}>
                                         <button className="mdl-button mdl-js-button mdl-button--icon">
                                                 <i className="material-icons">delete</i>
                                         </button></td>
@@ -99,8 +121,15 @@ const ItemsInBasketList = Relay.createContainer(ItemsInBasketListSub, {
                     edges {
                         node {
                             ... on item_in_basket {
+                              Amount
+                              remarks
                                 item {
                                     name
+                                    price_in_agorot
+                                    small_image {
+                                        id
+                                    }
+                                    
                                 }
                             }
                         }
