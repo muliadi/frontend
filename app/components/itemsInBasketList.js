@@ -28,6 +28,7 @@ class ItemsInBasketListSub extends React.Component {
         return (
             <div className="ItemsBasket" style={{background:"#FFF", margin:"0px 4px 0px 4px"}}>
                 <div>
+
                 <div className="mdl-grid" style={{border:"2px solid rgba(78,176,82,0.3)", background:"rgba(78,176,82,0.1)"}}>
                                   
                                       
@@ -52,6 +53,7 @@ class ItemsInBasketListSub extends React.Component {
                     
 
                    
+
                 </div> 
               <table className="mdl-data-table mdl-js-data-table  mdl-shadow--2dp " style={table_style}>
                             <thead>

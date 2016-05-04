@@ -14,6 +14,12 @@ class MainFrameSub extends React.Component {
         componentHandler.upgradeDom();
     } 
     render() {
+        try {
+            this.fixFooter();
+        }
+        catch (e) {
+            
+        }
         const avatar_path = this.props.view.me.is_logged ?
             "/static/content/"+this.props.view.me.small_image.id
         :
@@ -68,7 +74,8 @@ class MainFrameSub extends React.Component {
                         document.location = "/#/loggedout";
                     },
                 });            
-        }                             
+        }
+                                     
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242", padding:"0 60px"}}>
@@ -226,6 +233,8 @@ class MainFrameSub extends React.Component {
                                     
                         }
                     </div>
+    
+                    <div className="footer-pusher" />
     
                     <footer className="mdl-mini-footer">
                     

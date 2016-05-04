@@ -14,6 +14,7 @@ export default class LogOutMutation extends Relay.Mutation {
       fragment on logOutPayload @relay(pattern: true) {
           view {
               users
+              current_items_in_baskets
               me
             }
       }

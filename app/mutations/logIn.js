@@ -19,6 +19,7 @@ export default class LogInMutation extends Relay.Mutation {
           view {
               users
               items
+              current_items_in_baskets              
               me
             }
       }
