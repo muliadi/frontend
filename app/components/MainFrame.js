@@ -14,12 +14,6 @@ class MainFrameSub extends React.Component {
         componentHandler.upgradeDom();
     } 
     render() {
-        try {
-            this.fixFooter();
-        }
-        catch (e) {
-            
-        }
         const avatar_path = this.props.view.me.is_logged ?
             "/static/content/"+this.props.view.me.small_image.id
         :
@@ -59,7 +53,8 @@ class MainFrameSub extends React.Component {
            // e.target.style.marginBottom = "0px";
         }
         const style_page_content = {
-            paddingTop: "0px",
+            paddingTop: "15px",
+            paddingBottom: "20px",
             maxWidth: "auto",
             marginRight: "auto",
             marginLeft: "auto",

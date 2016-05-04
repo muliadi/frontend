@@ -19,7 +19,6 @@ class LogInOrCreateUser extends React.Component {
             marginLeft: "auto",
             marginRight: "auto",
             alignItems:"center",
-            marginTop: "70px",
         };
         return (
             <div className="mdl-card mdl-shadow--8dp" style={style_card}>
