@@ -63,11 +63,6 @@ class ItemCard extends React.Component {
         };
         const style_units = {
         };  
-        const style_vendor_logo = {
-            background: "url('/static/content/"+this.props.vendor_image_id+"') center / cover",
-            width: "20px",
-            height: "20px",
-        };  
         const style_add_to_basket_button = {  
             //background: "rgb(51, 172, 113)",
         };
@@ -114,8 +109,13 @@ class ItemCard extends React.Component {
                     סה״כ בסל
                 </div>
                 
-                <div style={{backgroundImage:"url('/static/content/"+this.props.vendor_image_id+"')",backgroundPosition: "bottom right", backgroundRepeat: "no-repeat", backgroundSize: "60px", display: "inline-block", height: "20px", width: "100%", marginRight: "5px", marginBottom: "5px"}}>           
-            </div>
+                {
+                    this.props.vendor_image_id != "0" ?
+                        <div style={{backgroundImage:"url('/static/content/"+this.props.vendor_image_id+"')",backgroundPosition: "bottom right", backgroundRepeat: "no-repeat", backgroundSize: "60px", display: "inline-block", height: "20px", width: "100%", marginRight: "5px", marginBottom: "5px"}} />
+                        
+                    :
+                        null
+                }           
                 
                 
                 <div

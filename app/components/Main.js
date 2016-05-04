@@ -14,6 +14,8 @@ import LogInOrCreateUser from './LogInOrCreateUser.js'
 import ProfilePage from './ProfilePage.js'
 import AdminPage from './AdminPage.js'
 
+import resizeWatch from '../utils/resizeWatch.js'
+
 // TODO: move two functions below to own module...
 function writeCookie (key, value, days) {
     var date = new Date();
@@ -139,6 +141,8 @@ const MainSub = class extends React.Component {
     }    
     componentDidMount() {
         this.fixFooter();
+        const e = document.getElementsByClassName("page-content")[0];
+        addResizeListener(e, this.fixFooter);
         window.addEventListener("resize", this.fixFooter);        
     }
     componentDidUpdate() {

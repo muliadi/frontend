@@ -21,7 +21,8 @@ class ItemGridSub extends React.Component {
             <div className="mdl-grid" style={style_grid}>                
                 {
                     this.props.view.items.edges.map((item, i) => {
-                        return <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                        return item.node.small_image.id != "0" ?
+                            <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
                                 <ItemCard
                                     is_logged={this.props.view.me.is_logged}
                                     name={item.node.name}
@@ -33,6 +34,8 @@ class ItemGridSub extends React.Component {
                                     amount={item.node.amount}>
                                 </ItemCard>
                             </div>
+                            :
+                            null
                     })
                 }
             </div>
