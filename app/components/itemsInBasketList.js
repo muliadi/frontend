@@ -12,8 +12,11 @@ class ItemsInBasketListSub extends React.Component {
         const table_style = {
             tableLayout:"fixed",
             width:"100%",
+            
             border:"1px solid rgba(78,176,82,0.3)",
             wordWrap:"break-word",
+            wordBreak: "break-all",
+            
             }
         const style_list = {
             padding: "1px",
@@ -24,16 +27,26 @@ class ItemsInBasketListSub extends React.Component {
             WebkitMarginBefore: "1px",
             width:"33px"
         };
+        const th_item = {
+            padding: "1px",
+            WebkitMarginBefore: "1px",
+            fontSize: "16px",
+            verticalAlign: "middle"
+        };
          const th_price = {
             padding: "1px",
             WebkitMarginBefore: "1px",
-            width:"43px"
+            width:"43px",
+            fontSize: "16px",
+            verticalAlign: "middle"
         };
         
         const th_amount = {
             padding: "1px",
             WebkitMarginBefore: "1px",
-            width:"43px"
+            width:"43px",
+            fontSize: "16px",
+            verticalAlign: "middle"
         };
         const th_pic = {
             padding: "1px",
@@ -76,11 +89,11 @@ class ItemsInBasketListSub extends React.Component {
                    
 
                 </div> 
-              <table className="mdl-data-table mdl-js-data-table  mdl-shadow--2dp " style={table_style}>
+              <table className="mdl-data-table mdl-js-data-table  mdl-shadow--2dp " style={table_style} >
                             <thead style={style_list}>
                                 <tr>
                                 <th className="mdl-data-table__cell--non-numeric" style={th_pic}></th>
-                                <th className="mdl-data-table__cell--non-numeric" style={style_list}>מוצר</th>
+                                <th className="mdl-data-table__cell--non-numeric " style={th_item}>מוצר</th>
                                 <th style={th_amount}>קמות</th>
                                 <th style={th_price}>מחיר</th>
                                 <th className="mdl-data-table__cell--non-numeric" style={dt_small}></th>
@@ -94,7 +107,10 @@ class ItemsInBasketListSub extends React.Component {
                                     
                                         <img src={"/static/content/"+item.node.item.small_image.id} alt="Shopping Cart" style={{width:"50px",marginTop:"-0px"}}></img> 
                                     </td>
-                                    <td className="mdl-data-table__cell--non-numeric" style={style_list}>{item.node.item.name} </td>
+                                    <td className="mdl-data-table__cell--non-numeric control-width" style={style_list}>
+                                    <div style={{wordWrap:"break-word", width: "5em"}}>
+                                       {item.node.item.name} 
+                                        </div></td>
                                     <td style={style_list}>{item.node.Amount}</td>
                                     <td style={style_list}>{item.node.item.price_in_agorot/100} &#8362;</td>
                                     <td style={dt_small}>

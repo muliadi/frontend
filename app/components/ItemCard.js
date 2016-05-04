@@ -142,10 +142,11 @@ class ItemCard extends React.Component {
                         style={style_add_to_basket_button}
                         id={__id}
                         className="mdl-button mdl-js-button mdl-button--primary"
+                        onClick={this.handleAddItemToBasket.bind(this) }
                         >
                         <i
                             className="material-icons"
-                            onClick={this.handleAddItemToBasket.bind(this) }
+                            
                         >add</i>
                     </button>
 
@@ -158,9 +159,10 @@ class ItemCard extends React.Component {
                         style={style_add_to_basket_button}
                         id={__id+"_1"}
                         className="mdl-button mdl-js-button mdl-button--primary"
+                        onClick={this.handleRemoveItemToBasket.bind(this) }
                         >
                         <i className="material-icons"
-                        onClick={this.handleRemoveItemToBasket.bind(this) }
+                        
                         >remove</i>
                     </button>
                     
