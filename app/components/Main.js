@@ -14,8 +14,6 @@ import LogInOrCreateUser from './LogInOrCreateUser.js'
 import ProfilePage from './ProfilePage.js'
 import AdminPage from './AdminPage.js'
 
-import resizeWatch from '../utils/resizeWatch.js'
-
 // TODO: move two functions below to own module...
 function writeCookie (key, value, days) {
     var date = new Date();
