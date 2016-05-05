@@ -22,6 +22,8 @@ class ItemsInBasketListSub extends React.Component {
             });
     }
     render() {
+        
+        const totalPrice = this.props.view.current_items_in_baskets.edges.map((item, i) => (item.node.item.price_in_agorot)).reduce((a,b)=>(a+b))/100;
 
         const table_style = {
             tableLayout: "fixed",
@@ -75,6 +77,7 @@ class ItemsInBasketListSub extends React.Component {
         };
         return (
             <div className="ItemsBasket" style={{ background: "#FFF", margin: "0px 4px 0px 4px" }}>
+            
                 <div>
 
                     <div className="mdl-grid" style={{ border: "2px solid rgba(78,176,82,0.3)", background: "rgba(78,176,82,0.1)" }}>
@@ -142,6 +145,7 @@ class ItemsInBasketListSub extends React.Component {
                         }
                     </tbody>
                 </table>
+                <div>{totalPrice}</div>
             </div>
         );
     }

@@ -28,7 +28,27 @@ class ItemCard extends React.Component {
                     );
                 },
             });
-    }    
+    } 
+    handleRemoveItemsFromBasket(event) {
+        Relay.Store.commitUpdate(new AddItemToBasketMutation({
+            amount: "-1",
+            remarks: "just testing remarks",
+            itemID: this.props.itemID,
+        }),
+            {
+                onFailure: (e) => {
+                    console.log(e.getError())
+                },
+                onSuccess: () => {
+                    var notification = document.querySelector('.mdl-js-snackbar');
+                    notification.MaterialSnackbar.showSnackbar(
+                    {
+                        message: 'המוצר הוסר'
+                    }
+                    );
+                },
+            });
+    }       
     handleRemoveItemToBasket(event) {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "-1",
@@ -40,6 +60,12 @@ class ItemCard extends React.Component {
                     console.log(e.getError())
                 },
                 onSuccess: () => {
+                    var notification = document.querySelector('.mdl-js-snackbar');
+                    notification.MaterialSnackbar.showSnackbar(
+                    {
+                        message: 'המוצר הוסר'
+                    }
+                    );
                 },
             });
     }    

@@ -210,11 +210,11 @@ class MainFrameSub extends React.Component {
                                 <div className="mdl-grid">
                                    <div className="mdl-layout-spacer"></div>
                                       
-                                        <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--3-col-tablet mdl-cell--2-col-phone" style={style_sidebar}>
+                                        <div className="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_sidebar}>
                                             <ItemsInBasketList view={this.props.view} />
                                         </div>
                                         
-                                        <div className="mdl-cell mdl-cell--9-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
+                                        <div className="mdl-cell mdl-cell--8-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
                                             {this.props.children}
                                         </div> 
                                     <div className="mdl-layout-spacer"></div>                                      
