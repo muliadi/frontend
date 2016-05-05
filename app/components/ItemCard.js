@@ -20,6 +20,12 @@ class ItemCard extends React.Component {
                     console.log(e.getError())
                 },
                 onSuccess: () => {
+                    var notification = document.querySelector('.mdl-js-snackbar');
+                    notification.MaterialSnackbar.showSnackbar(
+                    {
+                        message: 'המוצר הוסף בהצלחה'
+                    }
+                    );
                 },
             });
     }    
