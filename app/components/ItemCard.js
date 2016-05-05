@@ -3,7 +3,6 @@
 import Relay from 'react-relay';
 
 import AddItemToBasketMutation from "../mutations/addItemToBasket.js"
-import RemoveFromBasketMutation from "../mutations/removeItemFromBasket.js"
 
 var __idnum = 0
 class ItemCard extends React.Component {
