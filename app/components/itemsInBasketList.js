@@ -3,10 +3,24 @@
 import React from 'react';
 import Relay from 'react-relay';
 
+import EmptyBasketsMutation from '../mutations/emptyBaskets.js'
+
 class ItemsInBasketListSub extends React.Component {
     componentDidMount() {
         componentHandler.upgradeDom();
     } 
+    handleEmptyBaskets() {
+        console.log("emptying baskets...");
+        Relay.Store.commitUpdate(new EmptyBasketsMutation({}),
+            {
+                onFailure: (e) => {
+                    console.log(e.getError())
+                },
+                onSuccess: () => {
+                    console.log("success!!!");
+                },
+            });        
+    }
     render() {
         
         const table_style = {
@@ -70,7 +84,11 @@ class ItemsInBasketListSub extends React.Component {
                                             סל הקניות שלי
                                         </div>
                                          <div className="mdl-cell mdl-cell--5-col-desktop mdl-cell--5-col-tablet mdl-cell--4-col-phone">
-                                            <button className="mdl-button mdl-js-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style={{ marginRight:"0px",  maxHeight: "25px", lineHeight:"11px", fontSize:"12px"}}>נקה סל
+                                            <button
+                                                className="mdl-button mdl-js-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                                                onClick={this.handleEmptyBaskets.bind(this)}
+                                                style={{ marginRight:"0px",  maxHeight: "25px", lineHeight:"11px", fontSize:"12px"}}>
+                                                נקה סל
                                                 <i className="material-icons">delete_forever</i>
                                             </button>
                                         </div>

@@ -11,7 +11,6 @@ class ItemCard extends React.Component {
         componentHandler.upgradeDom();
     }
     handleAddItemToBasket(event) {
-        console.log("card: "+this.props.itemID)
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "1",
             remarks: "just testing remarks",
@@ -22,14 +21,12 @@ class ItemCard extends React.Component {
                     console.log(e.getError())
                 },
                 onSuccess: () => {
-                    console.log("success!!!!!")
                 },
             });
     }    
     handleRemoveItemToBasket(event) {
-        console.log("card: "+this.props.itemID)
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
-            amount: "1",
+            amount: "-1",
             remarks: "just testing remarks",
             itemID: this.props.itemID,
         }),
@@ -38,7 +35,6 @@ class ItemCard extends React.Component {
                     console.log(e.getError())
                 },
                 onSuccess: () => {
-                    console.log("success!!!!!")
                 },
             });
     }    
