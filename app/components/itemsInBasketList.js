@@ -59,7 +59,7 @@ class ItemsInBasketListSub extends React.Component {
             padding: "0px",
             listStyle: "none",
             //border: "1px solid rgba(78,176,82,0.2)",
-            //display: "table-cell",
+            //display: "table-cell", 
             width: "auto",
             textAlign: "center",
             minHeight: "110px",
