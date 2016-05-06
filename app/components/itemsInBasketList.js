@@ -23,47 +23,56 @@ class ItemsInBasketListSub extends React.Component {
     }
     render() {
         
+        const style_show_div_mouse_over = (e)=>{
+         var element = e.target.querySelector("#binB");
+         console.log(element);
+          e.target.querySelector("#binB").style.display = "inline";
+          
+           
+        }
+        const style_hide_div_mouse_out = (e)=>{
+            e.target.querySelector("#binB").style.display = "none";
+           
+        }
         const totalPrice = this.props.view.current_items_in_baskets.edges.map((item, i) => (item.node.Amount*item.node.item.price_in_agorot)).reduce((a,b)=>(a+b), 0)/100;
 
-        const table_style = {
-            tableLayout: "fixed",
+        const listbox_style = {
+            margin: "0",
+            height: "54px" ,
+            padding:   "0px",
+            display: "table",
             width: "100%",
-
-            border: "1px solid rgba(78,176,82,0.3)",
+            
             wordWrap: "break-word",
-            wordBreak: "break-all",
+            //wordBreak: "break-all",
 
         }
-        const style_list = {
-            padding: "1px",
-            WebkitMarginBefore: "1px",
+        const list_style ={
+            margin: "0",
+            height: "54px",
+            padding: "0px",
+            display: "table-row",
+            //background: "#fff",
+        }
+        const listItem_style = {
+            //opacity:"0.4",
+            padding: "0px",
+            listStyle: "none",
+            //border: "1px solid rgba(78,176,82,0.2)",
+            //display: "table-cell", 
+            width: "auto",
+            textAlign: "center",
+            minHeight: "110px",
+            
         };
         const dt_small = {
             padding: "1px",
             WebkitMarginBefore: "1px",
             width: "33px"
         };
-        const th_item = {
-            padding: "1px",
-            WebkitMarginBefore: "1px",
-            fontSize: "16px",
-            verticalAlign: "middle"
-        };
-        const th_price = {
-            padding: "1px",
-            WebkitMarginBefore: "1px",
-            width: "43px",
-            fontSize: "16px",
-            verticalAlign: "middle"
-        };
+        
 
-        const th_amount = {
-            padding: "1px",
-            WebkitMarginBefore: "1px",
-            width: "43px",
-            fontSize: "16px",
-            verticalAlign: "middle"
-        };
+       
         const th_pic = {
             padding: "1px",
             WebkitMarginBefore: "1px",
@@ -102,50 +111,42 @@ class ItemsInBasketListSub extends React.Component {
 
                     </div>
 
-
-
-
-
-
-
-
                 </div>
-                <table className="mdl-data-table mdl-js-data-table  mdl-shadow--2dp " style={table_style} >
-                    <thead style={style_list}>
-                        <tr>
-                            <th className="mdl-data-table__cell--non-numeric" style={th_pic}></th>
-                            <th className="mdl-data-table__cell--non-numeric " style={th_item}>מוצר</th>
-                            <th style={th_amount}>קמות</th>
-                            <th style={th_price}>מחיר</th>
-                            <th className="mdl-data-table__cell--non-numeric" style={dt_small}></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                
+                <div style={listbox_style}>
+                    <ul className="mdl-list" style={list_style}>
                         {
                             this.props.view.current_items_in_baskets.edges.map((item, i) => {
-                                return <tr key={i} style={style_list}>
-                                    <td style={style_list}>
-
-                                        <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "50px", marginTop: "-0px" }}></img>
-                                    </td>
-                                    <td className="mdl-data-table__cell--non-numeric control-width" style={style_list}>
-                                        <div style={{ wordWrap: "break-word", width: "5em" }}>
-                                            {item.node.item.name}
-                                        </div></td>
-                                    <td style={style_list}>{item.node.Amount}</td>
-                                    <td style={style_list}>{item.node.item.price_in_agorot / 100} &#8362; </td>
-                                    <td style={dt_small}>
-                                        <button className="mdl-button mdl-js-button mdl-button--icon">
+                                return  <li name={i} key={i} className="mdl-list__item basketlistItem" style={listItem_style} 
+                                >
+                                <span className="mdl-list__item-primary-content"
+                                
+                                >
+                                    <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "70px", marginTop: "-0px" }}></img>
+                                    <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right"}}>
+                                     {item.node.item.name}
+                                    </span>
+                                    <span>x{item.node.Amount}</span>
+                                    <span style={{width:"100px", marginRight:"4px"}}>{item.node.item.price_in_agorot / 100} &#8362;</span>
+                                    
+                                    <div id="binB" className= "basket-binButton" ><button className="mdl-button mdl-js-button mdl-button--icon">
                                             <i className="material-icons">delete </i>
-                                        </button></td>
-                                </tr>
-
-
-                            })
+                                        </button>
+                                        <div className="mdl-layout-spacer"></div>
+                                        <button className="mdl-button mdl-js-button mdl-button--icon">
+                                            <i className="material-icons">note_add </i>
+                                        </button>
+                                    
+                                    </div>
+                                </span>
+                                </li>
+                           
+                         })
                         }
-                    </tbody>
-                </table>
-                <div>{totalPrice}</div>
+                    </ul>
+                </div>
+                
+                <div>{totalPrice} &#8362;</div>
             </div>
         );
     }
