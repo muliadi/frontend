@@ -44,6 +44,7 @@ class UserLoginCard extends React.Component {
         }),
             {
                 onFailure: (e) => {
+                    console.log(e)
                     this.setState({
                         communicating: false,
                         error: "שם משתמש או סיסמה שגויים",

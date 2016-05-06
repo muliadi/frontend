@@ -7,7 +7,6 @@ export default class AddRestaurantMutation extends Relay.Mutation {
         return Relay.QL`mutation {addRestaurant}`;
     }
     getVariables() {
-        console.log(this.props);
         const v = {
             name: this.props.name,
             address: this.props.address,

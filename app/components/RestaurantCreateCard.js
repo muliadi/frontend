@@ -82,7 +82,6 @@ class RestaurantCreateCard extends React.Component {
             return;
         }
         this.setState({ communicating: true })
-        console.log(this.state);
         Relay.Store.commitUpdate(new AddRestaurantMutation({
             name: this.state.restaurant_name,
             address: this.state.address,
@@ -279,7 +278,7 @@ class RestaurantCreateCard extends React.Component {
                                         <button
                                             style={style_save_button}
                                             className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                                            onClick={()=>{console.log(timeRanges[0].get); this.handleSaveItem.bind(this)() }}
+                                            onClick={()=>{this.handleSaveItem.bind(this)() }}
                                             id="UserCreateCard_Save_Button">
                                             הרשם
                                         </button>
