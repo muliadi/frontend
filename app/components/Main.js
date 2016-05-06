@@ -34,17 +34,23 @@ const MainSub = class extends React.Component {
         this.state ={
             pageToRender: null,
             sidebar: false,
+            argNum: 0,
+            arg1: "",
+            arg2: "",
+            itemCat: "",
         }
         window.onhashchange = this.getPageToRender.bind(this);        
     }    
-    getPageToRender() {
-        this.setState({sidebar: false});
-        
+    getPageToRender() {        
         const args = document.location.hash.slice(1).split("/").filter((s)=>(s!=""));
         const argNum = args.length;
         const arg1 = argNum >= 1 ? args[0] : null;
         const arg2 = argNum >= 2 ? args[1] : null;        
 
+        const itemCat = argNum > 1 ? arg2 : "all"
+        
+        this.setState({sidebar: false, argNum: argNum, arg1: arg1, arg2: arg2, itemCat: itemCat});
+        
         if (!this.props.view.me.is_logged) {
             
             switch (arg1) {
@@ -55,10 +61,10 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
                     break;  
                 case "sapakim":
-                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: true });
+                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: false });
                     break;      
                 case "items":
-                    this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid>, sidebar: true });
+                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>, sidebar: false });
                     break;                      
                 case "mail_verification":
                     if (argNum!=2) {
@@ -92,12 +98,13 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>, sidebar: true });
                     break;
                 case "items":
-                    this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid>, sidebar: true });
+                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>, sidebar: true });
                     break;
                 case "users":
                     this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>, sidebar: true });
                     break;
                 case "sapakim":
+                    //this.setVariables(  xxxxxx  )
                     this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: true });
                     break;                        
                 case "login":
@@ -157,13 +164,16 @@ const MainSub = class extends React.Component {
 
 // TODO: don't load ALL the data here... use better routing 
 const Main = Relay.createContainer(MainSub, {
+    initialVariables: {
+      includeSapakimData: false,  
+    },
     fragments: {
-        view: () => Relay.QL`
+        view: (variables) => Relay.QL`
             fragment on view {
                 ${MainFrame.getFragment('view')},
                 ${ItemGrid.getFragment('view')},
                 ${UserGrid.getFragment('view')},
-                ${SapakGrid.getFragment('view')},
+                ${SapakGrid.getFragment('view').if(variables.includeSapakimData)},
                 ${ProfilePage.getFragment('view')},
                 me {
                     is_logged

@@ -17,7 +17,6 @@ class ItemsInBasketListSub extends React.Component {
                     console.log(e.getError())
                 },
                 onSuccess: () => {
-                    console.log("success!!!");
                 },
             });
     }

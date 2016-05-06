@@ -7,6 +7,17 @@ import ItemCard from './ItemCard.js'
 import ItemCreateCard from './ItemCreateCard.js'
 
 class ItemGridSub extends React.Component {
+   constructor(props) {
+        super(props)
+        this.props.relay.setVariables({
+            parentCategoryID: this.props.category
+        });        
+    }        
+    componentWillReceiveProps(nextProps) {
+        this.props.relay.setVariables({
+            parentCategoryID: nextProps.category
+        });                
+    }
     componentDidMount() {
         componentHandler.upgradeDom();
     } 
@@ -44,13 +55,14 @@ class ItemGridSub extends React.Component {
 }
 
 const ItemGrid = Relay.createContainer(ItemGridSub, {
+    initialVariables: {parentCategoryID: "none"},    
     fragments: {
         view: () => Relay.QL`
             fragment on view {
                 me {
                     is_logged
                 }
-                items(first: 30) {
+                items(first: 30, parentCategoryID: $parentCategoryID) {
                     edges{
                         node {
                             ... on item {
