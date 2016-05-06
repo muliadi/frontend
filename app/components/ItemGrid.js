@@ -10,9 +10,15 @@ class ItemGridSub extends React.Component {
    constructor(props) {
         super(props)
         this.props.relay.setVariables({
-            parentCategoryID: this.props.category
+            parentCategoryID: this.props.category,
+            show: true,
         });        
     }        
+    // componentWillMount() {
+    //     this.props.relay.setVariables({
+    //         show: true,
+    //     });
+    // }
     componentWillReceiveProps(nextProps) {
         this.props.relay.setVariables({
             parentCategoryID: nextProps.category
@@ -31,23 +37,26 @@ class ItemGridSub extends React.Component {
         return (
             <div className="mdl-grid" style={style_grid}>                
                 {
-                    this.props.view.items.edges.map((item, i) => {
-                        return item.node.small_image.id != "0" ?
-                            <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
-                                <ItemCard
-                                    is_logged={this.props.view.me.is_logged}
-                                    name={item.node.name}
-                                    price={item.node.price_in_agorot/100}
-                                    image_id={item.node.small_image.id}
-                                    unitsName={item.node.units.name}
-                                    vendor_image_id={item.node.vendor.small_image.id}
-                                    itemID={item.node.id}
-                                    amount={item.node.amount}>
-                                </ItemCard>
-                            </div>
-                            :
-                            null
-                    })
+                    'items' in this.props.view ?
+                        this.props.view.items.edges.map((item, i) => {
+                            return item.node.small_image.id != "0" ?
+                                <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                                    <ItemCard
+                                        is_logged={this.props.view.me.is_logged}
+                                        name={item.node.name}
+                                        price={item.node.price_in_agorot/100}
+                                        image_id={item.node.small_image.id}
+                                        unitsName={item.node.units.name}
+                                        vendor_image_id={item.node.vendor.small_image.id}
+                                        itemID={item.node.id}
+                                        amount={item.node.amount}>
+                                    </ItemCard>
+                                </div>
+                                :
+                                null
+                        })
+                    :
+                        null
                 }
             </div>
         );
@@ -55,14 +64,17 @@ class ItemGridSub extends React.Component {
 }
 
 const ItemGrid = Relay.createContainer(ItemGridSub, {
-    initialVariables: {parentCategoryID: "none"},    
+    initialVariables: {
+        parentCategoryID: "none",
+        show: false,
+    },    
     fragments: {
         view: () => Relay.QL`
             fragment on view {
                 me {
                     is_logged
                 }
-                items(first: 30, parentCategoryID: $parentCategoryID) {
+                items(first: 30, parentCategoryID: $parentCategoryID) @include(if: $show) {
                     edges{
                         node {
                             ... on item {

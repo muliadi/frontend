@@ -51,42 +51,34 @@ const MainSub = class extends React.Component {
         
         this.setState({sidebar: false, argNum: argNum, arg1: arg1, arg2: arg2, itemCat: itemCat});
         
-        if (!this.props.view.me.is_logged) {
-            
+        if (!this.props.view.me.is_logged) {            
             switch (arg1) {
                 case "terms_and_conditions":
                     this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions> });            
-                    break;
+                    return;
                 case "login":
                     this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
-                    break;  
+                    return;  
                 case "sapakim":
-                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: false });
-                    break;      
+                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: false })
+                    return;      
                 case "items":
+                    this.props.relay.setVariables({includeItemsData: true});                        
                     this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>, sidebar: false });
-                    break;                      
+                    return;                      
                 case "mail_verification":
                     if (argNum!=2) {
                         this.setState({pageToRender: <div>404 Not Found</div> });
                         break;
                     }
                     this.setState({pageToRender: <MailVerification hash={arg2}></MailVerification> });
-                    break;                        
+                    return;                        
                 default:
                     this.setState({pageToRender: <LandingPage view={this.props.view}></LandingPage> });            
-                    break;
+                    return;
             }
-            return;
         }
 
-        // User is logged in
-        
-        if ((this.props.view.me.restaurants.length == 0) && (!this.props.view.me.is_founder)) {
-            this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage> });
-            return;
-        }
-        
         // User has a shop        
         
         if (argNum>0) {
@@ -95,16 +87,19 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>, sidebar: true });            
                     break;
                 case "admin":
+                    this.props.relay.setVariables({includeItemsData: true, includeUsersData: true, includeSapakimData: true});                        
                     this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>, sidebar: true });
                     break;
                 case "items":
+                    this.props.relay.setVariables({includeItemsData: true});                        
                     this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>, sidebar: true });
                     break;
                 case "users":
+                    this.props.relay.setVariables({includeUsersData: true});                        
                     this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>, sidebar: true });
                     break;
                 case "sapakim":
-                    //this.setVariables(  xxxxxx  )
+                    this.props.relay.setVariables({includeSapakimData: true});                        
                     this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: true });
                     break;                        
                 case "login":
@@ -154,6 +149,8 @@ const MainSub = class extends React.Component {
         this.fixFooter();
     }
     render() {   
+        console.log("main is rendering...")
+        console.log(this.props);
         return (
             <MainFrame view={this.props.view} sidebar={this.state.sidebar}>
                 {this.state.pageToRender}
@@ -162,18 +159,14 @@ const MainSub = class extends React.Component {
     }
 };
 
-// TODO: don't load ALL the data here... use better routing 
 const Main = Relay.createContainer(MainSub, {
-    initialVariables: {
-      includeSapakimData: false,  
-    },
     fragments: {
         view: (variables) => Relay.QL`
             fragment on view {
                 ${MainFrame.getFragment('view')},
                 ${ItemGrid.getFragment('view')},
                 ${UserGrid.getFragment('view')},
-                ${SapakGrid.getFragment('view').if(variables.includeSapakimData)},
+                ${SapakGrid.getFragment('view')},
                 ${ProfilePage.getFragment('view')},
                 me {
                     is_logged

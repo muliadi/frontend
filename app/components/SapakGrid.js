@@ -7,6 +7,9 @@ import SapakCard from './SapakCard.js'
 import SapakCreateCard from './SapakCreateCard.js'
 
 class SapakGridSub extends React.Component {
+    componentWillMount() {
+        this.props.relay.setVariables({show: true});
+    }
     componentDidMount() {
         componentHandler.upgradeDom();
     } 
@@ -16,23 +19,27 @@ class SapakGridSub extends React.Component {
         const style_cell = {
             marginLeft: "auto",
             marginRight: "auto",
-        };        
+        };   
+        console.log("sapakim_props:");
+        console.log(this.props);     
         return (
             <div className="mdl-grid" style={style_grid}>
                 {
-                    this.props.view.sapakim.edges.map((sapak, i) => {
-                        return <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
-                            <SapakCard
-                                name={sapak.node.name}
-                                mail={sapak.node.mail}
-                                city={sapak.node.city}
-                                shortDesc={sapak.node.short_desc}
-                                creator_img_id={sapak.node.creator.small_image.id}
-                                image_id={sapak.node.small_image.id}>
-                            </SapakCard>
-                        </div>
-                    })
-
+                    'sapakim' in this.props.view ?                    
+                        this.props.view.sapakim.edges.map((sapak, i) => {
+                            return <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                                <SapakCard
+                                    name={sapak.node.name}
+                                    mail={sapak.node.mail}
+                                    city={sapak.node.city}
+                                    shortDesc={sapak.node.short_desc}
+                                    creator_img_id={sapak.node.creator.small_image.id}
+                                    image_id={sapak.node.small_image.id}>
+                                </SapakCard>
+                            </div>
+                        })
+                    :
+                        null
                 }
             </div>
         );
@@ -40,13 +47,16 @@ class SapakGridSub extends React.Component {
 }
 
 const SapakGrid = Relay.createContainer(SapakGridSub, {
+    initialVariables: {
+        show: false,
+    },
     fragments: {
         view: () => Relay.QL`
             fragment on view {
                 me {
                     is_logged
                 }
-                sapakim(first:30) {
+                sapakim(first:30) @include(if: $show) {
                     edges {
                         node {
                             ... on sapak {

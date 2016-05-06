@@ -92,16 +92,15 @@ class MainFrameSub extends React.Component {
                                     null
                             }
                             <a className="mdl-navigation__link"
-                               style={style_nav_link}
-                               onMouseOver={style_nav_link_mouse_over}
-                               onMouseOut={style_nav_link_mouse_out}
-                               href="/#/items">מוצרים</a>
+                                style={style_nav_link}
+                                onMouseOver={style_nav_link_mouse_over}
+                                onMouseOut={style_nav_link_mouse_out}
+                                href="/#/items">מוצרים</a>
                             <a className="mdl-navigation__link"
-                               style={style_nav_link}
-                               onMouseOver={style_nav_link_mouse_over}
-                               onMouseOut={style_nav_link_mouse_out}
-                               href="/#/sapakim">ספקים</a>
-                            
+                                style={style_nav_link}
+                                onMouseOver={style_nav_link_mouse_over}
+                                onMouseOut={style_nav_link_mouse_out}
+                                href="/#/sapakim">ספקים</a>
                                
                              {
                                  this.props.view.me.is_logged ?
@@ -265,6 +264,7 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
                     is_founder
                     mail
                     full_name
+                    restaurants                    
                     small_image {
                         id
                     }
