@@ -204,7 +204,7 @@ class MainFrameSub extends React.Component {
                 <main className="mdl-layout__content">
                     <div className="page-content" style={style_page_content}>
                         {
-                            (this.props.sidebar && this.props.view.me.role_type=="Restaurant" )?
+                            (this.props.view.me.role_type=="Restaurant" )?
                                 <div className="mdl-grid">
                                    <div className="mdl-layout-spacer"></div>
                                       

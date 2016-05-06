@@ -63,11 +63,11 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser> });
                     return;  
                 case "sapakim":
-                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: false })
+                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>})
                     return;      
                 case "items":
                     this.props.relay.setVariables({includeItemsData: true});                        
-                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>, sidebar: false });
+                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>});
                     return;                      
                 case "mail_verification":
                     if (argNum!=2) {
@@ -85,28 +85,27 @@ const MainSub = class extends React.Component {
         // user is logged
         
         if (argNum>0) {
-            const sidebar = this.props.view.me.role_type=='Restaurant';
             switch (arg1) {
                 case "terms_and_conditions":
-                    this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>, sidebar: sidebar });            
+                    this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>});            
                     break;
                 case "admin":
-                    this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>, sidebar: sidebar });
+                    this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>});
                     break;
                 case "items":
-                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>, sidebar: sidebar });
+                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>});
                     break;
                 case "users":
-                    this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>, sidebar: sidebar });
+                    this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>});
                     break;
                 case "sapakim":
-                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: sidebar });
+                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>});
                     break;                        
                 case "login":
                     this.setState({pageToRender: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser> });
                     break;                        
                 case "profile":
-                    this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage>, sidebar: sidebar });
+                    this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage>});
                     break;                        
                 case "mail_verification":
                     if (argNum!=2) {
