@@ -69,8 +69,7 @@ class MainFrameSub extends React.Component {
                         document.location = "/#/loggedout";
                     },
                 });            
-        }
-                                     
+        }                                     
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242", padding:"0 60px"}}>
@@ -214,14 +213,12 @@ class MainFrameSub extends React.Component {
                                             <ItemsInBasketList view={this.props.view} />
                                         </div>
                                         
-                                        <div className="mdl-cell mdl-cell--8-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
+                                        <div className="mdl-cell mdl-cell--8-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">                                        
                                             {this.props.children}
                                         </div> 
                                     <div className="mdl-layout-spacer"></div>                                      
                                 </div>
                             :
-                               
-                                                                   
                                         <div>
                                             {this.props.children}
                                         </div> 

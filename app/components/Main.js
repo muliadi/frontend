@@ -58,7 +58,8 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: true });
                     break;      
                 case "items":
-                    this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid>, sidebar: true });
+                    const cat = argNum > 1 ? arg2 : ""
+                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={cat}></ItemGrid>, sidebar: true });
                     break;                      
                 case "mail_verification":
                     if (argNum!=2) {
@@ -161,6 +162,7 @@ const Main = Relay.createContainer(MainSub, {
         view: () => Relay.QL`
             fragment on view {
                 ${MainFrame.getFragment('view')},
+                ${AdminPage.getFragment('view')},
                 ${ItemGrid.getFragment('view')},
                 ${UserGrid.getFragment('view')},
                 ${SapakGrid.getFragment('view')},

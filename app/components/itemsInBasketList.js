@@ -23,7 +23,7 @@ class ItemsInBasketListSub extends React.Component {
     }
     render() {
         
-        const totalPrice = this.props.view.current_items_in_baskets.edges.map((item, i) => (item.node.item.price_in_agorot)).reduce((a,b)=>(a+b))/100;
+        const totalPrice = this.props.view.current_items_in_baskets.edges.map((item, i) => (item.node.Amount*item.node.item.price_in_agorot)).reduce((a,b)=>(a+b), 0)/100;
 
         const table_style = {
             tableLayout: "fixed",

@@ -50,7 +50,7 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                 me {
                     is_logged
                 }
-                items(first: 30) {
+                items(first: 30, parentCategoryID: "all") {
                     edges{
                         node {
                             ... on item {
