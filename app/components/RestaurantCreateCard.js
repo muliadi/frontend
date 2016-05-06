@@ -212,13 +212,15 @@ class RestaurantCreateCard extends React.Component {
                                     <input
                                         className="mdl-textfield__input"
                                         type="text"
-                                        onChange={this.handleRestaurantNameChange.bind(this) }></input>
+                                        value={this.props.name}
+                                        onChange={this.handleRestaurantNameChange.bind(this)}></input>
                                     <label className="mdl-textfield__label">שם המסעדה</label>
                                 </div>
                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                     <input
                                         className="mdl-textfield__input"
                                         type="text"
+                                        value={this.props.company_name}
                                         onChange={this.handleCompanyNameChange.bind(this) }></input>
                                     <label className="mdl-textfield__label">
                                         {
@@ -230,6 +232,7 @@ class RestaurantCreateCard extends React.Component {
                                     <input
                                         className="mdl-textfield__input"
                                         type="text"
+                                        value={this.props.street_address}
                                         onChange={this.handleAddressChange.bind(this) }></input>
                                     <label className="mdl-textfield__label">כתובת</label>
                                 </div>
@@ -237,6 +240,7 @@ class RestaurantCreateCard extends React.Component {
                                     <input
                                         className="mdl-textfield__input"
                                         type="text"
+                                        value={this.props.company_num}
                                         onChange={this.handleRestaurantNumsChange.bind(this) }></input>
                                     <label className="mdl-textfield__label">
                                         {
@@ -292,21 +296,6 @@ class RestaurantCreateCard extends React.Component {
         );
     }
 }
-
-// const ProfilePage = Relay.createContainer(ProfilePageSub, {
-//     fragments: {
-//         view: () => Relay.QL`
-//             fragment on view {
-//                 me {
-//                     full_name
-//                     mail
-//                     small_image {
-//                         id
-//                     }
-//                 }
-//             }`,
-//     },
-// });
 
 export default RestaurantCreateCard;
 

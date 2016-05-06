@@ -30,7 +30,13 @@ class ProfilePageSub extends React.Component {
                 <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
                 </div>
                 <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-                    <RestaurantCreateCard>
+                    <RestaurantCreateCard
+                        is_company={this.props.view.me.role_restaurant.is_company}
+                        name={this.props.view.me.role_restaurant.name}
+                        company_name={this.props.view.me.role_restaurant.company_name}
+                        company_num={this.props.view.me.role_restaurant.company_num}
+                        street_address={this.props.view.me.role_restaurant.street_address}
+                        >
                     </RestaurantCreateCard>
                 </div>
                 <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
@@ -45,10 +51,12 @@ const ProfilePage = Relay.createContainer(ProfilePageSub, {
         view: () => Relay.QL`
             fragment on view {
                 me {
-                    full_name
-                    mail
-                    small_image {
-                        id
+                    role_restaurant {
+                        is_company
+                        name
+                        company_name
+                        company_num
+                        street_address
                     }
                 }
             }`,
