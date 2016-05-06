@@ -55,13 +55,15 @@ class ItemsInBasketListSub extends React.Component {
             //background: "#fff",
         }
         const listItem_style = {
-            opacity:"0.8",
+            //opacity:"0.4",
             padding: "0px",
             listStyle: "none",
-            border: "1px solid rgba(78,176,82,0.3)",
+            //border: "1px solid rgba(78,176,82,0.2)",
             //display: "table-cell",
             width: "auto",
             textAlign: "center",
+            minHeight: "110px",
+            
         };
         const dt_small = {
             padding: "1px",
@@ -120,15 +122,22 @@ class ItemsInBasketListSub extends React.Component {
                                 <span className="mdl-list__item-primary-content"
                                 
                                 >
-                                    <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "50px", marginTop: "-0px" }}></img>
+                                    <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "70px", marginTop: "-0px" }}></img>
                                     <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right"}}>
                                      {item.node.item.name}
                                     </span>
                                     <span>x{item.node.Amount}</span>
                                     <span style={{width:"100px", marginRight:"4px"}}>{item.node.item.price_in_agorot / 100} &#8362;</span>
+                                    
                                     <div id="binB" className= "basket-binButton" ><button className="mdl-button mdl-js-button mdl-button--icon">
                                             <i className="material-icons">delete </i>
-                                        </button></div>
+                                        </button>
+                                        <div className="mdl-layout-spacer"></div>
+                                        <button className="mdl-button mdl-js-button mdl-button--icon">
+                                            <i className="material-icons">note_add </i>
+                                        </button>
+                                    
+                                    </div>
                                 </span>
                                 </li>
                            
