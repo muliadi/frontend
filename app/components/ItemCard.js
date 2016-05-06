@@ -23,7 +23,7 @@ class ItemCard extends React.Component {
                     var notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
                     {
-                        message: 'המוצר הוסף בהצלחה'
+                        message:  this.props.name +' הוסף בהצלחה'
                     }
                     );
                 },
