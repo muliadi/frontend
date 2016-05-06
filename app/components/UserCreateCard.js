@@ -82,6 +82,9 @@ class UserCreateCard extends React.Component {
                     if ((errMsg.indexOf("Mail") > -1) && (errMsg.indexOf("already exists") > -1)) {
                         msg = "מייל כבר קיים, אנא בחר אחר";
                     }
+                    if (errMsg.indexOf("invalid address") > -1) {
+                        msg = "כתובת מייל לא טובה, אנא בדוק";
+                    }                    
                     this.setState({
                         communicating: false,
                         error: msg,

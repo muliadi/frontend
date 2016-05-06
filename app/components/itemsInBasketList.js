@@ -6,6 +6,9 @@ import Relay from 'react-relay';
 import EmptyBasketsMutation from '../mutations/emptyBaskets.js'
 
 class ItemsInBasketListSub extends React.Component {
+    componentWillMount() {
+        this.props.relay.setVariables({show:true});
+    }
     componentDidMount() {
         componentHandler.upgradeDom();
     }
@@ -17,15 +20,19 @@ class ItemsInBasketListSub extends React.Component {
                     console.log(e.getError())
                 },
                 onSuccess: () => {
-                    console.log("success!!!");
                 },
             });
     }
     render() {
         
+        if (!('current_items_in_baskets' in this.props.view)) {
+            return (
+                <div></div>
+            );
+        }
+
         const style_show_div_mouse_over = (e)=>{
          var element = e.target.querySelector("#binB");
-         console.log(element);
           e.target.querySelector("#binB").style.display = "inline";
           
            
@@ -97,6 +104,7 @@ class ItemsInBasketListSub extends React.Component {
 
         };
         return (
+
             <div className="ItemsBasket" style={{ background: "#FFF", margin: "0px 2px 0px 2px" }}>
             
                 <div>
@@ -129,17 +137,18 @@ class ItemsInBasketListSub extends React.Component {
                 
                 <div style={listbox_style}>
                     <ul className="mdl-list" style={list_style}>
-                        {
+                        {                            
                             this.props.view.current_items_in_baskets.edges.map((item, i) => {
                                 return  <li name={i} key={i} className="mdl-list__item basketlistItem" style={listItem_style}>
                                 <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px"}}>
                                     <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "70px", marginTop: "-0px" }}></img>
                                     <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"10px"}}>
                                      {item.node.item.name}
+
                                     </span>
                                     <div>x{item.node.Amount}</div>
                                     
-                                     
+                                    
                                     
                                     
                                     <span style={{width:"100px", marginRight:"4px"}}>{item.node.item.price_in_agorot / 100} &#8362;</span>
@@ -150,7 +159,9 @@ class ItemsInBasketListSub extends React.Component {
                                             
                                         </span>
                                         <span style={{display: "inline-block", width: "140px"}}>
+
                                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" >
+
                                                 <i className="material-icons">note_add </i>
                                             </button>
                                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
@@ -160,7 +171,9 @@ class ItemsInBasketListSub extends React.Component {
                                                 <i className="material-icons">add</i>
                                             </button>
                                             
+
                                              <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+
                                                 <i className="material-icons">delete </i>
                                             </button>
                                         </span>
@@ -168,8 +181,8 @@ class ItemsInBasketListSub extends React.Component {
                                     </div>
                                 </span>
                                 </li>
-                           
-                         })
+                        
+                        })
                         }
                          <li   className="mdl-list__item " style={total_style}>
                                 <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px"}}>
@@ -197,10 +210,13 @@ class ItemsInBasketListSub extends React.Component {
 }
 
 const ItemsInBasketList = Relay.createContainer(ItemsInBasketListSub, {
+    initialVariables: {
+        show: false,
+    },
     fragments: {
         view: () => Relay.QL`
             fragment on view {
-                current_items_in_baskets(first: 100) {
+                current_items_in_baskets(first: 100) @include(if: $show) {
                     edges {
                         node {
                             ... on item_in_basket {

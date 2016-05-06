@@ -3,7 +3,6 @@
 import React from 'react';
 import Relay from 'react-relay';
 
-import LoggedUserInfo from './LoggedUserInfo.js'
 import RestaurantCreateCard from './RestaurantCreateCard.js'
 
 class ProfilePageSub extends React.Component {
@@ -28,21 +27,13 @@ class ProfilePageSub extends React.Component {
         }
         return (
             <div className="mdl-grid" style={style_grid}>        
-                <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_sidebar}>
-                    <LoggedUserInfo
-                        full_name={this.props.view.me.full_name}
-                        mail={this.props.view.me.mail}
-                        image_id={this.props.view.me.small_image.id}
-                    >
-                    </LoggedUserInfo>
-                </div>
                 <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
                 </div>
-                <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+                <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
                     <RestaurantCreateCard>
                     </RestaurantCreateCard>
                 </div>
-                <div className="mdl-cell mdl-cell--3-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
+                <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
                 </div>
             </div>
         );

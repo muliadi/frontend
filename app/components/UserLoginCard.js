@@ -44,7 +44,6 @@ class UserLoginCard extends React.Component {
         }),
             {
                 onFailure: (e) => {
-                    console.log(e)
                     this.setState({
                         communicating: false,
                         error: "שם משתמש או סיסמה שגויים",
@@ -80,7 +79,7 @@ class UserLoginCard extends React.Component {
         return (
             <div className="mdl-card" style={style_card}>
                 {
-                    this.props.is_logged ?
+                    this.props.role_type != "Anonymous" ?
                         <h6>כנס עם משתמש אחר</h6>                    
                       :
                         <h6>כנס עם משתמש קיים</h6>
