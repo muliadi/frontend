@@ -35,6 +35,7 @@ class ItemsInBasketListSub extends React.Component {
            
         }
         const totalPrice = this.props.view.current_items_in_baskets.edges.map((item, i) => (item.node.Amount*item.node.item.price_in_agorot)).reduce((a,b)=>(a+b), 0)/100;
+        const totalAmount = this.props.view.current_items_in_baskets.edges.map((item, i) => (item.node.Amount)).reduce((a,b)=>(a+b), 0);
 
         const listbox_style = {
             margin: "0",
@@ -54,6 +55,17 @@ class ItemsInBasketListSub extends React.Component {
             display: "table-row",
             //background: "#fff",
         }
+        
+         const total_style = {
+           padding: "0px",
+            listStyle: "none",
+            //border: "1px solid rgba(78,176,82,0.2)",
+            //display: "table-cell", 
+            width: "auto",
+            textAlign: "center",
+            minHeight: "110px",
+            background: "rgba(78,176,82,0.1)",
+         }
         const listItem_style = {
             //opacity:"0.4",
             padding: "0px",
@@ -85,11 +97,11 @@ class ItemsInBasketListSub extends React.Component {
 
         };
         return (
-            <div className="ItemsBasket" style={{ background: "#FFF", margin: "0px 4px 0px 4px" }}>
+            <div className="ItemsBasket" style={{ background: "#FFF", margin: "0px 2px 0px 2px" }}>
             
                 <div>
 
-                    <div className="mdl-grid" style={{ border: "2px solid rgba(78,176,82,0.3)", background: "rgba(78,176,82,0.1)" }}>
+                    <div className="mdl-grid" style={{ background: "rgba(78,176,82,0.1)" }}>
 
 
                         <div className="mdl-cell mdl-cell--5-col-desktop mdl-cell--5-col-tablet mdl-cell--4-col-phone" style={{ fontSize: "16px", color: "rgba(0,0,0,.54)", lineHeight: "25px" }}>
@@ -105,8 +117,10 @@ class ItemsInBasketListSub extends React.Component {
                             </button>
                         </div>
 
-                        <div className="mdl-cell mdl-cell--2-col-desktop mdl-cell--2-col-tablet mdl-cell--2-col-phone" >
-                            <img src="/static/shopping-cart.png" alt="Shopping Cart" style={{ height: "30px", marginTop: "-3px", position: "absolute" }}></img>
+                        <div className="mdl-cell mdl-cell--2-col-desktop mdl-cell--2-col-tablet mdl-cell--2-col-phone " style={{position: "relative", }} >
+                            <div className="material-icons mdl-badge mdl-badge--overlap " data-badge={totalAmount} style={{position: "absolute", left:"58px", top:"4px",zIndex:"2",color:"#fff"}} > </div>
+                            <img src="/static/shopping-cart.png" alt="Shopping Cart" style={{ height: "35px", marginTop: "-3px", position: "absolute", left:"10px", top:"0px",}}></img>
+                               
                         </div>
 
                     </div>
@@ -120,7 +134,7 @@ class ItemsInBasketListSub extends React.Component {
                                 return  <li name={i} key={i} className="mdl-list__item basketlistItem" style={listItem_style}>
                                 <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px"}}>
                                     <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "70px", marginTop: "-0px" }}></img>
-                                    <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right"}}>
+                                    <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"10px"}}>
                                      {item.node.item.name}
                                     </span>
                                     <div>x{item.node.Amount}</div>
@@ -136,17 +150,17 @@ class ItemsInBasketListSub extends React.Component {
                                             
                                         </span>
                                         <span style={{display: "inline-block", width: "140px"}}>
-                                           <button className="mdl-button mdl-js-button mdl-button--icon" >
+                                           <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" >
                                                 <i className="material-icons">note_add </i>
                                             </button>
-                                            <button className="mdl-button mdl-js-button mdl-button--icon">
+                                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                                                 <i className="material-icons">remove</i>
                                             </button>
-                                            <button className="mdl-button mdl-js-button mdl-button--icon" >
+                                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" >
                                                 <i className="material-icons">add</i>
                                             </button>
                                             
-                                             <button className="mdl-button mdl-js-button mdl-button--icon">
+                                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                                                 <i className="material-icons">delete </i>
                                             </button>
                                         </span>
@@ -157,10 +171,26 @@ class ItemsInBasketListSub extends React.Component {
                            
                          })
                         }
+                         <li   className="mdl-list__item " style={total_style}>
+                                <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px"}}>
+                                   
+                                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style={{minWidth:"100px", marginRight:"15px"}}> 
+                                                הזמן
+                                    </button>
+                                    <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"left"}}>
+                                    סה"כ: 
+                                    </span>
+                                    <div> </div>
+                                                                        
+                                    <span style={{minWidth:"90px",width:"100px", marginRight:"4px"}}>{totalPrice} &#8362;</span>
+                                    
+                                  
+                                    
+                                </span>
+                                </li>
                     </ul>
                 </div>
                 
-                <div>{totalPrice} &#8362;</div>
             </div>
         );
     }
