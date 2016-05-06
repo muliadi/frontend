@@ -117,26 +117,40 @@ class ItemsInBasketListSub extends React.Component {
                     <ul className="mdl-list" style={list_style}>
                         {
                             this.props.view.current_items_in_baskets.edges.map((item, i) => {
-                                return  <li name={i} key={i} className="mdl-list__item basketlistItem" style={listItem_style} 
-                                >
-                                <span className="mdl-list__item-primary-content"
-                                
-                                >
+                                return  <li name={i} key={i} className="mdl-list__item basketlistItem" style={listItem_style}>
+                                <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px"}}>
                                     <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "70px", marginTop: "-0px" }}></img>
                                     <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right"}}>
                                      {item.node.item.name}
                                     </span>
-                                    <span>x{item.node.Amount}</span>
+                                    <div>x{item.node.Amount}</div>
+                                    
+                                     
+                                    
+                                    
                                     <span style={{width:"100px", marginRight:"4px"}}>{item.node.item.price_in_agorot / 100} &#8362;</span>
                                     
-                                    <div id="binB" className= "basket-binButton" ><button className="mdl-button mdl-js-button mdl-button--icon">
-                                            <i className="material-icons">delete </i>
-                                        </button>
-                                        <div className="mdl-layout-spacer"></div>
-                                        <button className="mdl-button mdl-js-button mdl-button--icon">
-                                            <i className="material-icons">note_add </i>
-                                        </button>
-                                    
+                                    <div id="binB" className= "basket-binButton" >
+                                        <div >
+                                        <span>
+                                            
+                                        </span>
+                                        <span style={{display: "inline-block", width: "140px"}}>
+                                           <button className="mdl-button mdl-js-button mdl-button--icon" >
+                                                <i className="material-icons">note_add </i>
+                                            </button>
+                                            <button className="mdl-button mdl-js-button mdl-button--icon">
+                                                <i className="material-icons">remove</i>
+                                            </button>
+                                            <button className="mdl-button mdl-js-button mdl-button--icon" >
+                                                <i className="material-icons">add</i>
+                                            </button>
+                                            
+                                             <button className="mdl-button mdl-js-button mdl-button--icon">
+                                                <i className="material-icons">delete </i>
+                                            </button>
+                                        </span>
+                                        </div>
                                     </div>
                                 </span>
                                 </li>
