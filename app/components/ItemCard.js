@@ -178,10 +178,9 @@ class ItemCard extends React.Component {
                     </button>
 
                     <div style={style_amount_text}  id={__id+"_2"}>
-                    0
+                        {this.props.amount_in_basket}
                     </div>
-                    
-                    
+                                        
                     <button
                         style={style_add_to_basket_button}
                         id={__id+"_1"}
