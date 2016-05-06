@@ -163,7 +163,7 @@ class ItemCard extends React.Component {
                 </div>
                  
                  {  
-                           this.props.is_logged ?       
+                           this.props.role_type=='Restaurant' ?       
                 <div className="mdl-card__actions mdl-card--border" style={style_actions}>
                     <button
                         style={style_add_to_basket_button}

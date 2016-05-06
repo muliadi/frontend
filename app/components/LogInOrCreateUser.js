@@ -24,13 +24,13 @@ class LogInOrCreateUser extends React.Component {
             <div className="mdl-card mdl-shadow--8dp" style={style_card}>
                 <div className="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                     {
-                        this.props.is_logged ?
+                        this.props.role_type != 'Anonymous' ?
                             <div>
                                 <div className="mdl-tabs__tab-bar">
                                     <a href="#login-panel" className="mdl-tabs__tab is_active">שינוי משתמש</a>
                                 </div>
                                 <div className="mdl-tabs__panel is-active" id="login-panel">
-                                    <UserLoginCard is_logged={true}></UserLoginCard>
+                                    <UserLoginCard role_type={this.props.role_type}></UserLoginCard>
                                 </div>
                             </div>
                             :
@@ -44,7 +44,7 @@ class LogInOrCreateUser extends React.Component {
                                     <UserCreateCard></UserCreateCard>
                                 </div>
                                 <div className="mdl-tabs__panel" id="login-panel">
-                                    <UserLoginCard is_logged={false}></UserLoginCard>
+                                    <UserLoginCard role_type={this.props.role_type}></UserLoginCard>
                                 </div>
                                 <div className="mdl-tabs__panel" id="forgotten-password-panel">
                                     <ForgottenPasswordCard></ForgottenPasswordCard>

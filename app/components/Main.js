@@ -51,13 +51,16 @@ const MainSub = class extends React.Component {
         
         this.setState({sidebar: false, argNum: argNum, arg1: arg1, arg2: arg2, itemCat: itemCat});
         
-        if (!this.props.view.me.is_logged) {            
+        if (this.props.view.me.role_type=="Anonymous") {
+            
+            // user is not logged:
+                        
             switch (arg1) {
                 case "terms_and_conditions":
                     this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions> });            
                     return;
                 case "login":
-                    this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
+                    this.setState({pageToRender: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser> });
                     return;  
                 case "sapakim":
                     this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: false })
@@ -79,34 +82,31 @@ const MainSub = class extends React.Component {
             }
         }
 
-        // User has a shop        
+        // user is logged
         
         if (argNum>0) {
+            const sidebar = this.props.view.me.role_type=='Restaurant';
             switch (arg1) {
                 case "terms_and_conditions":
-                    this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>, sidebar: true });            
+                    this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>, sidebar: sidebar });            
                     break;
                 case "admin":
-                    this.props.relay.setVariables({includeItemsData: true, includeUsersData: true, includeSapakimData: true});                        
-                    this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>, sidebar: true });
+                    this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>, sidebar: sidebar });
                     break;
                 case "items":
-                    this.props.relay.setVariables({includeItemsData: true});                        
-                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>, sidebar: true });
+                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>, sidebar: sidebar });
                     break;
                 case "users":
-                    this.props.relay.setVariables({includeUsersData: true});                        
-                    this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>, sidebar: true });
+                    this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>, sidebar: sidebar });
                     break;
                 case "sapakim":
-                    this.props.relay.setVariables({includeSapakimData: true});                        
-                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: true });
+                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: sidebar });
                     break;                        
                 case "login":
-                    this.setState({pageToRender: <LogInOrCreateUser is_logged={this.props.view.me.is_logged}></LogInOrCreateUser> });
+                    this.setState({pageToRender: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser> });
                     break;                        
                 case "profile":
-                    this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage>, sidebar: true });
+                    this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage>, sidebar: sidebar });
                     break;                        
                 case "mail_verification":
                     if (argNum!=2) {
@@ -167,9 +167,8 @@ const Main = Relay.createContainer(MainSub, {
                 ${SapakGrid.getFragment('view')},
                 ${ProfilePage.getFragment('view')},
                 me {
-                    is_logged
                     is_founder
-                    restaurants
+                    role_type
                     small_image {
                         id
                     }

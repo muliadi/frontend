@@ -42,7 +42,7 @@ class ItemGridSub extends React.Component {
                             return item.node.small_image.id != "0" ?
                                 <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
                                     <ItemCard
-                                        is_logged={this.props.view.me.is_logged}
+                                        role_type={this.props.view.me.role_type}
                                         name={item.node.name}
                                         price={item.node.price_in_agorot/100}
                                         image_id={item.node.small_image.id}
@@ -72,7 +72,7 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
         view: () => Relay.QL`
             fragment on view {
                 me {
-                    is_logged
+                    role_type
                 }
                 items(first: 30, parentCategoryID: $parentCategoryID) @include(if: $show) {
                     edges{

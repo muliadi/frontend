@@ -51,9 +51,6 @@ const SapakGrid = Relay.createContainer(SapakGridSub, {
     fragments: {
         view: () => Relay.QL`
             fragment on view {
-                me {
-                    is_logged
-                }
                 sapakim(first:30) @include(if: $show) {
                     edges {
                         node {

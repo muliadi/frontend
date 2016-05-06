@@ -14,7 +14,7 @@ class MainFrameSub extends React.Component {
         componentHandler.upgradeDom();
     } 
     render() {
-        const avatar_path = this.props.view.me.is_logged ?
+        const avatar_path = this.props.view.me.role_type != "Anonymous" ?
             "/static/content/"+this.props.view.me.small_image.id
         :
             "static/login.png";
@@ -70,7 +70,6 @@ class MainFrameSub extends React.Component {
                     },
                 });            
         }
-                                     
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242", padding:"0 60px"}}>
@@ -103,7 +102,7 @@ class MainFrameSub extends React.Component {
                                 href="/#/sapakim">ספקים</a>
                                
                              {
-                                 this.props.view.me.is_logged ?
+                                 this.props.view.me.role_type != "Anonymous" ?
                                     <div style={{flexDirection:"row", display:"flex", alignItems:"center", margin:"20px 0px 20px 0px"}}>
                                         <div style={style_avatar}
                                             id="avatar_user"
@@ -145,7 +144,7 @@ class MainFrameSub extends React.Component {
                     <img src="static/Orderoo-logo.png" style={{height:"auto", width:"110px", marginTop:"20px", marginLeft:"auto", marginRight:"auto"}}></img>
                     <nav className="mdl-navigation">
                         {
-                                 this.props.view.me.is_logged ?
+                                 this.props.view.me.role_type != "Anonymous" ?
                                     <div style={{flexDirection:"row", display:"flex", alignItems:"center", margin:"20px 0px 20px 0px"}}>
                                         <div style={style_avatar}
                                             id="avatar_user"
@@ -205,7 +204,7 @@ class MainFrameSub extends React.Component {
                 <main className="mdl-layout__content">
                     <div className="page-content" style={style_page_content}>
                         {
-                            (this.props.sidebar && this.props.view.me.is_logged )?
+                            (this.props.sidebar && this.props.view.me.role_type=="Restaurant" )?
                                 <div className="mdl-grid">
                                    <div className="mdl-layout-spacer"></div>
                                       
@@ -219,30 +218,19 @@ class MainFrameSub extends React.Component {
                                     <div className="mdl-layout-spacer"></div>                                      
                                 </div>
                             :
-                               
-                                                                   
-                                        <div>
-                                            {this.props.children}
-                                        </div> 
-                                    
+                                <div>
+                                    {this.props.children}
+                                </div>                                     
                         }
-                        
                     </div>
-    
                     <div className="footer-pusher" />
-    
                     <footer className="mdl-mini-footer">
-                    
-                    
                         <div className="mdl-mini-footer--middle-section " style={{margin:"auto"}} >
                         <div style={{direction: "ltr"}}>  Copyright © 2016 CrazyDuck Ltd. All rights reserved.</div>
-                            
                                 <ul className="mdl-mini-footer--link-list">
                                     <li style={{margin:"auto"}}><a href="#/terms_and_conditions">תנאי שימוש</a></li>
-                                    
                                 </ul>
                             </div>
-                    
                     </footer>
                 </main>
                 <div aria-live="assertive" aria-atomic="true" aria-relevant="text" className="mdl-snackbar mdl-js-snackbar">
@@ -260,7 +248,7 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
             fragment on view {
                 ${ItemsInBasketList.getFragment('view')},                
                 me {
-                    is_logged
+                    role_type
                     is_founder
                     mail
                     full_name
