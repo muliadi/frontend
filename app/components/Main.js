@@ -37,13 +37,15 @@ const MainSub = class extends React.Component {
         }
         window.onhashchange = this.getPageToRender.bind(this);        
     }    
-    getPageToRender() {
+    getPageToRender() {        
         this.setState({sidebar: false});
         
         const args = document.location.hash.slice(1).split("/").filter((s)=>(s!=""));
         const argNum = args.length;
         const arg1 = argNum >= 1 ? args[0] : null;
-        const arg2 = argNum >= 2 ? args[1] : null;        
+        const arg2 = argNum >= 2 ? args[1] : null;
+        
+        const itemCat = argNum > 1 ? arg2 : "all"
 
         if (!this.props.view.me.is_logged) {
             
@@ -58,8 +60,7 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>, sidebar: true });
                     break;      
                 case "items":
-                    const cat = argNum > 1 ? arg2 : ""
-                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={cat}></ItemGrid>, sidebar: true });
+                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>, sidebar: true });
                     break;                      
                 case "mail_verification":
                     if (argNum!=2) {
@@ -93,7 +94,7 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>, sidebar: true });
                     break;
                 case "items":
-                    this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid>, sidebar: true });
+                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>, sidebar: true });
                     break;
                 case "users":
                     this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>, sidebar: true });
