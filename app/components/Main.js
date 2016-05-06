@@ -149,8 +149,6 @@ const MainSub = class extends React.Component {
         this.fixFooter();
     }
     render() {   
-        console.log("main is rendering...")
-        console.log(this.props);
         return (
             <MainFrame view={this.props.view} sidebar={this.state.sidebar}>
                 {this.state.pageToRender}

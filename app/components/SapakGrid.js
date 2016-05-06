@@ -20,8 +20,6 @@ class SapakGridSub extends React.Component {
             marginLeft: "auto",
             marginRight: "auto",
         };   
-        console.log("sapakim_props:");
-        console.log(this.props);     
         return (
             <div className="mdl-grid" style={style_grid}>
                 {
