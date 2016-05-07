@@ -5,6 +5,9 @@ import Relay from 'react-relay';
 
 import EmptyBasketsMutation from '../mutations/emptyBaskets.js'
 
+import AddItemToBasketMutation from "../mutations/addItemToBasket.js"
+
+
 class ItemsInBasketListSub extends React.Component {
     componentWillMount() {
         this.props.relay.setVariables({show:true});
@@ -23,6 +26,47 @@ class ItemsInBasketListSub extends React.Component {
                 },
             });
     }
+    handleAddItemToBasket(item) {
+        console.log("Adding!")
+        Relay.Store.commitUpdate(new AddItemToBasketMutation({
+            amount: "1",
+            remarks: "just testing remarks",
+            itemID: item.node.item.id,
+        }),
+            {
+                onFailure: (e) => {
+                    console.log(e.getError())
+                },
+                onSuccess: () => {
+                    var notification = document.querySelector('.mdl-js-snackbar');
+                    notification.MaterialSnackbar.showSnackbar(
+                    {
+                        message:  item.node.item.name +' הוסף בהצלחה'
+                    }
+                    );
+                },
+            });
+    } 
+    handleRemoveItemToBasket(item) {
+        Relay.Store.commitUpdate(new AddItemToBasketMutation({
+            amount: "-1",
+            remarks: "just testing remarks",
+            itemID: item.node.itemID,
+        }),
+            {
+                onFailure: (e) => {
+                    console.log(e.getError())
+                },
+                onSuccess: () => {
+                    var notification = document.querySelector('.mdl-js-snackbar');
+                    notification.MaterialSnackbar.showSnackbar(
+                    {
+                        message:  item.node.item.name +' הוסף בהצלחה'
+                    }
+                    );
+                },
+            });
+    }     
     render() {
         
         if (!('current_items_in_baskets' in this.props.view)) {
@@ -144,7 +188,6 @@ class ItemsInBasketListSub extends React.Component {
                                     <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "70px", marginTop: "-0px" }}></img>
                                     <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"10px"}}>
                                      {item.node.item.name}
-
                                     </span>
                                     <div>x{item.node.Amount}</div>
                                     
@@ -170,7 +213,8 @@ class ItemsInBasketListSub extends React.Component {
                                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                                                 <i className="material-icons">remove</i>
                                             </button>
-                                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" >
+                                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
+                                                onClick={()=>{this.handleAddItemToBasket(item)}} >
                                                 <i className="material-icons">add</i>
                                             </button>
                                             
@@ -226,6 +270,7 @@ const ItemsInBasketList = Relay.createContainer(ItemsInBasketListSub, {
                               Amount
                               remarks
                                 item {
+                                    id
                                     name
                                     price_in_agorot
                                     small_image {

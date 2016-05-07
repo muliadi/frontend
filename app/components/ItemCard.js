@@ -9,7 +9,7 @@ class ItemCard extends React.Component {
     componentDidMount() {
         componentHandler.upgradeDom();
     }
-    handleAddItemToBasket(event) {
+    handleAddItemToBasket() {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "1",
             remarks: "just testing remarks",
@@ -29,7 +29,7 @@ class ItemCard extends React.Component {
                 },
             });
     } 
-    handleRemoveItemsFromBasket(event) {
+    handleRemoveItemsFromBasket() {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "-1",
             remarks: "just testing remarks",
@@ -49,7 +49,7 @@ class ItemCard extends React.Component {
                 },
             });
     }       
-    handleRemoveItemToBasket(event) {
+    handleRemoveItemToBasket() {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "-1",
             remarks: "just testing remarks",
