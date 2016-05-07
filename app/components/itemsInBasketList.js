@@ -152,7 +152,13 @@ class ItemsInBasketListSub extends React.Component {
                                     
                                     
                                     <span style={{width:"100px", marginRight:"4px"}}>{item.node.item.price_in_agorot / 100} &#8362;</span>
-                                    
+                                     
+                                     <div  className= "basket-noteButton" >
+                                      <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style={{color: "rgb(220, 220, 0)"}} >
+
+                                                <i className="material-icons">note_add </i>
+                                            </button>
+                                     </div>
                                     <div id="binB" className= "basket-binButton" >
                                         <div >
                                         <span>
@@ -160,10 +166,7 @@ class ItemsInBasketListSub extends React.Component {
                                         </span>
                                         <span style={{display: "inline-block", width: "140px"}}>
 
-                                           <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" >
-
-                                                <i className="material-icons">note_add </i>
-                                            </button>
+                                          
                                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                                                 <i className="material-icons">remove</i>
                                             </button>
