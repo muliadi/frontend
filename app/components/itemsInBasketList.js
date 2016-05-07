@@ -41,7 +41,8 @@ class ItemsInBasketListSub extends React.Component {
                     var notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
                     {
-                        message:  item.node.item.name +' הוסף בהצלחה'
+                        message:  item.node.item.name +' הוסף בהצלחה',
+                        timeout: 700
                     }
                     );
                 },
@@ -62,7 +63,8 @@ class ItemsInBasketListSub extends React.Component {
                     var notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
                     {
-                        message:  item.node.item.name +' הוסר בהצלחה'
+                        message:  item.node.item.name +' הוסר בהצלחה',
+                        timeout: 700
                     }
                     );
                 },

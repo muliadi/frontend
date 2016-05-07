@@ -23,7 +23,8 @@ class ItemCard extends React.Component {
                     var notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
                     {
-                        message:  this.props.name +' הוסף בהצלחה'
+                        message:  this.props.name +' הוסף בהצלחה',
+                        timeout: 700
                     }
                     );
                 },
@@ -43,7 +44,8 @@ class ItemCard extends React.Component {
                     var notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
                     {
-                        message: 'המוצר הוסר'
+                        message: 'המוצר הוסר',
+                        timeout: 700
                     }
                     );
                 },
