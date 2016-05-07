@@ -26,11 +26,11 @@ class ItemsInBasketListSub extends React.Component {
                 },
             });
     }
-    handleAddItemToBasket(item) {
+    handleAddItemToBasket(item, amount, remarks) {
         console.log("Adding!")
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
-            amount: "1",
-            remarks: "just testing remarks",
+            amount: amount,
+            remarks: remarks==null? item.node.remarks : remarks,
             itemID: item.node.item.id,
         }),
             {
@@ -48,28 +48,6 @@ class ItemsInBasketListSub extends React.Component {
                 },
             });
     } 
-    handleRemoveItemFromBasket(item, amountToRemove) {
-        console.log("Removing!")
-        Relay.Store.commitUpdate(new AddItemToBasketMutation({
-            amount: amountToRemove*-1,
-            remarks: "just testing remarks",
-            itemID: item.node.item.id,
-        }),
-            {
-                onFailure: (e) => {
-                    console.log(e.getError())
-                },
-                onSuccess: () => {
-                    var notification = document.querySelector('.mdl-js-snackbar');
-                    notification.MaterialSnackbar.showSnackbar(
-                    {
-                        message:  item.node.item.name +' הוסר בהצלחה',
-                        timeout: 700
-                    }
-                    );
-                },
-            });
-    }     
     render() {
         
         if (!('current_items_in_baskets' in this.props.view)) {
@@ -194,9 +172,6 @@ class ItemsInBasketListSub extends React.Component {
                                     </span>
                                     <div>x{item.node.Amount}</div>
                                     
-                                    
-                                    
-                                    
                                     <span style={{minWidth:"110px", marginRight:"4px"}}>{item.node.item.price_in_agorot * item.node.Amount/ 100} &#8362;</span>
                                      
                                      <div  className= "basket-noteButton" >
@@ -211,21 +186,18 @@ class ItemsInBasketListSub extends React.Component {
                                             
                                         </span>
                                         <span style={{display: "inline-block", width: "140px"}}>
-
                                           
                                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                                onClick={()=>{this.handleRemoveItemFromBasket(item,1)}} >
+                                                onClick={()=>{this.handleAddItemToBasket(item, -1, null)}} >
                                                 <i className="material-icons">remove</i>
                                             </button>
                                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                                onClick={()=>{this.handleAddItemToBasket(item)}} >
+                                                onClick={()=>{this.handleAddItemToBasket(item, 1, null)}} >
                                                 <i className="material-icons">add</i>
                                             </button>
                                             
-
                                              <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                                onClick={()=>{this.handleRemoveItemFromBasket(item,item.node.Amount)}} >
-
+                                                onClick={()=>{this.handleAddItemToBasket(item, -item.node.Amount, null)}} >
                                                 <i className="material-icons">delete </i>
                                             </button>
                                         </span>
