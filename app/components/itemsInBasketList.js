@@ -47,11 +47,12 @@ class ItemsInBasketListSub extends React.Component {
                 },
             });
     } 
-    handleRemoveItemToBasket(item) {
+    handleRemoveItemFromBasket(item, amountToRemove) {
+        console.log("Removing!")
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
-            amount: "-1",
+            amount: amountToRemove*-1,
             remarks: "just testing remarks",
-            itemID: item.node.itemID,
+            itemID: item.node.item.id,
         }),
             {
                 onFailure: (e) => {
@@ -61,7 +62,7 @@ class ItemsInBasketListSub extends React.Component {
                     var notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
                     {
-                        message:  item.node.item.name +' הוסף בהצלחה'
+                        message:  item.node.item.name +' הוסר בהצלחה'
                     }
                     );
                 },
@@ -194,7 +195,7 @@ class ItemsInBasketListSub extends React.Component {
                                     
                                     
                                     
-                                    <span style={{width:"100px", marginRight:"4px"}}>{item.node.item.price_in_agorot / 100} &#8362;</span>
+                                    <span style={{minWidth:"110px", marginRight:"4px"}}>{item.node.item.price_in_agorot * item.node.Amount/ 100} &#8362;</span>
                                      
                                      <div  className= "basket-noteButton" >
                                       <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style={{color: "rgb(220, 220, 0)"}} >
@@ -210,7 +211,8 @@ class ItemsInBasketListSub extends React.Component {
                                         <span style={{display: "inline-block", width: "140px"}}>
 
                                           
-                                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
+                                                onClick={()=>{this.handleRemoveItemFromBasket(item,1)}} >
                                                 <i className="material-icons">remove</i>
                                             </button>
                                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
@@ -219,7 +221,8 @@ class ItemsInBasketListSub extends React.Component {
                                             </button>
                                             
 
-                                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
+                                                onClick={()=>{this.handleRemoveItemFromBasket(item,item.node.Amount)}} >
 
                                                 <i className="material-icons">delete </i>
                                             </button>
@@ -242,7 +245,7 @@ class ItemsInBasketListSub extends React.Component {
                                     </span>
                                     <div> </div>
                                                                         
-                                    <span style={{minWidth:"90px",width:"100px", marginRight:"4px"}}>{totalPrice} &#8362;</span>
+                                    <span style={{minWidth:"110px", marginRight:"4px"}}>{totalPrice} &#8362;</span>
                                     
                                   
                                     
