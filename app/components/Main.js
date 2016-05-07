@@ -37,7 +37,7 @@ const MainSub = class extends React.Component {
             argNum: 0,
             arg1: "",
             arg2: "",
-            itemCat: "",
+            maxPrices: [],
         }
         window.onhashchange = this.getPageToRender.bind(this);        
     }    
@@ -45,16 +45,38 @@ const MainSub = class extends React.Component {
         const args = document.location.hash.slice(1).split("/").filter((s)=>(s!=""));
         const argNum = args.length;
         const arg1 = argNum >= 1 ? args[0] : null;
-        const arg2 = argNum >= 2 ? args[1] : null;        
-
-        const itemCat = argNum > 1 ? arg2 : "all"
+        const arg2 = argNum >= 2 ? args[1] : null;
         
-        this.setState({sidebar: false, argNum: argNum, arg1: arg1, arg2: arg2, itemCat: itemCat});
+
+        const includeCategories = args.filter((p)=>(p.startsWith("include_category_"))).map((p)=>(p.slice(length("include_category_".length))))
+        const excludeCategories = args.filter((p)=>(p.startsWith("exclude_category_"))).map((p)=>(p.slice(length("exclude_category_".length))))
+        
+        const includeVendors = args.filter((p)=>(p.startsWith("include_vendor_"))).map((p)=>(p.slice(length("include_vendor_".length))))
+        const excludeVendors = args.filter((p)=>(p.startsWith("exclude_vendor_"))).map((p)=>(p.slice(length("exclude_vendor_".length))))
+
+        const includePackagings = args.filter((p)=>(p.startsWith("include_packaging_"))).map((p)=>(p.slice(length("include_packaging_".length))))
+        const excludePackagings = args.filter((p)=>(p.startsWith("exclude_packaging_"))).map((p)=>(p.slice(length("exclude_packaging_".length))))
+
+        const maxPrices = args.filter((p)=>(p.startsWith("max_price_"))).map((p)=>(p.slice(length("max_price_".length))))
+        const minPrices = args.filter((p)=>(p.startsWith("min_price_"))).map((p)=>(p.slice(length("min_price_".length))))
+        
+        console.log(includeCategories)
+        console.log(excludeCategories)
+        console.log(includeVendors)
+        console.log(excludeVendors)
+        console.log(includePackagings)
+        console.log(excludePackagings)
+        console.log(maxPrices)
+        console.log(minPrices)
+
+
+        this.setState({sidebar: false, argNum: argNum, arg1: arg1, arg2: arg2, maxPrices: maxPrices.slice(0)});
         
         if (this.props.view.me.role_type=="Anonymous") {
             
             // user is not logged:
-                        
+                  console.log("anon: ");
+                  console.log(maxPrices);      
             switch (arg1) {
                 case "terms_and_conditions":
                     this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions> });            
@@ -62,12 +84,12 @@ const MainSub = class extends React.Component {
                 case "login":
                     this.setState({pageToRender: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser> });
                     return;  
+                    
                 case "sapakim":
                     this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>})
                     return;      
                 case "items":
-                    this.props.relay.setVariables({includeItemsData: true});                        
-                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>});
+                    this.setState({pageToRender:<ItemGrid view={this.props.view}></ItemGrid>});
                     return;                      
                 case "mail_verification":
                     if (argNum!=2) {
@@ -93,7 +115,11 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>});
                     break;
                 case "items":
-                    this.setState({pageToRender: <ItemGrid view={this.props.view} category={itemCat}></ItemGrid>});
+                    this.setState({pageToRender:<ItemGrid
+                        includePackagings={includeCategories}
+                            view={this.props.view}
+                             >
+                        </ItemGrid>});
                     break;
                 case "users":
                     this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>});

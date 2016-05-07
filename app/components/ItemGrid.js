@@ -10,7 +10,6 @@ class ItemGridSub extends React.Component {
    constructor(props) {
         super(props)
         this.props.relay.setVariables({
-            parentCategoryID: this.props.category,
             show: true,
             show_num_in_basket: this.props.view.me.role_type=="Restaurant",
         });
@@ -76,7 +75,6 @@ class ItemGridSub extends React.Component {
 
 const ItemGrid = Relay.createContainer(ItemGridSub, {
     initialVariables: {
-        parentCategoryID: "none",
         show: false,
         show_num_in_basket: false,
     },
@@ -96,7 +94,7 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                         }
                     }
                 }
-                items(first: 30, parentCategoryID: $parentCategoryID) @include(if: $show) {
+                items(first: 30) @include(if: $show) {
                     edges{
                         node {
                             ... on item {
