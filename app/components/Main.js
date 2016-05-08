@@ -89,7 +89,7 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>})
                     return;      
                 case "items":
-                    this.setState({pageToRender:<ItemGrid view={this.props.view}></ItemGrid>});
+                    this.setState({pageToRender:ItemGrid({props:{relay:this.props.relay, view: this.props.view, arr: ["1","2","3"]}})});//<ItemGrid view={this.props.view}></ItemGrid>});
                     return;                      
                 case "mail_verification":
                     if (argNum!=2) {
