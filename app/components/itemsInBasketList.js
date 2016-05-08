@@ -27,7 +27,6 @@ class ItemsInBasketListSub extends React.Component {
             });
     }
     handleAddItemToBasket(item, amount, remarks) {
-        console.log("Adding!")
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: amount,
             remarks: remarks==null? item.node.remarks : remarks,
