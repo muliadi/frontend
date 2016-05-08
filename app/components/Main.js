@@ -13,70 +13,38 @@ import MailVerification from './MailVerification.js';
 import LogInOrCreateUser from './LogInOrCreateUser.js'
 import ProfilePage from './ProfilePage.js'
 import AdminPage from './AdminPage.js'
-
-// TODO: move two functions below to own module...
-function writeCookie (key, value, days) {
-    var date = new Date();
-    // Default at 365 days.
-    days = days || 365;
-    // Get unix milliseconds at current time plus number of days
-    date.setTime(+ date + (days * 86400000)); //24 * 60 * 60 * 1000
-    document.cookie = key + "=" + value + "; expires=" + date.toGMTString()+"; path=/";
-};
-function setSapakimCookie(val) {
-  writeCookie("SAPAKIM", val, 101)
-}
-
+import SetSapakimCookie from '../utils/cookies.js'
 
 const MainSub = class extends React.Component {
     constructor(props) {
         super(props)
         this.state ={
             pageToRender: null,
-            sidebar: false,
-            argNum: 0,
-            arg1: "",
-            arg2: "",
-            maxPrices: [],
         }
-        window.onhashchange = this.getPageToRender.bind(this);        
-    }    
+        window.onhashchange = this.getPageToRender.bind(this);
+        SetSapakimCookie(this.props.view.current_session)
+    } 
+    componentWillMount() {
+        this.getPageToRender();                
+    }   
     getPageToRender() {        
         const args = document.location.hash.slice(1).split("/").filter((s)=>(s!=""));
         const argNum = args.length;
         const arg1 = argNum >= 1 ? args[0] : null;
-        const arg2 = argNum >= 2 ? args[1] : null;
         
-
-        const includeCategories = args.filter((p)=>(p.startsWith("include_category_"))).map((p)=>(p.slice(length("include_category_".length))))
-        const excludeCategories = args.filter((p)=>(p.startsWith("exclude_category_"))).map((p)=>(p.slice(length("exclude_category_".length))))
-        
-        const includeVendors = args.filter((p)=>(p.startsWith("include_vendor_"))).map((p)=>(p.slice(length("include_vendor_".length))))
-        const excludeVendors = args.filter((p)=>(p.startsWith("exclude_vendor_"))).map((p)=>(p.slice(length("exclude_vendor_".length))))
-
-        const includePackagings = args.filter((p)=>(p.startsWith("include_packaging_"))).map((p)=>(p.slice(length("include_packaging_".length))))
-        const excludePackagings = args.filter((p)=>(p.startsWith("exclude_packaging_"))).map((p)=>(p.slice(length("exclude_packaging_".length))))
-
-        const maxPrices = args.filter((p)=>(p.startsWith("max_price_"))).map((p)=>(p.slice(length("max_price_".length))))
-        const minPrices = args.filter((p)=>(p.startsWith("min_price_"))).map((p)=>(p.slice(length("min_price_".length))))
-        
-        console.log(includeCategories)
-        console.log(excludeCategories)
-        console.log(includeVendors)
-        console.log(excludeVendors)
-        console.log(includePackagings)
-        console.log(excludePackagings)
-        console.log(maxPrices)
-        console.log(minPrices)
-
-
-        this.setState({sidebar: false, argNum: argNum, arg1: arg1, arg2: arg2, maxPrices: maxPrices.slice(0)});
+        const getFilterArgs = (name) => (args.filter((p)=>(p.startsWith(name))).map((p)=>(p.slice(name.length))));
+        const includeCategories = getFilterArgs("include_category_");
+        const excludeCategories = getFilterArgs("exclude_category_");        
+        const includeVendors = getFilterArgs("include_vendor_");
+        const excludeVendors = getFilterArgs("exclude_vendor_");
+        const includePackagings = getFilterArgs("include_packaging_");
+        const excludePackagings = getFilterArgs("exclude_packaging_");
+        const maxPrices = getFilterArgs("max_price_");
+        const minPrices = getFilterArgs("min_price_");
         
         if (this.props.view.me.role_type=="Anonymous") {
             
             // user is not logged:
-                  console.log("anon: ");
-                  console.log(maxPrices);      
             switch (arg1) {
                 case "terms_and_conditions":
                     this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions> });            
@@ -89,7 +57,18 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>})
                     return;      
                 case "items":
-                    this.setState({pageToRender:ItemGrid({props:{relay:this.props.relay, view: this.props.view, arr: ["1","2","3"]}})});//<ItemGrid view={this.props.view}></ItemGrid>});
+                    this.setState({pageToRender:
+                        <ItemGrid view={this.props.view}
+                            includeCategories={includeCategories}
+                            excludeCategories={excludeCategories}
+                            includeVendors={includeVendors}
+                            excludeVendors={excludeVendors}
+                            includePackagings={includePackagings}
+                            excludePackagings={excludePackagings}
+                            maxPriceInAgorot={maxPrices}
+                            minPriceInAgorot={minPrices}
+                        >
+                        </ItemGrid>})
                     return;                      
                 case "mail_verification":
                     if (argNum!=2) {
@@ -118,6 +97,14 @@ const MainSub = class extends React.Component {
                     this.setState({pageToRender:<ItemGrid
                         includePackagings={includeCategories}
                             view={this.props.view}
+                            includeCategories={includeCategories}
+                            excludeCategories={excludeCategories}
+                            includeVendors={includeVendors}
+                            excludeVendors={excludeVendors}
+                            includePackagings={includePackagings}
+                            excludePackagings={excludePackagings}
+                            maxPriceInAgorot={maxPrices}
+                            minPriceInAgorot={minPrices}
                              >
                         </ItemGrid>});
                     break;
@@ -149,10 +136,6 @@ const MainSub = class extends React.Component {
             this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid> });            
         }            
     }        
-    componentWillMount() {
-        setSapakimCookie(this.props.view.current_session)
-        this.getPageToRender();
-    }
     fixFooter() {
         const c = document.getElementsByClassName("page-content")[0]
         const p = document.getElementsByClassName("footer-pusher")[0]

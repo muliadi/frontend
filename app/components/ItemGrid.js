@@ -7,17 +7,44 @@ import ItemCard from './ItemCard.js'
 import ItemCreateCard from './ItemCreateCard.js'
 
 class ItemGridSub extends React.Component {
-   constructor(props) {
-        super(props)
+   componentWillMount() {
         this.props.relay.setVariables({
+            maxPriceInAgorot: this.props.maxPriceInAgorot,
+            minPriceInAgorot: this.props.minPriceInAgorot,
+            includeCategories: this.props.includeCategories,
+            excludeCategories: this.props.excludeCategories,
+            includeVendors: this.props.includeVendors,
+            excludeVendors: this.props.excludeVendors,
+            includePackagings: this.props.includePackagings,
+            excludePackagings: this.props.excludePackagings,
             show: true,
             show_num_in_basket: this.props.view.me.role_type=="Restaurant",
         });
     }
     componentWillReceiveProps(nextProps) {
-        this.props.relay.setVariables({
-            parentCategoryID: nextProps.category
-        });
+        if (
+            (!nextProps.maxPriceInAgorot.equals(this.props.maxPriceInAgorot)) ||
+            (!nextProps.minPriceInAgorot.equals(this.props.minPriceInAgorot)) ||
+            (!nextProps.includeCategories.equals(this.props.includeCategories)) ||
+            (!nextProps.excludeCategories.equals(this.props.excludeCategories)) ||
+            (!nextProps.includeVendors.equals(this.props.includeVendors)) ||
+            (!nextProps.excludeVendors.equals(this.props.excludeVendors)) ||
+            (!nextProps.includePackagings.equals(this.props.includePackagings)) ||
+            (!nextProps.excludePackagings.equals(this.props.excludePackagings))
+            ) {
+            this.props.relay.setVariables({
+                maxPriceInAgorot: nextProps.maxPriceInAgorot,
+                minPriceInAgorot: nextProps.minPriceInAgorot,
+                includeCategories: nextProps.includeCategories,
+                excludeCategories: nextProps.props.excludeCategories,
+                includeVendors: nextProps.props.includeVendors,
+                excludeVendors: nextProps.props.excludeVendors,
+                includePackagings: nextProps.props.includePackagings,
+                excludePackagings: nextProps.props.excludePackagings,                
+                show: true,
+                show_num_in_basket: this.props.view.me.role_type=="Restaurant",
+            });
+        }
     }
     componentDidMount() {
         componentHandler.upgradeDom();
@@ -28,12 +55,10 @@ class ItemGridSub extends React.Component {
         const style_cell = {
             marginLeft: "auto",
             marginRight: "auto",
-        };
-        
+        };        
         if (!('items' in this.props.view)) {
             return (<div />);
         }
-        
         const amount_in_basket = {}
         this.props.view.items.edges.map((item)=>{
             amount_in_basket[item.node.id] = 0;
@@ -75,6 +100,14 @@ class ItemGridSub extends React.Component {
 
 const ItemGrid = Relay.createContainer(ItemGridSub, {
     initialVariables: {
+        maxPriceInAgorot: [],
+        minPriceInAgorot: [],
+        includeCategories: [],
+        excludeCategories: [],
+        includeVendors: [],
+        excludeVendors: [],
+        includePackagings: [],
+        excludePackagings: [],
         show: false,
         show_num_in_basket: false,
     },
@@ -94,7 +127,16 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                         }
                     }
                 }
-                items(first: 30) @include(if: $show) {
+                items(first: 30,
+                        maxPriceInAgorot: $maxPriceInAgorot,
+                        minPriceInAgorot: $minPriceInAgorot,
+                        includeCategoriesID: $includeCategories,
+                        excludeCategoriesID: $excludeCategories,
+                        includeVendorsID: $includeVendors,
+                        excludeVendorsID: $excludeVendors,
+                        includePackagingsID: $includePackagings,
+                        excludePackagingsID: $excludePackagings,
+                    ) @include(if: $show) {
                     edges{
                         node {
                             ... on item {
