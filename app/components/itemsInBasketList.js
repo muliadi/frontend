@@ -3,10 +3,8 @@
 import React from 'react';
 import Relay from 'react-relay';
 
-import EmptyBasketsMutation from '../mutations/emptyBaskets.js'
-
-import AddItemToBasketMutation from "../mutations/addItemToBasket.js"
-
+import EmptyBasketsMutation from '../mutations/emptyBaskets.js';
+import ItemInBasket from './ItemInBasket.js';
 
 class ItemsInBasketListSub extends React.Component {
     componentWillMount() {
@@ -26,27 +24,6 @@ class ItemsInBasketListSub extends React.Component {
                 },
             });
     }
-    handleAddItemToBasket(item, amount, remarks) {
-        Relay.Store.commitUpdate(new AddItemToBasketMutation({
-            amount: amount,
-            remarks: remarks==null? item.node.remarks : remarks,
-            itemID: item.node.item.id,
-        }),
-            {
-                onFailure: (e) => {
-                    console.log(e.getError())
-                },
-                onSuccess: () => {
-                    var notification = document.querySelector('.mdl-js-snackbar');
-                    notification.MaterialSnackbar.showSnackbar(
-                    {
-                        message:  item.node.item.name +' הוסף בהצלחה',
-                        timeout: 700
-                    }
-                    );
-                },
-            });
-    } 
     render() {
         
         if (!('current_items_in_baskets' in this.props.view)) {
@@ -55,21 +32,11 @@ class ItemsInBasketListSub extends React.Component {
             );
         }
 
-        const style_show_div_mouse_over = (e)=>{
-         var element = e.target.querySelector("#binB");
-          e.target.querySelector("#binB").style.display = "inline";
-          
-           
-        }
-        const style_hide_div_mouse_out = (e)=>{
-            e.target.querySelector("#binB").style.display = "none";
-           
-        }
         const totalPrice = this.props.view.current_items_in_baskets.edges.map((item, i) => (item.node.Amount*item.node.item.price_in_agorot)).reduce((a,b)=>(a+b), 0)/100;
         const totalAmount = this.props.view.current_items_in_baskets.edges.map((item, i) => (item.node.Amount)).reduce((a,b)=>(a+b), 0);
 
         const listbox_style = {
-            margin: "0",
+            margin: "0px",
             height: "54px" ,
             padding:   "0px",
             display: "table",
@@ -80,7 +47,7 @@ class ItemsInBasketListSub extends React.Component {
 
         }
         const list_style ={
-            margin: "0",
+            margin: "0px",
             height: "54px",
             padding: "0px",
             display: "table-row",
@@ -97,36 +64,7 @@ class ItemsInBasketListSub extends React.Component {
             minHeight: "110px",
             background: "rgba(78,176,82,0.1)",
          }
-        const listItem_style = {
-            //opacity:"0.4",
-            padding: "0px",
-            listStyle: "none",
-            //border: "1px solid rgba(78,176,82,0.2)",
-            //display: "table-cell", 
-            width: "auto",
-            textAlign: "center",
-            minHeight: "110px",
-            
-        };
-        const dt_small = {
-            padding: "1px",
-            WebkitMarginBefore: "1px",
-            width: "33px"
-        };
-        
-
        
-        const th_pic = {
-            padding: "1px",
-            WebkitMarginBefore: "1px",
-            width: "60px"
-        };
-        const style_list_item = {
-            marginLeft: "auto",
-            marginRight: "auto",
-            padding: "1px",
-
-        };
         return (
 
             <div className="ItemsBasket" style={{ background: "#FFF", margin: "0px 2px 0px 2px" }}>
@@ -163,49 +101,8 @@ class ItemsInBasketListSub extends React.Component {
                     <ul className="mdl-list" style={list_style}>
                         {                            
                             this.props.view.current_items_in_baskets.edges.map((item, i) => {
-                                return  <li name={i} key={i} className="mdl-list__item basketlistItem" style={listItem_style}>
-                                <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px"}}>
-                                    <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "70px", marginTop: "-0px" }}></img>
-                                    <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"10px"}}>
-                                     {item.node.item.name}
-                                    </span>
-                                    <div>x{item.node.Amount}</div>
-                                    
-                                    <span style={{minWidth:"110px", marginRight:"4px"}}>{item.node.item.price_in_agorot * item.node.Amount/ 100} &#8362;</span>
-                                     
-                                     <div  className= "basket-noteButton" >
-                                      <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style={{color: "rgb(220, 220, 0)"}} >
-
-                                                <i className="material-icons">note_add </i>
-                                            </button>
-                                     </div>
-                                    <div id="binB" className= "basket-binButton" >
-                                        <div >
-                                        <span>
-                                            
-                                        </span>
-                                        <span style={{display: "inline-block", width: "140px"}}>
-                                          
-                                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                                onClick={()=>{this.handleAddItemToBasket(item, -1, null)}} >
-                                                <i className="material-icons">remove</i>
-                                            </button>
-                                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                                onClick={()=>{this.handleAddItemToBasket(item, 1, null)}} >
-                                                <i className="material-icons">add</i>
-                                            </button>
-                                            
-                                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                                onClick={()=>{this.handleAddItemToBasket(item, -item.node.Amount, null)}} >
-                                                <i className="material-icons">delete </i>
-                                            </button>
-                                        </span>
-                                        </div>
-                                    </div>
-                                </span>
-                                </li>
-                        
-                        })
+                                return <ItemInBasket key={i} item={item}/>
+                            })
                         }
                          <li   className="mdl-list__item " style={total_style}>
                                 <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px"}}>
