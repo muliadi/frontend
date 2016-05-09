@@ -10,9 +10,21 @@ import AddItemToBasketMutation from "../mutations/addItemToBasket.js";
 
 class ItemInBasket extends React.Component {
     
+    constructor(props){
+        super(props)
+         this.state ={
+            isNoteOpen: false,
+            noteContent: "",
+        }
+    }
+    
     componentDidMount() {
         componentHandler.upgradeDom();
     }
+   
+   handlenoteContentChange(e){
+       
+   }
    
     handleAddItemToBasket(item, amount, remarks) {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
@@ -45,13 +57,48 @@ class ItemInBasket extends React.Component {
             width: "auto",
             textAlign: "center",
             minHeight: "110px",
+            overflow: "visible",
         };
         
+        const style_noteBubble = {
+            backgroundColor: "#F2F2F2",
+            borderRadius: "5px",
+            boxShadow: "0 0 6px #B2B2B2",
+            display: "inline-block",
+            padding: "10px 18px",
+            position: "absolute",
+            verticalAlign: "top",
+            right:"15px",
+            //float: "left",   
+            margin: "5px 45px 5px 20px", 
+            overflow: "visible",
+        }
+        
+        const style_noteButton ={
+            
+        }
+        const style_binButton = {
+            
+        }
+        
+        if(this.state.isNoteOpen){
+            style_noteButton.display = "block" 
+            //style_noteButton.position= "absolute"
+            //style_noteButton.left="0px"
+            //style_noteButton.top= "1px" 
+           // style_noteButton.color= "rgb(220, 220, 0)"
+            //style_noteButton.zIndex = "3"
+                        
+            style_binButton.display = "block"  
+            listItem_style.border= "1px solid rgba(78,176,82,0.8)"
+            listItem_style.opacity = "1"
+            
+        }
         const style_list_item = {
             marginLeft: "auto",
             marginRight: "auto",
             padding: "1px",
-
+           
         };
         const item = this.props.item;
         return (
@@ -65,14 +112,23 @@ class ItemInBasket extends React.Component {
                     
                     <span style={{minWidth:"110px", marginRight:"4px"}}>{item.node.item.price_in_agorot * item.node.Amount/ 100} &#8362;</span>
                         
-                        <div  className= "basket-noteButton" >
-                        <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style={{color: "rgb(220, 220, 0)"}} 
-                        >
-
+                        <div  className= "basket-noteButton" style={style_noteButton}>
+                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style={{color: "rgb(220, 220, 0)"}} 
+                            onClick= {()=>{this.setState({isNoteOpen: !this.state.isNoteOpen})}}>
                                 <i className="material-icons">note_add </i>
                             </button>
+                            {
+                                this.state.isNoteOpen?
+                               
+                               <div className="NoteBubble" style={style_noteBubble}> 
+                                this is a floating note!!!
+                                </div>
+                                :
+                                null
+                                
+                            }
                         </div>
-                    <div id="binB" className= "basket-binButton" >
+                    <div className= "basket-binButton" style={style_binButton}>
                         <div >
                         <span>
                         </span>
@@ -93,7 +149,9 @@ class ItemInBasket extends React.Component {
                         </span>
                         </div>
                     </div>
+                     
                 </span>
+               
                 </li>
         )}
 }
