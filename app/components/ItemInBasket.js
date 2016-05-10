@@ -14,11 +14,13 @@ class ItemInBasket extends React.Component {
     constructor(props){
         super(props)
          this.state ={
-            isNoteOpen: false,
+            
             noteContent: this.props.item.node.remarks,
             error: null,
         }
     }
+    
+    
     
     componentDidMount() {
         componentHandler.upgradeDom();
@@ -26,9 +28,8 @@ class ItemInBasket extends React.Component {
    
     handleNoteBubbleSave(){
         this.handleAddItemToBasket(this.props.item, 0, this.state.noteContent)
-        this.setState({
-            isNoteOpen: !this.state.isNoteOpen
-        })
+        this.props.onClose(this.props.myKey)
+        
     }
    
     handleAddItemToBasket(item, amount, remarks) {
@@ -95,7 +96,7 @@ class ItemInBasket extends React.Component {
             
         }
         
-        const style_noteButton ={
+        const style_noteButtonDiv ={
             
         }
         const style_binButton = {
@@ -104,11 +105,12 @@ class ItemInBasket extends React.Component {
         
         if (this.state.noteContent!="")
         {
-             style_noteButton.display = "block"
+             style_noteButtonDiv.display = "block"
+             
         }
         
-        if(this.state.isNoteOpen){
-            style_noteButton.display = "block" 
+        if(this.props.isNoteOpen){
+            style_noteButtonDiv.display = "block" 
             //style_noteButton.position= "absolute"
             //style_noteButton.left="0px"
             //style_noteButton.top= "1px" 
@@ -121,6 +123,9 @@ class ItemInBasket extends React.Component {
             
         }
 
+       const style_noteButton = {
+           color: "rgb(255, 229, 96)",
+       }
         const style_list_item = {
             marginLeft: "auto",
             marginRight: "auto",
@@ -139,16 +144,16 @@ class ItemInBasket extends React.Component {
                     
                     <span style={{minWidth:"110px", marginRight:"4px"}}>{item.node.item.price_in_agorot * item.node.Amount/ 100} &#8362;</span>
                         
-                        <div  className= "basket-noteButton" style={style_noteButton}>
-                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style={{color: "rgb(220, 220, 0)"}} 
-                            onClick= {()=>{this.setState({isNoteOpen: !this.state.isNoteOpen})}}>
-                                <i className="material-icons">note_add </i>
+                        <div  className= "basket-noteButton" style={style_noteButtonDiv}>
+                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style={style_noteButton} 
+                            onClick= {()=>{this.props.onOpen(this.props.myKey)}}>
+                                <i className="material-icons">description</i>
                             </button>
                             {
-                                this.state.isNoteOpen?
+                                this.props.isNoteOpen?
                                <NoteBubble 
                                noteContent = {this.state.noteContent} 
-                               onClickCloseButton ={()=>{this.setState({isNoteOpen: !this.state.isNoteOpen})}} 
+                               onClickCloseButton ={()=>{this.props.onClose()}} 
                                onClickSaveButton ={()=>{this.handleNoteBubbleSave()}}
                                onNoteContentChange={(newContent)=>{this.setState({noteContent: newContent})}}
                                />
@@ -164,15 +169,15 @@ class ItemInBasket extends React.Component {
                         <span style={{display: "inline-block", width: "140px"}}>
                             
                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                onClick={()=>{this.handleAddItemToBasket(item, -1, null)}} >
+                                onClick={()=>{this.handleAddItemToBasket(item, -1, null); this.props.onClose()}} >
                                 <i className="material-icons">remove</i>
                             </button>
                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                onClick={()=>{this.handleAddItemToBasket(item, 1, null)}} >
+                                onClick={()=>{this.handleAddItemToBasket(item, 1, null); this.props.onClose()}} >
                                 <i className="material-icons">add</i>
                             </button>
                                 <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                onClick={()=>{this.handleAddItemToBasket(item, -item.node.Amount, null)}} >
+                                onClick={()=>{this.handleAddItemToBasket(item, -item.node.Amount, null); this.props.onClose()}} >
                                 <i className="material-icons">delete </i>
                             </button>
                         </span>

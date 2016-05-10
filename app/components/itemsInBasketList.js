@@ -7,6 +7,12 @@ import EmptyBasketsMutation from '../mutations/emptyBaskets.js';
 import ItemInBasket from './ItemInBasket.js';
 
 class ItemsInBasketListSub extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            openItemKey: null
+        }
+    }
     componentWillMount() {
         this.props.relay.setVariables({show:true});
     }
@@ -25,6 +31,7 @@ class ItemsInBasketListSub extends React.Component {
             });
     }
     render() {
+        
         
         if (!('current_items_in_baskets' in this.props.view)) {
             return (
@@ -65,6 +72,14 @@ class ItemsInBasketListSub extends React.Component {
             background: "rgba(78,176,82,0.1)",
          }
        
+       const NoteOpened = (key)=>{
+           this.setState({ openItemKey: key})
+       }
+       
+       const NoteClosed = ()=>{
+           this.setState({ openItemKey: null})
+       }
+       
         return (
 
             <div className="ItemsBasket" style={{ background: "#FFF", margin: "0px 2px 0px 2px" }}>
@@ -101,7 +116,13 @@ class ItemsInBasketListSub extends React.Component {
                     <ul className="mdl-list" style={list_style}>
                         {                            
                             this.props.view.current_items_in_baskets.edges.map((item, i) => {
-                                return <ItemInBasket key={i} item={item}/>
+                                return <ItemInBasket 
+                                key={i} 
+                                myKey={i}
+                                item={item} 
+                                onOpen = {NoteOpened} 
+                                onClose = {NoteClosed}
+                                isNoteOpen ={this.state.openItemKey == i}/>
                             })
                         }
                          <li   className="mdl-list__item " style={total_style}>
