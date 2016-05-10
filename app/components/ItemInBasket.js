@@ -5,6 +5,7 @@ import Relay from 'react-relay';
 
 
 import AddItemToBasketMutation from "../mutations/addItemToBasket.js";
+import NoteBubble from "./NoteBubble.js";
 
 
 
@@ -14,7 +15,8 @@ class ItemInBasket extends React.Component {
         super(props)
          this.state ={
             isNoteOpen: false,
-            noteContent: "",
+            noteContent: this.props.item.node.remarks,
+            error: null,
         }
     }
     
@@ -22,9 +24,12 @@ class ItemInBasket extends React.Component {
         componentHandler.upgradeDom();
     }
    
-   handlenoteContentChange(e){
-       
-   }
+    handleNoteBubbleSave(){
+        this.handleAddItemToBasket(this.props.item, 0, this.state.noteContent)
+        this.setState({
+            isNoteOpen: !this.state.isNoteOpen
+        })
+    }
    
     handleAddItemToBasket(item, amount, remarks) {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
@@ -61,17 +66,33 @@ class ItemInBasket extends React.Component {
         };
         
         const style_noteBubble = {
-            backgroundColor: "#F2F2F2",
+            border: "1px solid #828282",
+            backgroundColor: "#ffffff",
             borderRadius: "5px",
             boxShadow: "0 0 6px #B2B2B2",
             display: "inline-block",
             padding: "10px 18px",
             position: "absolute",
             verticalAlign: "top",
-            right:"15px",
-            //float: "left",   
+            right:"0px",
+            float: "left",   
             margin: "5px 45px 5px 20px", 
             overflow: "visible",
+            top: "3px",
+        }
+        
+         const style_noteCallOut = {
+            float: "left",
+            top: "-32px",
+            backgroundImage: "url('/static/Callouts.gif')",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "left -33px",
+            width: "11px",
+            height: "11px",
+            marginLeft: "-8px",
+            position: "relative",
+            marginTop: "10px",
+            
         }
         
         const style_noteButton ={
@@ -79,6 +100,11 @@ class ItemInBasket extends React.Component {
         }
         const style_binButton = {
             
+        }
+        
+        if (this.state.noteContent!="")
+        {
+             style_noteButton.display = "block"
         }
         
         if(this.state.isNoteOpen){
@@ -90,10 +116,11 @@ class ItemInBasket extends React.Component {
             //style_noteButton.zIndex = "3"
                         
             style_binButton.display = "block"  
-            listItem_style.border= "1px solid rgba(78,176,82,0.8)"
+            //listItem_style.border= "1px solid rgba(78,176,82,0.8)"
             listItem_style.opacity = "1"
             
         }
+
         const style_list_item = {
             marginLeft: "auto",
             marginRight: "auto",
@@ -119,10 +146,12 @@ class ItemInBasket extends React.Component {
                             </button>
                             {
                                 this.state.isNoteOpen?
-                               
-                               <div className="NoteBubble" style={style_noteBubble}> 
-                                this is a floating note!!!
-                                </div>
+                               <NoteBubble 
+                               noteContent = {this.state.noteContent} 
+                               onClickCloseButton ={()=>{this.setState({isNoteOpen: !this.state.isNoteOpen})}} 
+                               onClickSaveButton ={()=>{this.handleNoteBubbleSave()}}
+                               onNoteContentChange={(newContent)=>{this.setState({noteContent: newContent})}}
+                               />
                                 :
                                 null
                                 
