@@ -33,11 +33,11 @@ class ItemsInBasketListSub extends React.Component {
     render() {
         
         
-        if (!('current_items_in_baskets' in this.props.view)) {
-            return (
-                <div></div>
-            );
-        }
+        // if (!('current_items_in_baskets' in this.props.view)) {
+        //     return (
+        //         <div></div>
+        //     );
+        // }
 
         const totalPrice = this.props.view.current_items_in_baskets.edges.map((item, i) => (item.node.Amount*item.node.item.price_in_agorot)).reduce((a,b)=>(a+b), 0)/100;
         const totalAmount = this.props.view.current_items_in_baskets.edges.map((item, i) => (item.node.Amount)).reduce((a,b)=>(a+b), 0);
@@ -157,7 +157,7 @@ const ItemsInBasketList = Relay.createContainer(ItemsInBasketListSub, {
     fragments: {
         view: () => Relay.QL`
             fragment on view {
-                current_items_in_baskets(first: 100) @include(if: $show) {
+                current_items_in_baskets(first: 100) {
                     edges {
                         node {
                             ... on item_in_basket {
@@ -169,8 +169,7 @@ const ItemsInBasketList = Relay.createContainer(ItemsInBasketListSub, {
                                     price_in_agorot
                                     small_image {
                                         id
-                                    }
-                                    
+                                    }                                    
                                 }
                             }
                         }

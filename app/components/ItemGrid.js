@@ -6,6 +6,8 @@ import Relay from 'react-relay';
 import ItemCard from './ItemCard.js'
 import ItemCreateCard from './ItemCreateCard.js'
 
+// TODO: get items in basket only when user is logged as rest. It used to be this way but there was a bug, amount of items in basket not updating in item card  
+
 class ItemGridSub extends React.Component {
    componentWillMount() {
         this.props.relay.setVariables({
@@ -30,17 +32,18 @@ class ItemGridSub extends React.Component {
             (!nextProps.includeVendors.equals(this.props.includeVendors)) ||
             (!nextProps.excludeVendors.equals(this.props.excludeVendors)) ||
             (!nextProps.includePackagings.equals(this.props.includePackagings)) ||
-            (!nextProps.excludePackagings.equals(this.props.excludePackagings))
+            (!nextProps.excludePackagings.equals(this.props.excludePackagings)) ||
+            (nextProps.view.me.role_type != this.props.view.me.role_type)
             ) {
             this.props.relay.setVariables({
                 maxPriceInAgorot: nextProps.maxPriceInAgorot,
                 minPriceInAgorot: nextProps.minPriceInAgorot,
                 includeCategories: nextProps.includeCategories,
                 excludeCategories: nextProps.props.excludeCategories,
-                includeVendors: nextProps.props.includeVendors,
-                excludeVendors: nextProps.props.excludeVendors,
-                includePackagings: nextProps.props.includePackagings,
-                excludePackagings: nextProps.props.excludePackagings,                
+                includeVendors: nextProps.includeVendors,
+                excludeVendors: nextProps.excludeVendors,
+                includePackagings: nextProps.includePackagings,
+                excludePackagings: nextProps.excludePackagings,                
                 show: true,
                 show_num_in_basket: this.props.view.me.role_type=="Restaurant",
             });
@@ -61,13 +64,13 @@ class ItemGridSub extends React.Component {
         }
         const amount_in_basket = {}
         this.props.view.items.edges.map((item)=>{
-            amount_in_basket[item.node.id] = 0;
+             amount_in_basket[item.node.id] = 0;
         })
-        if (`current_items_in_baskets` in this.props.view) {
+        // if (`current_items_in_baskets` in this.props.view) {
             this.props.view.current_items_in_baskets.edges.map((itemInBasket)=>{
                 amount_in_basket[itemInBasket.node.itemID] = itemInBasket.node.Amount;
             })            
-        }
+        // }
         return (
             <div className="mdl-grid" style={style_grid}>
                 {
@@ -117,7 +120,7 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                 me {
                     role_type
                 }
-                current_items_in_baskets(first: 100) @include(if: $show_num_in_basket) {
+                current_items_in_baskets(first: 100) {
                     edges {
                         node {
                             ... on item_in_basket {
