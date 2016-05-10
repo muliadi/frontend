@@ -103,7 +103,7 @@ class ItemInBasket extends React.Component {
             
         }
         
-        if (this.state.noteContent!="")
+        if ((this.state.noteContent!=null)&&(this.state.noteContent!=""))
         {
              style_noteButtonDiv.display = "block"
              

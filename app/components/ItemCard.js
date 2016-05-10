@@ -12,7 +12,7 @@ class ItemCard extends React.Component {
     handleAddItemToBasket() {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "1",
-            remarks: "just testing remarks",
+            remarks: null,
             itemID: this.props.itemID,
         }),
             {
@@ -33,7 +33,7 @@ class ItemCard extends React.Component {
     handleRemoveItemsFromBasket() {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "-1",
-            remarks: "just testing remarks",
+            remarks: null,
             itemID: this.props.itemID,
         }),
             {
@@ -54,7 +54,7 @@ class ItemCard extends React.Component {
     handleRemoveItemToBasket() {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "-1",
-            remarks: "just testing remarks",
+            remarks: null,
             itemID: this.props.itemID,
         }),
             {
