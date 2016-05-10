@@ -20,7 +20,7 @@ class ItemGridSub extends React.Component {
             includePackagings: this.props.includePackagings,
             excludePackagings: this.props.excludePackagings,
             show: true,
-            show_num_in_basket: this.props.view.me.role_type=="Restaurant",
+            // show_num_in_basket: this.props.view.me.role_type=="Restaurant",
         });
     }
     componentWillReceiveProps(nextProps) {
@@ -32,8 +32,8 @@ class ItemGridSub extends React.Component {
             (!nextProps.includeVendors.equals(this.props.includeVendors)) ||
             (!nextProps.excludeVendors.equals(this.props.excludeVendors)) ||
             (!nextProps.includePackagings.equals(this.props.includePackagings)) ||
-            (!nextProps.excludePackagings.equals(this.props.excludePackagings)) ||
-            (nextProps.view.me.role_type != this.props.view.me.role_type)
+            (!nextProps.excludePackagings.equals(this.props.excludePackagings)) // ||
+            //(nextProps.view.me.role_type != this.props.view.me.role_type)
             ) {
             this.props.relay.setVariables({
                 maxPriceInAgorot: nextProps.maxPriceInAgorot,
@@ -45,7 +45,7 @@ class ItemGridSub extends React.Component {
                 includePackagings: nextProps.includePackagings,
                 excludePackagings: nextProps.excludePackagings,                
                 show: true,
-                show_num_in_basket: this.props.view.me.role_type=="Restaurant",
+                //show_num_in_basket: this.props.view.me.role_type=="Restaurant",
             });
         }
     }
