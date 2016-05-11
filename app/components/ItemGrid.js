@@ -7,7 +7,7 @@ import ItemCard from './ItemCard.js'
 import ItemCreateCard from './ItemCreateCard.js'
 
 // TODO: get items in basket only when user is logged as rest. It used to be this way but there was a bug, amount of items in basket not updating in item card  
-
+// TODO: bug for items in basket has an ugly solution!
 class ItemGridSub extends React.Component {
    componentWillMount() {
         this.props.relay.setVariables({
@@ -24,30 +24,45 @@ class ItemGridSub extends React.Component {
         });
     }
     componentWillReceiveProps(nextProps) {
-        if (
-            (!nextProps.maxPriceInAgorot.equals(this.props.maxPriceInAgorot)) ||
-            (!nextProps.minPriceInAgorot.equals(this.props.minPriceInAgorot)) ||
-            (!nextProps.includeCategories.equals(this.props.includeCategories)) ||
-            (!nextProps.excludeCategories.equals(this.props.excludeCategories)) ||
-            (!nextProps.includeVendors.equals(this.props.includeVendors)) ||
-            (!nextProps.excludeVendors.equals(this.props.excludeVendors)) ||
-            (!nextProps.includePackagings.equals(this.props.includePackagings)) ||
-            (!nextProps.excludePackagings.equals(this.props.excludePackagings)) // ||
-            //(nextProps.view.me.role_type != this.props.view.me.role_type)
-            ) {
-            this.props.relay.setVariables({
-                maxPriceInAgorot: nextProps.maxPriceInAgorot,
-                minPriceInAgorot: nextProps.minPriceInAgorot,
-                includeCategories: nextProps.includeCategories,
-                excludeCategories: nextProps.props.excludeCategories,
-                includeVendors: nextProps.includeVendors,
-                excludeVendors: nextProps.excludeVendors,
-                includePackagings: nextProps.includePackagings,
-                excludePackagings: nextProps.excludePackagings,                
-                show: true,
-                //show_num_in_basket: this.props.view.me.role_type=="Restaurant",
-            });
-        }
+         const newVars = {show: true}
+         var set = false;
+         if (('maxPriceInAgorot' in nextProps)&&(!nextProps.maxPriceInAgorot.equals(this.props.maxPriceInAgorot))) {
+            newVars.maxPriceInAgorot = nextProps.maxPriceInAgorot;
+            set = true;
+         }
+         if (('minPriceInAgorot' in nextProps)&&(!nextProps.minPriceInAgorot.equals(this.props.minPriceInAgorot))) {
+            newVars.minPriceInAgorot = nextProps.minPriceInAgorot
+            set = true;
+         }
+         if (('includeCategories' in nextProps)&&(!nextProps.includeCategories.equals(this.props.includeCategories))) {
+            newVars.includeCategories = nextProps.includeCategories;
+            set = true;
+         }
+         if (('excludeCategories' in nextProps)&&(!nextProps.excludeCategories.equals(this.props.excludeCategories))) {
+            newVars.excludeCategories = nextProps.props.excludeCategories;
+            set = true;
+         }
+         if (('includeVendors' in nextProps)&&(!nextProps.includeVendors.equals(this.props.includeVendors))) {
+            newVars.includeVendors = nextProps.includeVendors;
+            set = true;
+         }
+         if (('excludeVendors' in nextProps)&&(!nextProps.excludeVendors.equals(this.props.excludeVendors))) {
+            newVars.excludeVendors = nextProps.excludeVendors
+            set = true;
+         }
+         if (('includePackagings' in nextProps)&&(!nextProps.includePackagings.equals(this.props.includePackagings))) {
+            newVars.includePackagings = nextProps.includePackagings
+            set = true;
+         }
+         if (('excludePackagings' in nextProps)&&(!nextProps.excludePackagings.equals(this.props.excludePackagings))) {
+            newVars.excludePackagings = nextProps.excludePackagings                
+            set = true;
+         }
+         if (set) {
+             console.log("setting new variables!")
+             console.log(newVars)
+            this.props.relay.setVariables(newVars);
+         }
     }
     componentDidMount() {
         componentHandler.upgradeDom();
@@ -71,33 +86,63 @@ class ItemGridSub extends React.Component {
                 amount_in_basket[itemInBasket.node.itemID] = itemInBasket.node.Amount;
             })            
         // }
+        
+        // sort weighted_categories:
+        var categories = this.props.view.weighted_categories.categories.splice(0);
+        var weights = this.props.view.weighted_categories.weights.splice(0);
+        const sortedCategories = weights.map((e,i)=>(i))
+                        .sort((a,b)=>(weights[b] - weights[a]))
+                        .map((e)=>(categories[e]));
+        const sortedWeights = weights.sort((a,b)=>(b-a)); 
+            
+        const style_select_category = {
+            cursor: "pointer",
+            color: "white",
+            background: "black",
+            borderRadius:"6px",
+            paddingLeft:"5px",
+            paddingRight:"5px",
+            paddingBottom:"2px",
+        }                                                
         return (
-            <div className="mdl-grid" style={style_grid}>
+            <div>
+                <div style={{paddingTop:"20px", paddingRight:"20px", display:"flex", flexDirection:"row"}}>
+                בחר קטגוריות לסינון: 
                 {
-                    'items' in this.props.view ?
-                        this.props.view.items.edges.map((item, i) => {
-                            return item.node.small_image.id != "0" ?
-                                <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
-                                    <ItemCard
-                                        role_type={this.props.view.me.role_type}
-                                        name={item.node.name}
-                                        price={item.node.price_in_agorot/100}
-                                        image_id={item.node.small_image.id}
-                                        unitsName={item.node.units.name}
-                                        packagingName={item.node.packaging.name}
-                                        vendor_image_id={item.node.vendor.small_image.id}
-                                        itemID={item.node.id}
-                                        amount_in_basket={amount_in_basket[item.node.id]}
-                                        amount={item.node.amount}
-                                        shortDesc = {item.node.short_desc}>
-                                    </ItemCard>
-                                </div>
-                                :
-                                null
-                        })
-                    :
-                        null
+                    sortedCategories.map((category, i) => {
+                        return <div key={"_"+i} style={{marginRight:"10px"}}>
+                                <span style={style_select_category} onClick={()=>{document.location.hash += "/include_category_"+category.id}}>{category.full_name}</span>
+                            </div>
+                    })                    
                 }
+                </div>
+                <div className="mdl-grid" style={style_grid}>
+                    {
+                        'items' in this.props.view ?
+                            this.props.view.items.edges.map((item, i) => {
+                                return item.node.small_image.id != "0" ?
+                                    <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                                        <ItemCard
+                                            role_type={this.props.view.me.role_type}
+                                            name={item.node.name}
+                                            price={item.node.price_in_agorot/100}
+                                            image_id={item.node.small_image.id}
+                                            unitsName={item.node.units.name}
+                                            packagingName={item.node.packaging.name}
+                                            vendor_image_id={item.node.vendor.small_image.id}
+                                            itemID={item.node.id}
+                                            amount_in_basket={amount_in_basket[item.node.id]}
+                                            amount={item.node.amount}
+                                            shortDesc = {item.node.short_desc}>
+                                        </ItemCard>
+                                    </div>
+                                    :
+                                    null
+                            })
+                        :
+                            null
+                    }
+                </div>
             </div>
         );
     }
@@ -132,6 +177,13 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                         }
                     }
                 }
+                weighted_categories {
+                    categories {
+                        id
+                        full_name
+                    }
+                    weights
+                }                
                 items(first: 30,
                         maxPriceInAgorot: $maxPriceInAgorot,
                         minPriceInAgorot: $minPriceInAgorot,

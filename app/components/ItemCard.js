@@ -4,6 +4,7 @@ import Relay from 'react-relay';
 
 import AddItemToBasketMutation from "../mutations/addItemToBasket.js"
 
+// TODO: make a global function for global unique IDs
 var __idnum = 0
 class ItemCard extends React.Component {
      

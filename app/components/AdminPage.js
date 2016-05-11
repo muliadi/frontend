@@ -20,7 +20,17 @@ class AdminPageSub extends React.Component {
                             <h1>
                             המוצרים
                             </h1>
-                            <ItemGrid view={this.props.view}></ItemGrid>
+                            <ItemGrid                            
+                                includeCategories={[]}
+                                excludeCategories={[]}
+                                includeVendors={[]}
+                                excludeVendors={[]}
+                                includePackagings={[]}
+                                excludePackagings={[]}
+                                maxPriceInAgorot={[]}
+                                minPriceInAgorot={[]}                                                                                    
+                                view={this.props.view}>
+                            </ItemGrid>
                             <h1>
                             הספקים
                             </h1>
