@@ -133,7 +133,7 @@ class ItemInBasket extends React.Component {
         return (
             <li id={this.state.itemInBasketElementID} className="mdl-list__item basketlistItem" style={listItem_style}>
                 <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px", width:"410px"}}>
-                    <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "70px", marginTop: "1px" }}></img>
+                    <span style={{  minHeight: "90px", minWidth:"90px", background:"url('/static/content/" + item.node.item.small_image.id+"')", backgroundSize:"contain", backgroundPosition:"center center", backgroundRepeat:"no-repeat"}}/>
                     <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"10px"}}>
                         {item.node.item.name}
                 </span>

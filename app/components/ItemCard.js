@@ -73,9 +73,14 @@ class ItemCard extends React.Component {
     }    
     render() {
         const style_card_title = {
-            //background: "url('/static/content/"+this.props.image_id+"') center / cover",
+            //background: "url('/static/content/"+this.props.image_id+"')",
             cursor: "pointer",   
             height: "170px",             
+           // minHeight: "90px",
+           // minWidth:"90px",
+           // backgroundSize:"contain",
+           // backgroundPosition:"center center",
+           // backgroundRepeat:"no-repeat"
         }
         const style_card = {
             width: "100%",
@@ -152,7 +157,7 @@ class ItemCard extends React.Component {
                 <div 
                     className="mdl-card__title mdl-card--expand"
                     style={style_card_title}> 
-                    <img src={"/static/content/"+this.props.image_id} alt="Shopping Cart" style={{ maxWidth:"100%",maxHeight: "100%", marginTop: "auto", marginBottom: "auto", marginLeft:"auto", marginRight:"auto" }}></img>
+                    <span style={{  minHeight: "140px", minWidth:"110px", margin: "15px auto auto", background:"url('/static/content/"+this.props.image_id+"')", backgroundSize:"contain", backgroundPosition:"center center", backgroundRepeat:"no-repeat"}}/>
                 </div>
                 
                 <div className="mdl-card__supporting-text  mdl-card--border"
