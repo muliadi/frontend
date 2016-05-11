@@ -76,7 +76,7 @@ class ItemCard extends React.Component {
         const style_card_title = {
             //background: "url('/static/content/"+this.props.image_id+"')",
             cursor: "pointer",   
-            //height: "170px",             
+            height: "170px",             
            // minHeight: "90px",
            // minWidth:"90px",
            // backgroundSize:"contain",
@@ -100,6 +100,7 @@ class ItemCard extends React.Component {
         
         const style_support_text = {
             cursor: "pointer",
+            height: "104",
             //borderTop: "2px solid rgba(78,176,82,0.2)"
         }
         const style_name = {
@@ -178,7 +179,7 @@ class ItemCard extends React.Component {
                 <div 
                     className="mdl-card__title mdl-card--expand"
                     style={style_card_title}> 
-                    <span style={{  height: "120px", minWidth:"80px", margin: "auto auto auto", background:"url('/static/content/"+this.props.image_id+"') 50% 50% / contain no-repeat ", }}/>
+                    <span style={{  height: "140px", width:"140px", marginLeft: "auto", marginRight:"auto", background:"url('/static/content/"+this.props.image_id+"') 50% 50% / contain no-repeat ", }}/>
                 </div>
                 <div style={style_support_textSep}/>
                 <div className="mdl-card__supporting-text  mdl-card--border"
