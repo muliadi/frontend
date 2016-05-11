@@ -6,6 +6,7 @@ import AddItemToBasketMutation from "../mutations/addItemToBasket.js"
 
 var __idnum = 0
 class ItemCard extends React.Component {
+     
     componentDidMount() {
         componentHandler.upgradeDom();
     }
@@ -75,7 +76,7 @@ class ItemCard extends React.Component {
         const style_card_title = {
             //background: "url('/static/content/"+this.props.image_id+"')",
             cursor: "pointer",   
-            height: "170px",             
+            //height: "170px",             
            // minHeight: "90px",
            // minWidth:"90px",
            // backgroundSize:"contain",
@@ -85,18 +86,38 @@ class ItemCard extends React.Component {
         const style_card = {
             width: "100%",
             maxWidth: "200px",
-            height: "300px",
+            height: "350px",
             marginLeft: "auto",        
             marginRight: "auto",        
         };
+        
+        const style_support_textSep = {
+            borderTop: "1px solid rgba(78,176,82,0.2)",
+            width:"120px",
+            margin:"auto"
+            
+        }
+        
         const style_support_text = {
             cursor: "pointer",
+            //borderTop: "2px solid rgba(78,176,82,0.2)"
         }
         const style_name = {
+            textAlign:"center",
+            color: "rgb(78,176,82)",
+            fontSize: "16px",
+            fontWeight: "bold",
         };
         const style_price = {
+            textAlign:"center",
+            fontSize:"17px",
+            fontWeight: "bold",
+        };
+        const style_packaging = {
+            textAlign:"center",
         };
         const style_units = {
+            textAlign:"center",
         };  
         const style_add_to_basket_button = {  
             //background: "rgb(51, 172, 113)",
@@ -157,17 +178,23 @@ class ItemCard extends React.Component {
                 <div 
                     className="mdl-card__title mdl-card--expand"
                     style={style_card_title}> 
-                    <span style={{  minHeight: "140px", minWidth:"140px", margin: "15px auto auto", background:"url('/static/content/"+this.props.image_id+"')", backgroundSize:"contain", backgroundPosition:"center center", backgroundRepeat:"no-repeat"}}/>
+                    <span style={{  height: "120px", minWidth:"80px", margin: "auto auto auto", background:"url('/static/content/"+this.props.image_id+"') 50% 50% / contain no-repeat ", }}/>
                 </div>
-                
+                <div style={style_support_textSep}/>
                 <div className="mdl-card__supporting-text  mdl-card--border"
                         style={style_support_text}>
                     <div>
                         <div style={style_name}>
                             {this.props.name}
                         </div>
-                        <div style={style_price}>
-                            {this.props.packagingName} מכיל {this.props.amount} {this.props.unitsName} , {this.props.price} &#8362;  
+                        <div style={style_packaging}>
+                            {this.props.packagingName} מכיל {this.props.amount} {this.props.unitsName}   
+                        </div>
+                        <div style={style_packaging}>
+                            {this.props.shortDesc}   
+                        </div>
+                       <div style={style_price}>
+                            {this.props.price} &#8362; ל{this.props.packagingName}
                         </div>
                     </div>
                 </div>

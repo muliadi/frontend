@@ -88,7 +88,8 @@ class ItemGridSub extends React.Component {
                                         vendor_image_id={item.node.vendor.small_image.id}
                                         itemID={item.node.id}
                                         amount_in_basket={amount_in_basket[item.node.id]}
-                                        amount={item.node.amount}>
+                                        amount={item.node.amount}
+                                        shortDesc = {item.node.short_desc}>
                                     </ItemCard>
                                 </div>
                                 :
@@ -151,6 +152,7 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                                 small_image {
                                     id
                                 }
+                                short_desc
                                 packaging{
                                     name
                                 }
