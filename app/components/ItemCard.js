@@ -157,7 +157,7 @@ class ItemCard extends React.Component {
                 <div 
                     className="mdl-card__title mdl-card--expand"
                     style={style_card_title}> 
-                    <span style={{  minHeight: "140px", minWidth:"110px", margin: "15px auto auto", background:"url('/static/content/"+this.props.image_id+"')", backgroundSize:"contain", backgroundPosition:"center center", backgroundRepeat:"no-repeat"}}/>
+                    <span style={{  minHeight: "140px", minWidth:"140px", margin: "15px auto auto", background:"url('/static/content/"+this.props.image_id+"')", backgroundSize:"contain", backgroundPosition:"center center", backgroundRepeat:"no-repeat"}}/>
                 </div>
                 
                 <div className="mdl-card__supporting-text  mdl-card--border"
@@ -167,7 +167,7 @@ class ItemCard extends React.Component {
                             {this.props.name}
                         </div>
                         <div style={style_price}>
-                            {this.props.amount} {this.props.unitsName} , {this.props.price} &#8362;  
+                            {this.props.packagingName} מכיל {this.props.amount} {this.props.unitsName} , {this.props.price} &#8362;  
                         </div>
                     </div>
                 </div>
