@@ -57,6 +57,7 @@ class ItemInBasket extends React.Component {
         const listItem_style = {
             //opacity:"0.4",
             padding: "0px",
+            paddingRight:"10px",
             listStyle: "none",
             //border: "1px solid rgba(78,176,82,0.2)",
             //display: "table-cell", 
@@ -64,6 +65,7 @@ class ItemInBasket extends React.Component {
             textAlign: "center",
             minHeight: "110px",
             overflow: "visible",
+            marginRight:"5px",
         };
         
         const style_noteBubble = {

@@ -36,10 +36,11 @@ class MainFrameSub extends React.Component {
         }       
         const style_sidebar = {
             backgroundColor: "whitesmoke",
-            marginTop: "-7px",
+            marginTop: "0px",
             marginRight: "-7px",
-            marginBottom: "-7px",
+            marginBottom: "-20px",
             paddingRight: "0px",
+            flex:"0 0 410px",
         }       
         const style_nav_link_mouse_over = (e)=>{
            e.target.style.color = "rgb(51, 172, 113)";
@@ -58,6 +59,7 @@ class MainFrameSub extends React.Component {
             maxWidth: "auto",
             marginRight: "auto",
             marginLeft: "auto",
+            display: "flex",
         }  
         const logout = (e)=>{
             Relay.Store.commitUpdate(new LogOutMutation({}),
@@ -205,23 +207,16 @@ class MainFrameSub extends React.Component {
                     <div className="page-content" style={style_page_content}>
                         {
                             (this.props.view.me.role_type=="Restaurant" )?
-                                <div className="mdl-grid">
-                                   <div className="mdl-layout-spacer"></div>
-                                      
-                                        <div className="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_sidebar}>
-                                            <ItemsInBasketList view={this.props.view} />
-                                        </div>
-                                        
-                                        <div className="mdl-cell mdl-cell--8-col-desktop mdl-cell--5-col-tablet mdl-cell--2-col-phone">
-                                            {this.props.children}
-                                        </div> 
-                                    <div className="mdl-layout-spacer"></div>                                      
+                                <div style={style_sidebar}>
+                                    <ItemsInBasketList view={this.props.view} />
                                 </div>
                             :
-                                <div>
-                                    {this.props.children}
-                                </div>                                     
+                                null
                         }
+                        <div>
+                            {this.props.children}
+                        </div>
+                                                            
                     </div>
                     <div className="footer-pusher" />
                     <footer className="mdl-mini-footer">
