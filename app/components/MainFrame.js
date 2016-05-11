@@ -213,7 +213,7 @@ class MainFrameSub extends React.Component {
                             :
                                 null
                         }
-                        <div>
+                        <div style={{width:"100%"}}>
                             {this.props.children}
                         </div>
                                                             
