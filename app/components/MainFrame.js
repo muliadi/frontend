@@ -41,6 +41,8 @@ class MainFrameSub extends React.Component {
             marginBottom: "-20px",
             paddingRight: "0px",
             flex:"0 0 410px",
+            position:"relative",
+            zIndex:"100",
         }       
         const style_nav_link_mouse_over = (e)=>{
            e.target.style.color = "rgb(51, 172, 113)";
@@ -212,11 +214,10 @@ class MainFrameSub extends React.Component {
                                 </div>
                             :
                                 null
-                        }
-                        <div style={{width:"100%"}}>
+                        }                    
+                        <div style={{position:"relative", width:"100%", zIndex:"1"}}>
                             {this.props.children}
-                        </div>
-                                                            
+                        </div>                                                            
                     </div>
                     <div className="footer-pusher" />
                     <footer className="mdl-mini-footer">
