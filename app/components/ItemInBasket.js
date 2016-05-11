@@ -133,8 +133,8 @@ class ItemInBasket extends React.Component {
         return (
             <li id={this.state.itemInBasketElementID} className="mdl-list__item basketlistItem" style={listItem_style}>
                 <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px", width:"410px"}}>
-                    <span style={{  minHeight: "90px", minWidth:"90px", background:"url('/static/content/" + item.node.item.small_image.id+"')", backgroundSize:"contain", backgroundPosition:"center center", backgroundRepeat:"no-repeat"}}/>
-                    <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>
+                    <span style={{  minHeight: "90px", minWidth:"90px", background:"url('/static/content/" + item.node.item.small_image.id+"') 50% 50% / contain no-repeat "}}/>
+                    <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"5px", marginLeft:"5px"}}> 
                         {item.node.item.name}
                 </span>
                     <div>x{item.node.Amount}</div>
