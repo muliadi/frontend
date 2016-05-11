@@ -82,7 +82,7 @@ class ItemsInBasketListSub extends React.Component {
        
         return (
 
-            <div className="ItemsBasket" style={{ background: "#FFF", margin: "0px 2px 0px 2px" }}>
+            <div className="ItemsBasket" style={{ background: "#FFF", margin: "0px 2px 0px 2px", position:"fixed", width:"405px" }}>
             
                 <div>
 
