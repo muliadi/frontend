@@ -44,32 +44,37 @@ class ItemsInBasketListSub extends React.Component {
 
         const listbox_style = {
             margin: "0px",
-            height: "54px" ,
             padding:   "0px",
-            display: "table",
+            display: "flex",
+            direction:"ltr",
+            overflow:"auto",
+            overflowX:"hidden",
             width: "100%",
-            
+            flexGrow: "1",            
             wordWrap: "break-word",
             //wordBreak: "break-all",
 
         }
         const list_style ={
             margin: "0px",
-            height: "54px",
             padding: "0px",
             display: "table-row",
             //background: "#fff",
         }
         
          const total_style = {
-           padding: "0px",
-            listStyle: "none",
-            //border: "1px solid rgba(78,176,82,0.2)",
-            //display: "table-cell", 
             width: "auto",
             textAlign: "center",
-            minHeight: "110px",
+            minHeight: "50px",
+            marginBottom:"60px",
+            padding:"10px",
             background: "rgba(78,176,82,0.1)",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingRight: "25px",
+            fontSize: "15px",                                    
          }
        
        const NoteOpened = (key)=>{
@@ -82,7 +87,16 @@ class ItemsInBasketListSub extends React.Component {
        
         return (
 
-            <div className="ItemsBasket" style={{ background: "#FFF", margin: "0px 2px 0px 2px", position:"fixed", width:"405px" }}>
+            <div className="ItemsBasket" style={{
+                background: "#FFF",
+                margin: "0px 2px 0px 2px",
+                position:"fixed",
+                height:"100%",
+                width:"405px",
+                display: "flex",
+                marginRight:"5px",
+                flexDirection:"column",                                
+            }}>
             
                 <div>
 
@@ -125,26 +139,16 @@ class ItemsInBasketListSub extends React.Component {
                                 isNoteOpen ={this.state.openItemKey == i}/>
                             })
                         }
-                         <li   className="mdl-list__item " style={total_style}>
-                                <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px"}}>
-                                   
-                                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style={{minWidth:"100px", marginRight:"15px"}}> 
-                                                הזמן
-                                    </button>
-                                    <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"left"}}>
-                                    סה"כ: 
-                                    </span>
-                                    <div> </div>
-                                                                        
-                                    <span style={{minWidth:"110px", marginRight:"4px"}}>{totalPrice} &#8362;</span>
-                                    
-                                  
-                                    
-                                </span>
-                                </li>
                     </ul>
                 </div>
                 
+                <div style={total_style}>
+                    סה"כ: {totalPrice} &#8362;
+                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style={{minWidth:"100px", marginRight:"15px"}}> 
+                        הזמן
+                    </button>
+                </div>
+                                
             </div>
         );
     }

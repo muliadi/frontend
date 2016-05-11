@@ -8,30 +8,37 @@ import AddItemToBasketMutation from "../mutations/addItemToBasket.js";
 import NoteBubble from "./NoteBubble.js";
 
 
-
+var __ItemInBasketElementID = 0
 class ItemInBasket extends React.Component {
-    
     constructor(props){
         super(props)
-         this.state ={
-            
+         this.state ={            
             noteContent: this.props.item.node.remarks,
+            isTranslated: false,
+            itemInBasketElementID: "elementInBasketID_"+__ItemInBasketElementID,
             error: null,
         }
+        __ItemInBasketElementID += 1;
     }
-    
-    
-    
     componentDidMount() {
         componentHandler.upgradeDom();
     }
-   
+    componentDidUpdate() {
+        if ((this.props.isNoteOpen)&&(!this.state.isTranslated)) {
+            document.getElementById(this.state.itemInBasketElementID).style.transform = 'translateX(+200px)';
+            this.setState({isTranslated: true})
+            return 
+        }
+        if ((!this.props.isNoteOpen)&&(this.state.isTranslated)) {
+            document.getElementById(this.state.itemInBasketElementID).style.transform = 'translateX(0px)';
+            this.setState({isTranslated: false})
+            return 
+        }        
+    }
     handleNoteBubbleSave(){
         this.handleAddItemToBasket(this.props.item, 0, this.state.noteContent)
-        this.props.onClose(this.props.myKey)
-        
-    }
-   
+        this.props.onClose(this.props.myKey)   
+    }   
     handleAddItemToBasket(item, amount, remarks) {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: amount,
@@ -61,11 +68,13 @@ class ItemInBasket extends React.Component {
             listStyle: "none",
             //border: "1px solid rgba(78,176,82,0.2)",
             //display: "table-cell", 
-            width: "auto",
+            width: "400px",
             textAlign: "center",
             minHeight: "110px",
             overflow: "visible",
-            marginRight:"5px",
+            direction: "rtl",
+            display: "relative",
+            transition: "transform 0.5s",
         };
         
         const style_noteBubble = {
@@ -97,47 +106,33 @@ class ItemInBasket extends React.Component {
             marginTop: "10px",
             
         }
-        
-        const style_noteButtonDiv ={
-            
+        const style_noteButtonDiv ={            
         }
-        const style_binButton = {
-            
+        const style_binButton = {            
         }
         
+                
         if ((this.state.noteContent!=null)&&(this.state.noteContent!=""))
         {
-             style_noteButtonDiv.display = "block"
-             
-        }
-        
+             style_noteButtonDiv.display = "block"             
+        }        
         if(this.props.isNoteOpen){
             style_noteButtonDiv.display = "block" 
-            //style_noteButton.position= "absolute"
-            //style_noteButton.left="0px"
-            //style_noteButton.top= "1px" 
-           // style_noteButton.color= "rgb(220, 220, 0)"
-            //style_noteButton.zIndex = "3"
-                        
             style_binButton.display = "block"  
-            //listItem_style.border= "1px solid rgba(78,176,82,0.8)"
-            listItem_style.opacity = "1"
-            
+            listItem_style.opacity = "1"            
         }
-
-       const style_noteButton = {
-           color: "rgb(255, 229, 96)",
-       }
+        const style_noteButton = {
+            color: "rgb(255, 229, 96)",
+        }
         const style_list_item = {
             marginLeft: "auto",
             marginRight: "auto",
-            padding: "1px",
-           
+            padding: "1px",           
         };
         const item = this.props.item;
         return (
-            <li className="mdl-list__item basketlistItem" style={listItem_style}>
-                <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px"}}>
+            <li id={this.state.itemInBasketElementID} className="mdl-list__item basketlistItem" style={listItem_style}>
+                <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px", width:"410px"}}>
                     <img src={"/static/content/" + item.node.item.small_image.id} alt="Shopping Cart" style={{ width: "70px", marginTop: "1px" }}></img>
                     <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"10px"}}>
                         {item.node.item.name}
