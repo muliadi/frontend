@@ -5,14 +5,21 @@ import Relay from 'react-relay';
 
 import EmptyBasketsMutation from '../mutations/emptyBaskets.js';
 import ItemInBasket from './ItemInBasket.js';
+import SubmitOrderInBasketMutation from '../mutations/submitOrderInBasketMutation.js';
+import CommRound from './commRound.js' 
 
 class ItemsInBasketListSub extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            openItemKey: null
+            openItemKey: null,
+            communicating: false,
+            error: null,
         }
     }
+    
+     
+    
     componentWillMount() {
         this.props.relay.setVariables({show:true});
     }
@@ -30,6 +37,31 @@ class ItemsInBasketListSub extends React.Component {
                 },
             });
     }
+    
+    handleSubmitOrderInBasketMutation() {
+        this.setState({
+            communicating: true
+        })
+        console.log("SubmitOrderInBasketMutation...");
+        console.log(this.props.view.current_baskets.edges[0].node.id);
+        Relay.Store.commitUpdate(new SubmitOrderInBasketMutation({
+            basketID: this.props.view.current_baskets.edges[0].node.id,
+        }),
+            {
+                onFailure: (e) => {
+                    console.log(e.getError())
+                    this.setState({
+                        communicating: false
+                    })
+                },
+                onSuccess: () => {
+                    this.setState({
+                        communicating: false
+                    })
+                },
+            });
+    }
+    
     render() {
         
         
@@ -144,9 +176,22 @@ class ItemsInBasketListSub extends React.Component {
                 
                 <div style={total_style}>
                     סה"כ: {totalPrice} &#8362;
-                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style={{minWidth:"100px", marginRight:"15px"}}> 
-                        הזמן
-                    </button>
+                  {
+                    totalAmount>0 ?
+                    this.state.communicating ?
+                        <CommRound style={{ margin: "10px"}}></CommRound>
+                        :
+                        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+                        style={{minWidth:"100px", marginRight:"15px"}}
+                        onClick={this.handleSubmitOrderInBasketMutation.bind(this) }> 
+                            הזמן
+                        </button>
+                    
+                  :
+                  null
+                  }
+                    
+                   
                 </div>
                                 
             </div>
@@ -161,6 +206,17 @@ const ItemsInBasketList = Relay.createContainer(ItemsInBasketListSub, {
     fragments: {
         view: () => Relay.QL`
             fragment on view {
+                current_baskets(first:1){
+                    edges{
+                        node{
+                        ... on basket
+                            {
+                                id
+                                review_status
+                            }
+                        }
+                    }
+                }
                 current_items_in_baskets(first: 100) {
                     edges {
                         node {
