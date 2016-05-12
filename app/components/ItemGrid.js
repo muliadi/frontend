@@ -85,14 +85,21 @@ class ItemGridSub extends React.Component {
             })            
         // }
         
-        // sort weighted_filtering_data:
-        var categories = this.props.view.weighted_filtering_data.categories.splice(0);
+        // sort filtering data
+        // inserting categories AND vendors in the same interface        
+        const categories = this.props.view.weighted_filtering_data.categories.map((c)=>({filtering_prefix:"/include_category_", data:c}));
+        this.props.view.weighted_filtering_data.vendors.map((v)=>(categories.push({filtering_prefix:"/include_vendor_", data:v})));        
         var categoryWeights = this.props.view.weighted_filtering_data.category_weights.splice(0);
+        categoryWeights = categoryWeights.concat(this.props.view.weighted_filtering_data.vendor_weights.splice(0))
         const sortedCategories = categoryWeights.map((e,i)=>(i))
                         .sort((a,b)=>(categoryWeights[b] - categoryWeights[a]))
                         .map((e)=>(categories[e]));
-        const sortedCategoryWeights = categoryWeights.sort((a,b)=>(b-a)); 
-            
+        const sortedCategoryWeights = categoryWeights.sort((a,b)=>(b-a));
+        
+        // make singular interface for current filtering too
+        const categoriesInFilter = this.props.view.weighted_filtering_data.categories_in_filter.map((c)=>({filtering_prefix:"/include_category_", data:c}))
+        this.props.view.weighted_filtering_data.vendors_in_filter.map((v)=>{categoriesInFilter.push({filtering_prefix:"/include_vendor_", data:v})})
+                            
         const style_select_category = {
             cursor: "pointer",
             color: "white",
@@ -115,29 +122,31 @@ class ItemGridSub extends React.Component {
         return (
             <div>
                 {
-                    this.props.view.weighted_filtering_data.categories_in_filter.length > 0 ?
+                    categoriesInFilter.length > 0 ?
                 <div style={{paddingTop:"15px", paddingRight:"70px", display:"flex", flexDirection:"row"}}>
-                סינון נוכחי 
-                {
-                    this.props.view.weighted_filtering_data.categories_in_filter.map((category, i) => {
-                        return <div key={"_^_"+i} style={style_filtering_category}>
-                                    <div style={{
-                                        cursor: "pointer",
-                                        borderRadius: "50px",
-                                        marginLeft: "5px",
-                                        backgroundColor: "rgba(0, 70, 0, 0.701961)",
-                                        paddingRight: "5px",
-                                        paddingLeft: "5px",
-                                        height: "20px",
-                                    }}
-                                    onClick={()=>{document.location.hash = document.location.hash.replace("/include_category_"+category.id, "")}}                                    
-                                    >
-                                        x
-                                    </div>
-                                    {category.full_name}
-                                </div>
-                    })
-                }
+                    <div style={{width:"150px", display:"flex", alignItems:"center"}}>סינון נוכחי</div> 
+                    <div style={{flexWrap:"wrap", flexDirection:"row", display:"flex"}}>
+                        {
+                            categoriesInFilter.map((category, i) => {
+                                return <div key={"_^_"+i} style={style_filtering_category}>
+                                            <div style={{
+                                                cursor: "pointer",
+                                                borderRadius: "50px",
+                                                marginLeft: "5px",
+                                                backgroundColor: "rgba(0, 70, 0, 0.701961)",
+                                                paddingRight: "5px",
+                                                paddingLeft: "5px",
+                                                height: "20px",
+                                            }}
+                                            onClick={()=>{document.location.hash = document.location.hash.replace(category.filtering_prefix+category.data.id, "")}}                                    
+                                            >
+                                                x
+                                            </div>
+                                            {category.data.full_name}
+                                        </div>
+                            })
+                        }
+                    </div>
                 </div>                    
                     :
                         null
@@ -145,17 +154,19 @@ class ItemGridSub extends React.Component {
                 {
                     sortedCategories.length > 0 ?
                         <div style={{paddingTop:"15px", paddingRight:"20px", display:"flex", flexDirection:"row"}}>
-                        בחר קטגוריות לסינון 
-                        {
-                            sortedCategories.map((category, i) => {
-                                return <div key={"_"+i} style={{marginRight:"10px"}}>
-                                        <span
-                                            style={style_select_category}
-                                            onClick={()=>{document.location.hash += "/include_category_"+category.id}}>{category.full_name}
-                                        </span>
-                                    </div>
-                            })
-                        }
+                            <div style={{width:"150px", display:"flex", alignItems:"center"}}>בחר קטגוריות לסינון</div>
+                            <div style={{flexWrap:"wrap", flexDirection:"row", display:"flex"}}>                     
+                                {
+                                    sortedCategories.map((category, i) => {
+                                        return <div key={"_"+i} style={{marginRight:"10px"}}>
+                                                <span
+                                                    style={style_select_category}
+                                                    onClick={()=>{document.location.hash += category.filtering_prefix+category.data.id}}>{category.data.full_name}
+                                                </span>
+                                            </div>
+                                    })
+                                }
+                            </div>
                         </div>
                     :
                         null
@@ -240,6 +251,16 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                         full_name
                     }
                     category_weights
+                    
+                    vendors {
+                        id
+                        full_name
+                    }
+                    vendors_in_filter {
+                        id
+                        full_name
+                    }
+                    vendor_weights
                 }                
                 items(first: 30,
                         maxPriceInAgorot: $maxPriceInAgorot,
