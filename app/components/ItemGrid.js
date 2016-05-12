@@ -177,7 +177,16 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                         }
                     }
                 }
-                weighted_categories {
+                weighted_categories(
+                        maxPriceInAgorot: $maxPriceInAgorot,
+                        minPriceInAgorot: $minPriceInAgorot,
+                        includeCategoriesID: $includeCategories,
+                        excludeCategoriesID: $excludeCategories,
+                        includeVendorsID: $includeVendors,
+                        excludeVendorsID: $excludeVendors,
+                        includePackagingsID: $includePackagings,
+                        excludePackagingsID: $excludePackagings,                    
+                ) {
                     categories {
                         id
                         full_name
