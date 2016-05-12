@@ -103,35 +103,56 @@ class ItemGridSub extends React.Component {
             paddingBottom:"2px",
         }   
         const style_filtering_category = {
-            cursor: "pointer",
             color: "white",
             background: "rgba(0,128,0,0.7)",
             borderRadius:"6px",
             paddingLeft:"5px",
-            paddingRight:"5px",
             paddingBottom:"2px",
+            marginRight:"10px",
+            display: "flex",
+            height:"18px",
         }   
         return (
             <div>
-                <div style={{paddingTop:"20px", paddingRight:"20px", display:"flex", flexDirection:"row"}}>
-                סינון נוכחי: 
+                {
+                    this.props.view.weighted_categories.categories_in_filter.length > 0 ?
+                <div style={{paddingTop:"15px", paddingRight:"70px", display:"flex", flexDirection:"row"}}>
+                סינון נוכחי 
                 {
                     this.props.view.weighted_categories.categories_in_filter.map((category, i) => {
-                        return <div key={"_^_"+i} style={{marginRight:"10px"}}>
-                                <span style={style_filtering_category}>{category.full_name}</span>
-                            </div>
+                        return <div key={"_^_"+i} style={style_filtering_category}>
+                                    <div style={{
+                                        cursor: "pointer",
+                                        borderRadius: "50px",
+                                        marginLeft: "5px",
+                                        backgroundColor: "rgba(0, 70, 0, 0.701961)",
+                                        paddingRight: "5px",
+                                        paddingLeft: "5px",
+                                        height: "20px",
+                                    }}
+                                    onClick={()=>{document.location.hash = document.location.hash.replace("/include_category_"+category.id, "")}}                                    
+                                    >
+                                        x
+                                    </div>
+                                    {category.full_name}
+                                </div>
                     })
                 }
-                </div>
-
+                </div>                    
+                    :
+                        null
+                }
                 {
                     sortedCategories.length > 0 ?
-                        <div style={{paddingTop:"20px", paddingRight:"20px", display:"flex", flexDirection:"row"}}>
-                        בחר קטגוריות לסינון: 
+                        <div style={{paddingTop:"15px", paddingRight:"20px", display:"flex", flexDirection:"row"}}>
+                        בחר קטגוריות לסינון 
                         {
                             sortedCategories.map((category, i) => {
                                 return <div key={"_"+i} style={{marginRight:"10px"}}>
-                                        <span style={style_select_category} onClick={()=>{document.location.hash += "/include_category_"+category.id}}>{category.full_name}</span>
+                                        <span
+                                            style={style_select_category}
+                                            onClick={()=>{document.location.hash += "/include_category_"+category.id}}>{category.full_name}
+                                        </span>
                                     </div>
                             })
                         }
@@ -215,6 +236,7 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                         full_name
                     }
                     categories_in_filter {
+                        id
                         full_name
                     }
                     weights

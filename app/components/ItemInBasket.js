@@ -74,7 +74,7 @@ class ItemInBasket extends React.Component {
             overflow: "visible",
             direction: "rtl",
             display: "relative",
-            transition: "transform 0.5s",
+            transition: "transform 0.2s",
         };
         
         const style_noteBubble = {
