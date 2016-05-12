@@ -59,8 +59,6 @@ class ItemGridSub extends React.Component {
             set = true;
          }
          if (set) {
-             console.log("setting new variables!")
-             console.log(newVars)
             this.props.relay.setVariables(newVars);
          }
     }
@@ -103,19 +101,44 @@ class ItemGridSub extends React.Component {
             paddingLeft:"5px",
             paddingRight:"5px",
             paddingBottom:"2px",
-        }                                                
+        }   
+        const style_filtering_category = {
+            cursor: "pointer",
+            color: "white",
+            background: "rgba(0,128,0,0.7)",
+            borderRadius:"6px",
+            paddingLeft:"5px",
+            paddingRight:"5px",
+            paddingBottom:"2px",
+        }   
         return (
             <div>
                 <div style={{paddingTop:"20px", paddingRight:"20px", display:"flex", flexDirection:"row"}}>
-                בחר קטגוריות לסינון: 
+                סינון נוכחי: 
                 {
-                    sortedCategories.map((category, i) => {
-                        return <div key={"_"+i} style={{marginRight:"10px"}}>
-                                <span style={style_select_category} onClick={()=>{document.location.hash += "/include_category_"+category.id}}>{category.full_name}</span>
+                    this.props.view.weighted_categories.categories_in_filter.map((category, i) => {
+                        return <div key={"_^_"+i} style={{marginRight:"10px"}}>
+                                <span style={style_filtering_category}>{category.full_name}</span>
                             </div>
-                    })                    
+                    })
                 }
                 </div>
+
+                {
+                    sortedCategories.length > 0 ?
+                        <div style={{paddingTop:"20px", paddingRight:"20px", display:"flex", flexDirection:"row"}}>
+                        בחר קטגוריות לסינון: 
+                        {
+                            sortedCategories.map((category, i) => {
+                                return <div key={"_"+i} style={{marginRight:"10px"}}>
+                                        <span style={style_select_category} onClick={()=>{document.location.hash += "/include_category_"+category.id}}>{category.full_name}</span>
+                                    </div>
+                            })
+                        }
+                        </div>
+                    :
+                        null
+                }
                 <div className="mdl-grid" style={style_grid}>
                     {
                         'items' in this.props.view ?
@@ -189,6 +212,9 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                 ) {
                     categories {
                         id
+                        full_name
+                    }
+                    categories_in_filter {
                         full_name
                     }
                     weights
