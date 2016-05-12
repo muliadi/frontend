@@ -85,13 +85,13 @@ class ItemGridSub extends React.Component {
             })            
         // }
         
-        // sort weighted_categories:
-        var categories = this.props.view.weighted_categories.categories.splice(0);
-        var weights = this.props.view.weighted_categories.weights.splice(0);
-        const sortedCategories = weights.map((e,i)=>(i))
-                        .sort((a,b)=>(weights[b] - weights[a]))
+        // sort weighted_filtering_data:
+        var categories = this.props.view.weighted_filtering_data.categories.splice(0);
+        var categoryWeights = this.props.view.weighted_filtering_data.category_weights.splice(0);
+        const sortedCategories = categoryWeights.map((e,i)=>(i))
+                        .sort((a,b)=>(categoryWeights[b] - categoryWeights[a]))
                         .map((e)=>(categories[e]));
-        const sortedWeights = weights.sort((a,b)=>(b-a)); 
+        const sortedCategoryWeights = categoryWeights.sort((a,b)=>(b-a)); 
             
         const style_select_category = {
             cursor: "pointer",
@@ -115,11 +115,11 @@ class ItemGridSub extends React.Component {
         return (
             <div>
                 {
-                    this.props.view.weighted_categories.categories_in_filter.length > 0 ?
+                    this.props.view.weighted_filtering_data.categories_in_filter.length > 0 ?
                 <div style={{paddingTop:"15px", paddingRight:"70px", display:"flex", flexDirection:"row"}}>
                 סינון נוכחי 
                 {
-                    this.props.view.weighted_categories.categories_in_filter.map((category, i) => {
+                    this.props.view.weighted_filtering_data.categories_in_filter.map((category, i) => {
                         return <div key={"_^_"+i} style={style_filtering_category}>
                                     <div style={{
                                         cursor: "pointer",
@@ -221,7 +221,7 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                         }
                     }
                 }
-                weighted_categories(
+                weighted_filtering_data(
                         maxPriceInAgorot: $maxPriceInAgorot,
                         minPriceInAgorot: $minPriceInAgorot,
                         includeCategoriesID: $includeCategories,
@@ -239,7 +239,7 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                         id
                         full_name
                     }
-                    weights
+                    category_weights
                 }                
                 items(first: 30,
                         maxPriceInAgorot: $maxPriceInAgorot,
