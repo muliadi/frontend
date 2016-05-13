@@ -27,7 +27,6 @@ class ItemsInBasketListSub extends React.Component {
         componentHandler.upgradeDom();
     }
     handleEmptyBaskets() {
-        console.log("emptying baskets...");
         Relay.Store.commitUpdate(new EmptyBasketsMutation({}),
             {
                 onFailure: (e) => {
@@ -42,8 +41,6 @@ class ItemsInBasketListSub extends React.Component {
         this.setState({
             communicating: true
         })
-        console.log("SubmitOrderInBasketMutation...");
-        console.log(this.props.view.current_baskets.edges[0].node.id);
         Relay.Store.commitUpdate(new SubmitOrderInBasketMutation({
             basketID: this.props.view.current_baskets.edges[0].node.id,
         }),

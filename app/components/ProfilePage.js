@@ -32,7 +32,6 @@ class ProfilePageSub extends React.Component {
                             case "Restaurant":
                                 return <div>Restaurant components will go here</div>;  
                             case "New":
-                                console.log(this.props.view.me.role_type);
                                 return <RestaurantCreateCard
                                     is_company={this.props.view.me.role_restaurant.is_company}
                                     name={this.props.view.me.role_restaurant.name}

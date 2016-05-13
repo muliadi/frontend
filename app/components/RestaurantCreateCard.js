@@ -26,6 +26,7 @@ class RestaurantCreateCard extends React.Component {
             isCompany: true,
             isChainsFullyOpen: false,
             isChain: false,
+            currentChainID: null,
         }
     }
     handleRestaurantNameChange(event) {
@@ -91,11 +92,12 @@ class RestaurantCreateCard extends React.Component {
             companyName: this.state.company_name,
             dropTimeTo: this.state.drop_time_end,
             dropTimeFrom: this.state.drop_time_start,
-            dropDays: this.state.drop_days
+            dropDays: this.state.drop_days,
+            isChain: this.state.isChain,
+            chainID: this.state.currentChainID,
         }),
             {
                 onFailure: (e) => {
-                    console.log(e.getError())
                     const errMsg = e.getError().source.errors[0].message;
                     this.setState({
                         communicating: false,
@@ -170,8 +172,6 @@ class RestaurantCreateCard extends React.Component {
             this.setState({drop_days: new_drop_days, drop_time_start: new_drop_time_start, drop_time_end: new_drop_time_end});
         }
         const timeRanges = [5,4,3,2,1,0].map((dayNum, i)=>(<TimeRange key={i} dayNum={dayNum} checked={true} onChange={onChange}/>))
-        
-        console.log(this.state.isChain)
         
         return (
             <div>
@@ -298,7 +298,8 @@ class RestaurantCreateCard extends React.Component {
                                         {
                                             this.props.available_chains.map((chain, i)=>(
                                                 <div
-                                                    className="chain_logo_div"
+                                                    className={(this.state.isChain && (this.state.currentChainID==chain.node.id))? "chain_logo_currently_selected" : "chain_logo_div"}
+                                                    onClick={()=>{this.setState({currentChainID: chain.node.id})}}
                                                     style={{
                                                         marginLeft:"10px",
                                                         background: "url('/static/content/"+chain.node.small_image.id+"') 50% 50% / contain no-repeat"
