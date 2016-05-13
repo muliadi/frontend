@@ -138,7 +138,7 @@ class RestaurantCreateCard extends React.Component {
         }
         if (this.state.base64data != null) {
             style_small_image.background = "url('data:image;base64," + this.state.base64data + "') center / cover";
-            style_small_image.height = "300px";
+            style_small_image.height = "200px";
             style_small_image.alignItems = "flex-end";
             style_add_image.background = "rgba(200,200,200,1.0)"
         }
@@ -155,6 +155,10 @@ class RestaurantCreateCard extends React.Component {
             this.setState({drop_days: new_drop_days, drop_time_start: new_drop_time_start, drop_time_end: new_drop_time_end});
         }
         const timeRanges = [5,4,3,2,1,0].map((dayNum, i)=>(<TimeRange key={i} dayNum={dayNum} checked={true} onChange={onChange}/>))
+        
+        console.log(this.props.available_chains)
+        //console.log(this.props.chain)
+        
         return (
             <div>
             {
@@ -172,6 +176,9 @@ class RestaurantCreateCard extends React.Component {
                         <div className="mdl-grid">
                                 <input id="fileinput2" type="file" style={{ display: "None" }} onChange={this.handleFileChange.bind(this) }></input>
 
+                        
+                            <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+                            
                                 <div style={style_small_image}>
                                     {this.state.base64data == null ? 
                                         <button
@@ -182,9 +189,7 @@ class RestaurantCreateCard extends React.Component {
                                         </button>
                                     : null}
                                 </div>
-                        
-                            <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
-                            
+
                                 <div style={{width:"100%"}}>
                                     <label className="mdl-radio mdl-js-radio mdl-js-ripple-effect" htmlFor="option-1"  style={{marginLeft:"15px"}}>
                                         <input
@@ -250,11 +255,35 @@ class RestaurantCreateCard extends React.Component {
                                 </div>                                
                             </div>
                             
-                            
-                            
+                                                        
                             
                             <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
                                 <div style={{width: "100%"}}>
+                                    <div  style={{marginBottom:"20px", display:"flex"}}>
+                                    
+                                        <label style={{width:"30px", marginTop:"-2px"}} className="mdl-switch mdl-js-switch mdl-js-ripple-effect" htmlFor="switch-212">
+                                            <input type="checkbox" id="switch-212" className="mdl-switch__input" />
+                                            <span className="mdl-switch__label"></span>
+                                        </label>                                        
+
+                                        <h7 style={{width:"70px", marginRight:"10px"}}>שייך לרשת</h7>                                        
+                                        
+                                    </div>
+                                    <div style={{marginBottom: "20px", display:"flex", flexDirection:"row"}}>
+                                    
+                                        {
+                                            this.props.available_chains.map((chain, i)=>(
+                                                <div
+                                                    className="chain_logo_div"
+                                                    style={{
+                                                        marginLeft:"10px",
+                                                        background: "url('/static/content/"+chain.node.small_image.id+"') 50% 50% / contain no-repeat"
+                                                    }}>                                                    
+                                                </div>
+                                            ))
+                                        }
+                                        
+                                    </div>
                                     <div  style={{marginBottom:"20px"}}>
                                         <h7>בחר ימי ושעות הספקה</h7>
                                     </div>

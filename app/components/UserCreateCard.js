@@ -129,7 +129,7 @@ class UserCreateCard extends React.Component {
         }
         if (this.state.base64data != null) {
             style_small_image.background = "url('data:image;base64," + this.state.base64data + "') center / cover";
-            style_small_image.height = "300px";
+            style_small_image.height = "200px";
             style_small_image.alignItems = "flex-end";
             style_add_image.background = "rgba(200,200,200,1.0)"
         }

@@ -123,8 +123,8 @@ class ItemGridSub extends React.Component {
             <div>
                 {
                     categoriesInFilter.length > 0 ?
-                <div style={{paddingTop:"15px", paddingRight:"70px", display:"flex", flexDirection:"row"}}>
-                    <div style={{width:"150px", display:"flex", alignItems:"center"}}>סינון נוכחי</div> 
+                <div style={{paddingTop:"15px", paddingRight:"20px", display:"flex", flexDirection:"row"}}>
+                    <div style={{width:"150px", textAlign:"left"}}>סינון נוכחי</div> 
                     <div style={{flexWrap:"wrap", flexDirection:"row", display:"flex"}}>
                         {
                             categoriesInFilter.map((category, i) => {
@@ -154,10 +154,13 @@ class ItemGridSub extends React.Component {
                 {
                     sortedCategories.length > 0 ?
                         <div style={{paddingTop:"15px", paddingRight:"20px", display:"flex", flexDirection:"row"}}>
-                            <div style={{width:"150px", display:"flex", alignItems:"center"}}>בחר קטגוריות לסינון</div>
+                            <div style={{width:"150px", textAlign:"left"}}>בחר קטגוריות לסינון</div>
                             <div style={{flexWrap:"wrap", flexDirection:"row", display:"flex"}}>                     
                                 {
                                     sortedCategories.map((category, i) => {
+                                        if (category.filtering_prefix.indexOf("vendor")>0) {
+                                            return;
+                                        }
                                         return <div key={"_"+i} style={{marginRight:"10px"}}>
                                                 <span
                                                     style={style_select_category}

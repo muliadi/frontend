@@ -36,6 +36,8 @@ class ProfilePageSub extends React.Component {
                         company_name={this.props.view.me.role_restaurant.company_name}
                         company_num={this.props.view.me.role_restaurant.company_num}
                         street_address={this.props.view.me.role_restaurant.street_address}
+                        available_chains={this.props.view.chains.edges}
+                        chain={this.props.view.me.role_restaurant.chain}
                         >
                     </RestaurantCreateCard>
                 </div>
@@ -46,6 +48,7 @@ class ProfilePageSub extends React.Component {
     }
 }
 
+// TODO: optimize fetches with the `show` variable
 const ProfilePage = Relay.createContainer(ProfilePageSub, {
     fragments: {
         view: () => Relay.QL`
@@ -57,6 +60,19 @@ const ProfilePage = Relay.createContainer(ProfilePageSub, {
                         company_name
                         company_num
                         street_address
+                    }
+                }
+                chains(first: 100) {
+                    edges {
+                        node {
+                            ... on chain {
+                                id
+                                name
+                                small_image {
+                                    id
+                                }
+                            }
+                        }
                     }
                 }
             }`,
