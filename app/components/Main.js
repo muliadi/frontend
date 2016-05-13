@@ -15,6 +15,7 @@ import ProfilePage from './ProfilePage.js'
 import AdminPage from './AdminPage.js'
 import SapakLanding from './SapakLanding.js'
 import SetSapakimCookie from '../utils/cookies.js'
+import RestLanding from './OrderManagement.js'
 
 const MainSub = class extends React.Component {
     constructor(props) {
@@ -89,6 +90,9 @@ const MainSub = class extends React.Component {
         if (this.props.view.me.role_type=="Restaurant") {        
             if (argNum>0) {
                 switch (arg1) {
+                    case "order_management":
+                        this.setState({pageToRender: <OrderManagement view={this.props.view}></OrderManagement>});
+                        break;
                     case "terms_and_conditions":
                         this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>});            
                         break;
