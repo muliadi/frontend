@@ -41,3 +41,4 @@ export default class AddRestaurantMutation extends Relay.Mutation {
 }
 
 // TODO: it's not `adddRestaurant` but `createRestaurant`
+
