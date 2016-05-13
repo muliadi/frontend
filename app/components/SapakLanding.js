@@ -8,6 +8,13 @@ class SapakLandingSub extends React.Component {
         return (
             <div>
                 Hello {this.props.view.me.full_name}!
+                {
+                    this.props.view.me.get_restaurants_pending_chain_join_from_all_chains.edges.map((edge, i)=>{
+                        return <div>
+                            {edge.node.name} מבקש להצטרף ל {edge.node.chain.name}
+                        </div>
+                    })
+                }                
             </div>
         );
     }

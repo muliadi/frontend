@@ -86,7 +86,7 @@ const MainSub = class extends React.Component {
 
         // user is logged
         
-        if (this.props.view.me.role_type=="Restaurant") {        
+        if ((this.props.view.me.role_type=="Restaurant")||(this.props.view.me.role_type=="New")) {        
             if (argNum>0) {
                 switch (arg1) {
                     case "terms_and_conditions":
