@@ -16,9 +16,11 @@ export default class SubmitOrderInBasketMutation extends Relay.Mutation {
         return Relay.QL`
       fragment on submitOrderInBasketPayload @relay(pattern: true) {
           view {
+               me{
+                  baskets
+              }
               current_baskets
               current_items_in_baskets
-              
           }
       }
     `;
