@@ -13,6 +13,7 @@ import MailVerification from './MailVerification.js';
 import LogInOrCreateUser from './LogInOrCreateUser.js'
 import ProfilePage from './ProfilePage.js'
 import AdminPage from './AdminPage.js'
+import SapakLanding from './SapakLanding.js'
 import SetSapakimCookie from '../utils/cookies.js'
 
 const MainSub = class extends React.Component {
@@ -85,56 +86,85 @@ const MainSub = class extends React.Component {
 
         // user is logged
         
-        if (argNum>0) {
-            switch (arg1) {
-                case "terms_and_conditions":
-                    this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>});            
-                    break;
-                case "admin":
-                    this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>});
-                    break;
-                case "items":
-                    this.setState({pageToRender:<ItemGrid
-                        includePackagings={includeCategories}
-                            view={this.props.view}
-                            includeCategories={includeCategories}
-                            excludeCategories={excludeCategories}
-                            includeVendors={includeVendors}
-                            excludeVendors={excludeVendors}
-                            includePackagings={includePackagings}
-                            excludePackagings={excludePackagings}
-                            maxPriceInAgorot={maxPrices}
-                            minPriceInAgorot={minPrices}
-                             >
-                        </ItemGrid>});
-                    break;
-                case "users":
-                    this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>});
-                    break;
-                case "sapakim":
-                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>});
-                    break;                        
-                case "login":
-                    this.setState({pageToRender: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser> });
-                    break;                        
-                case "profile":
-                    this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage>});
-                    break;                        
-                case "mail_verification":
-                    if (argNum!=2) {
+        if (this.props.view.me.role_type=="Restaurant") {        
+            if (argNum>0) {
+                switch (arg1) {
+                    case "terms_and_conditions":
+                        this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>});            
+                        break;
+                    case "admin":
+                        this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>});
+                        break;
+                    case "items":
+                        this.setState({pageToRender:<ItemGrid
+                            includePackagings={includeCategories}
+                                view={this.props.view}
+                                includeCategories={includeCategories}
+                                excludeCategories={excludeCategories}
+                                includeVendors={includeVendors}
+                                excludeVendors={excludeVendors}
+                                includePackagings={includePackagings}
+                                excludePackagings={excludePackagings}
+                                maxPriceInAgorot={maxPrices}
+                                minPriceInAgorot={minPrices}
+                                >
+                            </ItemGrid>});
+                        break;
+                    case "users":
+                        this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>});
+                        break;
+                    case "sapakim":
+                        this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>});
+                        break;                        
+                    case "login":
+                        this.setState({pageToRender: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser> });
+                        break;                        
+                    case "profile":
+                        this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage>});
+                        break;                        
+                    case "mail_verification":
+                        if (argNum!=2) {
+                            this.setState({pageToRender: <div>404 Not Found</div> });
+                            break;
+                        }
+                        this.setState({pageToRender: <MailVerification hash={arg2}></MailVerification> });
+                        break;                        
+                    default:
                         this.setState({pageToRender: <div>404 Not Found</div> });
                         break;
-                    }
-                    this.setState({pageToRender: <MailVerification hash={arg2}></MailVerification> });
-                    break;                        
-                default:
-                    this.setState({pageToRender: <div>404 Not Found</div> });
-                    break;
+                }
+            }
+            else {
+                this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid> });            
             }
         }
-        else {
-            this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid> });            
-        }            
+        
+        if (this.props.view.me.role_type=="Sapak") {     
+            console.log("is sapak!")  
+            console.log(argNum) 
+            console.log(arg1) 
+            if (argNum>0) {
+                switch (arg1) {
+                    case "terms_and_conditions":
+                        this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>});            
+                        break;
+                    case "mail_verification":
+                        if (argNum!=2) {
+                            this.setState({pageToRender: <div>404 Not Found</div> });
+                            break;
+                        }
+                        this.setState({pageToRender: <MailVerification hash={arg2}></MailVerification> });
+                        break;                        
+                    default:
+                        this.setState({pageToRender: <div>404 Not Found</div> });
+                        break;
+                }
+            }
+            else {
+                this.setState({pageToRender: <SapakLanding view={this.props.view}></SapakLanding> });            
+            }
+        }
+                    
     }        
     fixFooter() {
         const c = document.getElementsByClassName("page-content")[0]
@@ -174,6 +204,7 @@ const Main = Relay.createContainer(MainSub, {
                 ${UserGrid.getFragment('view')},
                 ${SapakGrid.getFragment('view')},
                 ${ProfilePage.getFragment('view')},
+                ${SapakLanding.getFragment('view')},
                 me {
                     is_founder
                     role_type
