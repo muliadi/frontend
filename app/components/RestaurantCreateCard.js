@@ -24,6 +24,8 @@ class RestaurantCreateCard extends React.Component {
             communicating: false,
             success: false,
             isCompany: true,
+            isChainsFullyOpen: false,
+            isChain: false,
         }
     }
     handleRestaurantNameChange(event) {
@@ -109,15 +111,28 @@ class RestaurantCreateCard extends React.Component {
         componentHandler.upgradeDom();
         document.getElementById("option-1").click();
     }
+    componentDidUpdate() {
+        if ((this.state.isChain)&&(!this.state.isChainsFullyOpen)) {
+            document.getElementById("chainSelector_id").style.maxHeight = '100px';
+            this.setState({isChainsFullyOpen: true})
+            return 
+        }                
+        if ((!this.state.isChain)&&(this.state.isChainsFullyOpen)) {
+            document.getElementById("chainSelector_id").style.maxHeight = '0px';
+            this.setState({isChainsFullyOpen: false})
+            return 
+        }                
+    }
     render() {
         const style_card = {
             width: "100%",
+            maxWidth: "920px",
             marginLeft: "auto",
             marginRight: "auto",
             alignItems:"center",
         };
         const style_small_image = {
-            width: "100%",
+            maxWidth: "400px",
             height: "200px",
             display: "flex",
             alignItems: "center",
@@ -156,8 +171,7 @@ class RestaurantCreateCard extends React.Component {
         }
         const timeRanges = [5,4,3,2,1,0].map((dayNum, i)=>(<TimeRange key={i} dayNum={dayNum} checked={true} onChange={onChange}/>))
         
-        console.log(this.props.available_chains)
-        //console.log(this.props.chain)
+        console.log(this.state.isChain)
         
         return (
             <div>
@@ -255,21 +269,31 @@ class RestaurantCreateCard extends React.Component {
                                 </div>                                
                             </div>
                             
-                                                        
-                            
                             <div className="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
                                 <div style={{width: "100%"}}>
-                                    <div  style={{marginBottom:"20px", display:"flex"}}>
+                                    <div  style={{display:"flex"}}>
                                     
-                                        <label style={{width:"30px", marginTop:"-2px"}} className="mdl-switch mdl-js-switch mdl-js-ripple-effect" htmlFor="switch-212">
-                                            <input type="checkbox" id="switch-212" className="mdl-switch__input" />
+                                        <label style={{width:"40px", marginTop:"-2px"}} className="mdl-switch mdl-js-switch mdl-js-ripple-effect" htmlFor="switch-212">
+                                            <input
+                                                type="checkbox"
+                                                id="switch-212"
+                                                className="mdl-switch__input"
+                                                onChange={()=>{this.setState({isChain: !this.state.isChain})}}
+                                                 />
                                             <span className="mdl-switch__label"></span>
                                         </label>                                        
 
                                         <h7 style={{width:"70px", marginRight:"10px"}}>שייך לרשת</h7>                                        
                                         
                                     </div>
-                                    <div style={{marginBottom: "20px", display:"flex", flexDirection:"row"}}>
+                                    <div
+                                        id="chainSelector_id"
+                                        style={{marginBottom: "20px",
+                                        display: "flex",
+                                        flexDirection:"row",
+                                        transition: "max-height 0.2s",
+                                        overflow:"hidden",
+                                        maxHeight:"0px"}}>
                                     
                                         {
                                             this.props.available_chains.map((chain, i)=>(

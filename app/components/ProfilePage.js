@@ -10,24 +10,12 @@ class ProfilePageSub extends React.Component {
         componentHandler.upgradeDom();
     } 
     render() {
-        const style_sidebar = {
-            background: "rgba(51,172,113,0.0)",
-            paddingTop: "30px",
-            marginTop: "-7px",
-            marginRight: "-7px",
-            marginBottom: "-7px",
-            paddingRight: "20px",
-        }
         const style_grid = {
             top: "0px",
             bottom: "0px",
-            marginTop:"-20px",
             marginBottom:"0px",
-            paddingTop: "50px",
+            marginTop:"20px",
         }
-        
-        var UserDepandantContent;
-        
         
         return (
             <div className="mdl-grid" style={style_grid}>        
