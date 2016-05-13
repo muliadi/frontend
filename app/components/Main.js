@@ -15,7 +15,7 @@ import ProfilePage from './ProfilePage.js'
 import AdminPage from './AdminPage.js'
 import SapakLanding from './SapakLanding.js'
 import SetSapakimCookie from '../utils/cookies.js'
-import RestLanding from './OrderManagement.js'
+import OrderManagement from './OrderManagement.js'
 
 const MainSub = class extends React.Component {
     constructor(props) {
@@ -90,7 +90,7 @@ const MainSub = class extends React.Component {
         if ((this.props.view.me.role_type=="Restaurant")||(this.props.view.me.role_type=="New")) {        
             if (argNum>0) {
                 switch (arg1) {
-                    case "order_management":
+                    case "orders":
                         this.setState({pageToRender: <OrderManagement view={this.props.view}></OrderManagement>});
                         break;
                     case "terms_and_conditions":
@@ -209,6 +209,7 @@ const Main = Relay.createContainer(MainSub, {
                 ${SapakGrid.getFragment('view')},
                 ${ProfilePage.getFragment('view')},
                 ${SapakLanding.getFragment('view')},
+                ${OrderManagement.getFragment('view')},
                 me {
                     is_founder
                     role_type

@@ -94,6 +94,17 @@ class MainFrameSub extends React.Component {
                                 :
                                     null
                             }
+                            
+                            {
+                                this.props.view.me.role_type == "Restaurant" ?
+                                <a className="mdl-navigation__link"
+                                        style={style_nav_link}
+                                        onMouseOver={style_nav_link_mouse_over}
+                                        onMouseOut={style_nav_link_mouse_out}
+                                        href="/#/orders">ניהול הזמנות</a>
+                                        :
+                                        null
+                            }
                             <a className="mdl-navigation__link"
                                 style={style_nav_link}
                                 onMouseOver={style_nav_link_mouse_over}
@@ -192,6 +203,15 @@ class MainFrameSub extends React.Component {
                                     href="/#/admin">אדמין</a>
                             :
                                 null
+                        }
+                        
+                        {
+                                this.props.view.me.role_type == "Restaurant" ?
+                                <a className="mdl-navigation__link"
+                                        onClick={closeDrawer}
+                                        href="/#/orders">ניהול הזמנות</a>
+                                        :
+                                        null
                         }
                                 
                         <a className="mdl-navigation__link"
