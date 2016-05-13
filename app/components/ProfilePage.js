@@ -25,21 +25,44 @@ class ProfilePageSub extends React.Component {
             marginBottom:"0px",
             paddingTop: "50px",
         }
+        
+        var UserDepandantContent;
+        
+        
         return (
             <div className="mdl-grid" style={style_grid}>        
                 <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
                 </div>
                 <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-                    <RestaurantCreateCard
-                        is_company={this.props.view.me.role_restaurant.is_company}
-                        name={this.props.view.me.role_restaurant.name}
-                        company_name={this.props.view.me.role_restaurant.company_name}
-                        company_num={this.props.view.me.role_restaurant.company_num}
-                        street_address={this.props.view.me.role_restaurant.street_address}
-                        available_chains={this.props.view.chains.edges}
-                        chain={this.props.view.me.role_restaurant.chain}
-                        >
-                    </RestaurantCreateCard>
+                  
+               {(() => { console.log(this.props.view.me.role_type);
+                         switch (this.props.view.me.role_type) {
+                             case "Sapak":
+                                return <div>Sapak components will go here</div>;
+                            case "ChainUser":
+                                return <div>ChainUser components will go here</div>; 
+                            case "Restaurant":
+                                return <div>Restaurant components will go here</div>;  
+                            case "New":
+                                console.log(this.props.view.me.role_type);
+                                return <RestaurantCreateCard
+                                    is_company={this.props.view.me.role_restaurant.is_company}
+                                    name={this.props.view.me.role_restaurant.name}
+                                    company_name={this.props.view.me.role_restaurant.company_name}
+                                    company_num={this.props.view.me.role_restaurant.company_num}
+                                    street_address={this.props.view.me.role_restaurant.street_address}
+                                    available_chains={this.props.view.chains.edges}
+                                    chain={this.props.view.me.role_restaurant.chain}
+                                    >
+                                </RestaurantCreateCard>; 
+                            default:
+                                            
+                                return;
+        }
+      })()}
+              
+                  
+                   
                 </div>
                 <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
                 </div>
@@ -54,6 +77,7 @@ const ProfilePage = Relay.createContainer(ProfilePageSub, {
         view: () => Relay.QL`
             fragment on view {
                 me {
+                    role_type
                     role_restaurant {
                         is_company
                         name
