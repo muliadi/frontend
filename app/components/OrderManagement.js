@@ -5,10 +5,39 @@ import Relay from 'react-relay';
 
 import RestaurantCreateCard from './RestaurantCreateCard.js'
 
+
 class OrderManagementSub extends React.Component {
     componentDidMount() {
         componentHandler.upgradeDom();
     } 
+    
+    PretyfiDate(date){
+        console.log(date);
+        var formDate = date.slice(8, 10)+"/"+date.slice(5, 7)+"/"+date.slice(0, 4);
+        return formDate;
+}
+
+ PretyfiBsketStatus(status)
+ {
+     switch (status) {
+          case "WithSapak":     
+            return <span className="mdl-list__item-primary-content" style={{ textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>
+                        <i className="material-icons mdl-list__item-icon">query_builder</i>
+                    ממתין לאישור
+                    </span>;
+          case "WithUser":      
+            return <span className="mdl-list__item-primary-content" style={{textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>
+                    <i className="material-icons mdl-list__item-icon">shopping_cart</i>
+                   לא נשלח
+                    </span>;
+          case "approved":      return <i className="material-icons mdl-list__item-icon">done</i>;
+          case "rejected":      return <i className="material-icons mdl-list__item-icon">not_interested</i>;
+          default:      return <i className="material-icons mdl-list__item-icon">shopping_cart</i>;;
+        }
+    
+ }
+
+    
     render() {
         const style_grid = {
             top: "0px",
@@ -51,10 +80,13 @@ class OrderManagementSub extends React.Component {
                             this.props.view.me.baskets.map((basket, i) => {
                                 return  <li key={i} className="mdl-list__item basketlistItem" >
                                         <span className="mdl-list__item-primary-content" >
-                                            
                                             <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"5px", marginLeft:"5px"}}> 
-                                             {basket.date_updated}  
+                                              {this.PretyfiDate(basket.date_updated)}  
                                         </span>
+                                              {this.PretyfiBsketStatus(basket.review_status)} 
+                                              <span className="mdl-list__item-primary-content" >
+                                                    {basket.sapak.name}
+                                              </span> 
                                         </span>
                                     </li>
                             })
