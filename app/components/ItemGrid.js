@@ -65,6 +65,9 @@ class ItemGridSub extends React.Component {
     componentDidMount() {
         componentHandler.upgradeDom();
     }
+    cpmponentDidUpdate() {
+        this.props.relay.setVariables(newVars);        
+    }
     render() {
         const style_grid = {
         };
@@ -216,7 +219,7 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
         excludeVendors: [],
         includePackagings: [],
         excludePackagings: [],
-        show: false,
+        show: true,
         show_num_in_basket: false,
     },
     fragments: {
