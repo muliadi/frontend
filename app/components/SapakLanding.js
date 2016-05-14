@@ -14,6 +14,11 @@ class SapakLandingSub extends React.Component {
             communicating: {}
         }
     }
+    componentWillMount() {
+        this.props.relay.setVariables({
+            show: true,
+        });        
+    }
     componentDidMount() {
         componentHandler.upgradeDom();
     }    
@@ -50,7 +55,11 @@ class SapakLandingSub extends React.Component {
     }
     
     render() {
-        console.log(this.props.view.me.get_restaurants_pending_chain_join_from_all_chains)
+        if (!('me' in this.props.view)) {
+            return (
+                <div/>
+            )
+        }
         return (
             <div style={{margin:"25px"}}>
                 <h5>רשימת המסעדות המחכות לאישור הצטרפות לרשת:</h5>
@@ -72,17 +81,49 @@ class SapakLandingSub extends React.Component {
                         </div>
                     })
                 }                
+                <h5>רשימת הסלים המחכים לאישור:</h5>
+                {
+                    this.props.view.me.role_sapak.baskets.map((basket, i)=>{
+                        return <div key={i}>
+                            <h6>{basket.creator.full_name}</h6>
+                            {
+                                basket.items_in_basket.map((item, i)=>{
+                                    return <div key={"abc"+i}>
+                                        {item.item.name} x {item.Amount} x {item.item.price_in_agorot} 
+                                    </div>
+                                })
+                            }
+                        </div>
+                    })
+                }                
             </div>
         );
     }
 }
 
 const SapakLanding = Relay.createContainer(SapakLandingSub, {
+    initialVariables: {
+        show: false,
+    },    
     fragments: {
         view: () => Relay.QL`
             fragment on view {
-                me {
+                me @include(if: $show) {
                     role_type
+                    role_sapak {
+                        baskets(review_status: WithSapak) {
+                            creator {
+                                full_name
+                            }
+                            items_in_basket {
+                                Amount
+                                item {
+                                    name
+                                    price_in_agorot
+                                }
+                            }
+                        }
+                    }
                     full_name
                     get_restaurants_pending_chain_join_from_all_chains(first: 30) {
                         edges {
