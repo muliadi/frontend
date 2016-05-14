@@ -17,6 +17,7 @@ export default class AddRestaurantMutation extends Relay.Mutation {
             dropDays: this.props.dropDays,
             isChain: this.props.isChain,
             chainID: this.props.chainID,
+            base64Data: this.props.imageBase64Data,
         };
         return v
     }

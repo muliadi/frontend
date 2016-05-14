@@ -13,14 +13,41 @@ class MainFrameSub extends React.Component {
     componentDidMount() {
         componentHandler.upgradeDom();
     } 
+    
+     GenerateChainOrRestLogoDiv()
+ {
+     var retVar;
+     const style_logo = {
+            width: "65px",
+            height: "35px",
+            marginRight:"10px",
+            borderRadius: "5px",
+           // cursor:"pointer",
+        } 
+     if (this.props.view.me.role_type == "Restaurant" ){
+        if (this.props.view.me.restaurants[0].was_accepted_to_chain){
+            const logo_path =  "/static/content/"+this.props.view.me.restaurants[0].chain.small_image_id;
+            style_logo.background = "url('"+logo_path+"') 50% 50% / contain no-repeat";
+             
+        } else {
+            const logo_path =  "/static/content/"+this.props.view.me.restaurants[0].small_image.id;
+            style_logo.background = "url('"+logo_path+"') 50% 50% / contain no-repeat"; 
+            console.log(logo_path);
+        }
+            retVar = <div style={style_logo}/>;
+        }
+     
+         return retVar;
+ }
+    
     render() {
         const avatar_path = this.props.view.me.role_type != "Anonymous" ?
             "/static/content/"+this.props.view.me.small_image.id
         :
             "static/login.png";
         const style_avatar = {
-            width: "30px",
-            height: "30px",
+            width: "35px",
+            height: "35px",
             marginRight:"25px",
             borderRadius: "100px",
             cursor:"pointer",
@@ -122,6 +149,9 @@ class MainFrameSub extends React.Component {
                                         <div style={style_avatar}
                                             id="avatar_user"
                                             onClick={()=>{document.location="/#/profile"}}>
+                                        </div>
+                                        <div >
+                                        {this.GenerateChainOrRestLogoDiv()}
                                         </div>
                                         <button style={{ marginRight:"10px",  maxHeight: "14px", lineHeight:"10px", fontSize:"11px"}} className="mdl-button mdl-js-button mdl-js-ripple-effect " onClick={()=>{logout()}}>         
                                             היתנתק
@@ -269,7 +299,17 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
                     is_founder
                     mail
                     full_name
-                    restaurants                    
+                    restaurants {
+                        small_image_id
+                        small_image{
+                            id
+                        }
+                        was_accepted_to_chain
+                        chain {
+                        name
+                        small_image_id
+                        }
+                    }                   
                     small_image {
                         id
                     }
