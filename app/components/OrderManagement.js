@@ -15,7 +15,12 @@ class OrderManagementSub extends React.Component {
         console.log(date);
         var formDate = date.slice(8, 10)+"/"+date.slice(5, 7)+"/"+date.slice(0, 4);
         return formDate;
-}
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.forceFetch) {
+            this.props.relay.forceFetch()
+        }        
+    }
 
  PretyfiBsketStatus(status)
  {

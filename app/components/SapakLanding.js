@@ -21,6 +21,11 @@ class SapakLandingSub extends React.Component {
             show: true,
         });        
     }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.forceFetch) {
+            this.props.relay.forceFetch()
+        }        
+    }
     componentDidMount() {
         componentHandler.upgradeDom();
     }    

@@ -20,16 +20,26 @@ import OrderManagement from './OrderManagement.js'
 const MainSub = class extends React.Component {
     constructor(props) {
         super(props)
-        this.state ={
-            pageToRender: null,
+        this.state = {
+            mock: false
         }
-        window.onhashchange = this.getPageToRender.bind(this);
+        window.onhashchange = ()=>{this.setState({mock: !this.state.mock})}
         SetSapakimCookie(this.props.view.current_session)
     } 
     componentWillMount() {
-        this.getPageToRender();                
-    }   
-    getPageToRender() {        
+        // check for updates every 10 seconds
+        const checkForUpdates = ()=>{setTimeout(()=>{
+            this.props.relay.setVariables({forceFetchCount: this.props.relay.variables.forceFetchCount+1})
+            checkForUpdates();
+        }, 10000)};
+        checkForUpdates();
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.view.has_updates) {
+            this.props.relay.forceFetch()
+        }        
+    }
+    getPageToRender() {   
         const args = document.location.hash.slice(1).split("/").filter((s)=>(s!=""));
         const argNum = args.length;
         const arg1 = argNum >= 1 ? args[0] : null;
@@ -49,18 +59,13 @@ const MainSub = class extends React.Component {
             // user is not logged:
             switch (arg1) {
                 case "terms_and_conditions":
-                    this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions> });            
-                    return;
+                    return <TermsAndConditions view={this.props.view}></TermsAndConditions>            
                 case "login":
-                    this.setState({pageToRender: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser> });
-                    return;  
-                    
+                    return <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser>                    
                 case "sapakim":
-                    this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>})
-                    return;      
+                    return <SapakGrid view={this.props.view}></SapakGrid>
                 case "items":
-                    this.setState({pageToRender:
-                        <ItemGrid view={this.props.view}
+                    return <ItemGrid view={this.props.view}
                             includeCategories={includeCategories}
                             excludeCategories={excludeCategories}
                             includeVendors={includeVendors}
@@ -70,18 +75,14 @@ const MainSub = class extends React.Component {
                             maxPriceInAgorot={maxPrices}
                             minPriceInAgorot={minPrices}
                         >
-                        </ItemGrid>})
-                    return;                      
+                        </ItemGrid>
                 case "mail_verification":
                     if (argNum!=2) {
-                        this.setState({pageToRender: <div>404 Not Found</div> });
-                        break;
+                        return <div>404 Not Found</div>
                     }
-                    this.setState({pageToRender: <MailVerification hash={arg2}></MailVerification> });
-                    return;                        
+                    return <MailVerification hash={arg2}></MailVerification>
                 default:
-                    this.setState({pageToRender: <LandingPage view={this.props.view}></LandingPage> });            
-                    return;
+                    return <LandingPage view={this.props.view}></LandingPage>            
             }
         }
 
@@ -91,16 +92,13 @@ const MainSub = class extends React.Component {
             if (argNum>0) {
                 switch (arg1) {
                     case "orders":
-                        this.setState({pageToRender: <OrderManagement view={this.props.view}></OrderManagement>});
-                        break;
+                        return <OrderManagement view={this.props.view} forceFetch={this.props.view.has_updates}></OrderManagement>
                     case "terms_and_conditions":
-                        this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>});            
-                        break;
+                        return <TermsAndConditions view={this.props.view}></TermsAndConditions>            
                     case "admin":
-                        this.setState({pageToRender: <AdminPage view={this.props.view}></AdminPage>});
-                        break;
+                        return <AdminPage view={this.props.view}></AdminPage>
                     case "items":
-                        this.setState({pageToRender:<ItemGrid
+                        return <ItemGrid
                             includePackagings={includeCategories}
                                 view={this.props.view}
                                 includeCategories={includeCategories}
@@ -112,60 +110,45 @@ const MainSub = class extends React.Component {
                                 maxPriceInAgorot={maxPrices}
                                 minPriceInAgorot={minPrices}
                                 >
-                            </ItemGrid>});
-                        break;
+                            </ItemGrid>
                     case "users":
-                        this.setState({pageToRender: <UserGrid view={this.props.view}></UserGrid>});
-                        break;
+                        return <UserGrid view={this.props.view}></UserGrid>
                     case "sapakim":
-                        this.setState({pageToRender: <SapakGrid view={this.props.view}></SapakGrid>});
-                        break;                        
+                        return <SapakGrid view={this.props.view}></SapakGrid>
                     case "login":
-                        this.setState({pageToRender: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser> });
-                        break;                        
+                        return <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser>
                     case "profile":
-                        this.setState({pageToRender: <ProfilePage view={this.props.view}></ProfilePage>});
-                        break;                        
+                        return <ProfilePage view={this.props.view}></ProfilePage>
                     case "mail_verification":
                         if (argNum!=2) {
-                            this.setState({pageToRender: <div>404 Not Found</div> });
-                            break;
+                            return <div>404 Not Found</div>
                         }
-                        this.setState({pageToRender: <MailVerification hash={arg2}></MailVerification> });
-                        break;                        
+                        return <MailVerification hash={arg2}></MailVerification>
                     default:
-                        this.setState({pageToRender: <div>404 Not Found</div> });
-                        break;
+                        return <div>404 Not Found</div>
                 }
             }
             else {
-                this.setState({pageToRender: <ItemGrid view={this.props.view}></ItemGrid> });            
+                return <ItemGrid view={this.props.view}></ItemGrid>            
             }
         }
         
         if (this.props.view.me.role_type=="Sapak") {     
-            console.log("is sapak!")  
-            console.log(argNum) 
-            console.log(arg1) 
             if (argNum>0) {
                 switch (arg1) {
                     case "terms_and_conditions":
-                        this.setState({pageToRender: <TermsAndConditions view={this.props.view}></TermsAndConditions>});            
-                        break;
+                        return <TermsAndConditions view={this.props.view}></TermsAndConditions>            
                     case "mail_verification":
                         if (argNum!=2) {
-                            this.setState({pageToRender: <div>404 Not Found</div> });
-                            break;
+                            return <div>404 Not Found</div>
                         }
-                        this.setState({pageToRender: <MailVerification hash={arg2}></MailVerification> });
-                        break;                        
+                        return <MailVerification hash={arg2}></MailVerification>
                     default:
-                        this.setState({pageToRender: <div>404 Not Found</div> });
-                        break;
+                        return <div>404 Not Found</div>
                 }
             }
             else {
-                this.setState({pageToRender: <SapakLanding view={this.props.view}></SapakLanding> });            
+                return <SapakLanding view={this.props.view} forceFetch={this.props.view.has_updates}></SapakLanding>            
             }
         }
                     
@@ -193,13 +176,16 @@ const MainSub = class extends React.Component {
     render() {   
         return (
             <MainFrame view={this.props.view} sidebar={this.state.sidebar}>
-                {this.state.pageToRender}
+                {this.getPageToRender()}
             </MainFrame>
         );
     }
 };
 
 const Main = Relay.createContainer(MainSub, {
+    initialVariables: {
+        forceFetchCount: 0,
+    },    
     fragments: {
         view: (variables) => Relay.QL`
             fragment on view {
@@ -210,6 +196,7 @@ const Main = Relay.createContainer(MainSub, {
                 ${ProfilePage.getFragment('view')},
                 ${SapakLanding.getFragment('view')},
                 ${OrderManagement.getFragment('view')},
+                has_updates(key: $forceFetchCount)
                 me {
                     is_founder
                     role_type

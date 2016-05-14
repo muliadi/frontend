@@ -51,7 +51,7 @@ class UserLoginCard extends React.Component {
                 },
                 onSuccess: () => {
                     this.setState({ communicating: false })
-                    document.location="/#/users";
+                    document.location="/#";
                 },
             });
     }

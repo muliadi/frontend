@@ -19,7 +19,9 @@ export default class ReviewBasketMutation extends Relay.Mutation {
       fragment on reviewBasketPayload @relay(pattern: true) {
           view {
               me {
-                  baskets
+                  role_sapak {
+                      baskets
+                  }
               }
           }
       }
