@@ -24,6 +24,7 @@ class OrderManagementSub extends React.Component {
 
  PretyfiBsketStatus(status)
  {
+     console.log(status);
      switch (status) {
           case "WithSapak":     
             return <span className="mdl-list__item-primary-content" style={{ textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>
@@ -35,8 +36,8 @@ class OrderManagementSub extends React.Component {
                     <i className="material-icons mdl-list__item-icon">shopping_cart</i>
                    לא נשלח
                     </span>;
-          case "approved":      return <i className="material-icons mdl-list__item-icon">done</i>;
-          case "rejected":      return <i className="material-icons mdl-list__item-icon">not_interested</i>;
+          case "Approved":      return <i className="material-icons mdl-list__item-icon">done</i>;
+          case "Rejected":      return <i className="material-icons mdl-list__item-icon">not_interested</i>;
           default:      return <i className="material-icons mdl-list__item-icon">shopping_cart</i>;;
         }
     

@@ -95,6 +95,7 @@ class RestaurantCreateCard extends React.Component {
             dropDays: this.state.drop_days,
             isChain: this.state.isChain,
             chainID: this.state.currentChainID,
+            imageBase64Data: this.state.base64data,
         }),
             {
                 onFailure: (e) => {
