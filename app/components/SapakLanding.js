@@ -4,6 +4,8 @@ import React from 'react';
 import Relay from 'react-relay';
 
 import joinRestaurantToChainMutation from '../mutations/joinRestaurantToChain.js'
+import ReviewBasketMutation from '../mutations/reviewBasket.js'
+
 
 import CommRound from './commRound.js'
 
@@ -54,6 +56,37 @@ class SapakLandingSub extends React.Component {
             });
     }
     
+    handleReviewBasketMutation(basketID, reviewStatus, reviewComment, key) {
+        const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
+        mycomm[key] = true 
+        this.setState({
+            communicating: mycomm,
+        })
+        Relay.Store.commitUpdate(new ReviewBasketMutation({
+            basketID: basketID,
+            reviewStatus: reviewStatus,
+            reviewComment: reviewComment,
+        }),
+            {
+                onFailure: (e) => {
+                    console.log(e.getError())
+                    const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
+                    mycomm[key] = false
+                    this.setState({
+                        communicating: mycomm
+                    })
+                },
+                onSuccess: () => {
+                    console.log('basket successfuly reviewed!')
+                    const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
+                    mycomm[key] = false
+                    this.setState({
+                        communicating: mycomm
+                    })
+                },
+            });
+    }
+
     render() {
         if (!('me' in this.props.view)) {
             return (
@@ -86,6 +119,14 @@ class SapakLandingSub extends React.Component {
                     this.props.view.me.role_sapak.baskets.map((basket, i)=>{
                         return <div key={i}>
                             <h6>{basket.creator.full_name}</h6>
+                            
+                            <button
+                                className="mdl-button mdl-js-button mdl-button--raised"
+                                onClick={()=>{this.handleReviewBasketMutation.bind(this)(basket.id, "Approved", "just testing this comment, please change me!", "abc"+i)}}
+                                style={{marginRight: "15px"}}>
+                                אשר
+                            </button>                                
+                            
                             {
                                 basket.items_in_basket.map((item, i)=>{
                                     return <div key={"abc"+i}>
@@ -112,6 +153,7 @@ const SapakLanding = Relay.createContainer(SapakLandingSub, {
                     role_type
                     role_sapak {
                         baskets(review_status: WithSapak) {
+                            id
                             creator {
                                 full_name
                             }
