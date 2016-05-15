@@ -18,10 +18,6 @@ export default class AddItemToBasketMutation extends Relay.Mutation {
         return Relay.QL`
       fragment on addItemToBasketPayload @relay(pattern: true) {
           view {
-              me{
-                  baskets
-              }
-              current_baskets
               current_items_in_baskets
           }
       }

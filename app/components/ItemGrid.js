@@ -78,6 +78,15 @@ class ItemGridSub extends React.Component {
         this.props.view.weighted_filtering_data.vendors.map((v)=>(categories.push({filtering_prefix:"/include_vendor_", data:v})));        
         var categoryWeights = this.props.view.weighted_filtering_data.category_weights.splice(0);
         categoryWeights = categoryWeights.concat(this.props.view.weighted_filtering_data.vendor_weights.splice(0))
+
+        // TODO: sort categories in server!
+        categoryWeights=[]
+        if ((categoryWeights.length==0)&&(categories.length>0)) {
+            // mock category weights. Failsafe for a bug
+            categories.map((c,i)=>{categoryWeights.push(i)})
+        }
+
+
         const sortedCategories = categoryWeights.map((e,i)=>(i))
                         .sort((a,b)=>(categoryWeights[b] - categoryWeights[a]))
                         .map((e)=>(categories[e]));
