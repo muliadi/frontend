@@ -2,8 +2,11 @@
 
 import React from 'react';
 import Relay from 'react-relay';
+import { Accordion, AccordionItem } from 'react-sanfona';
 
 import RestaurantCreateCard from './RestaurantCreateCard.js'
+import OrderManagementListItem from './OrderManagementListItem.js'
+import OrderManagementListItemAccordeon from './OrderManagementListItemAccordeon.js'
 
 
 class OrderManagementSub extends React.Component {
@@ -12,7 +15,6 @@ class OrderManagementSub extends React.Component {
     } 
     
     PretyfiDate(date){
-        console.log(date);
         var formDate = date.slice(8, 10)+"/"+date.slice(5, 7)+"/"+date.slice(0, 4);
         return formDate;
     }
@@ -29,15 +31,19 @@ class OrderManagementSub extends React.Component {
           case "WithSapak":     
             return <span className="mdl-list__item-primary-content" style={{ textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>
                         <i className="material-icons mdl-list__item-icon">query_builder</i>
-                    ממתין לאישור
                     </span>;
           case "WithUser":      
             return <span className="mdl-list__item-primary-content" style={{textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>
-                    <i className="material-icons mdl-list__item-icon">shopping_cart</i>
-                   לא נשלח
+                        <i className="material-icons mdl-list__item-icon">shopping_cart</i>
                     </span>;
-          case "Approved":      return <i className="material-icons mdl-list__item-icon">done</i>;
-          case "Rejected":      return <i className="material-icons mdl-list__item-icon">not_interested</i>;
+          case "Approved":      
+            return <span className="mdl-list__item-primary-content" style={{ textAlign:"right", marginRight:"5px", marginLeft:"5px"}}> 
+                        <i className="material-icons mdl-list__item-icon">done</i>
+                    </span>;
+          case "Rejected":      
+            return  <span className="mdl-list__item-primary-content" style={{ textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>
+                        <i className="material-icons mdl-list__item-icon">not_interested</i>
+                    </span>;
           default:      return <i className="material-icons mdl-list__item-icon">shopping_cart</i>;;
         }
     
@@ -55,12 +61,12 @@ class OrderManagementSub extends React.Component {
          const listbox_style = {
             margin: "0px",
             padding:   "0px",
-            display: "flex",
-            direction:"ltr",
+            //display: "flex",
+            //direction:"ltr",
             overflow:"auto",
             overflowX:"hidden",
             width: "100%",
-            flexGrow: "1",            
+            //flexGrow: "1",            
             wordWrap: "break-word",
             //wordBreak: "break-all",
 
@@ -68,8 +74,15 @@ class OrderManagementSub extends React.Component {
         const list_style ={
             margin: "0px",
             padding: "0px",
-            display: "table-row",
+            //display: "table-row",
             //background: "#fff",
+            width: "100%",
+        }
+        const sapak_style = {
+             width: "35px",
+            height: "35px",
+            marginLeft:"10px",
+            
         }
         
         return (
@@ -77,27 +90,66 @@ class OrderManagementSub extends React.Component {
                 <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
                 </div>
                 <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-                  {console.log(this.props.view)}
-              <h1>ניהול הזמנות</h1>
+              
               <div style={listbox_style}>
+              <div style={{display:"flex",background: "rgb(237,247,238)"}}>
+              <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>query_builder</i>
+              <h2>הזמנות ממתינות לאישור הספק</h2>
+               
+              </div>
                     <ul className="mdl-list" style={list_style}>
                         {                            
                             
                             this.props.view.me.baskets.map((basket, i) => {
-                                return  <li key={i} className="mdl-list__item basketlistItem" >
-                                        <span className="mdl-list__item-primary-content" >
-                                            <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"5px", marginLeft:"5px"}}> 
-                                              {this.PretyfiDate(basket.date_updated)}  
-                                        </span>
-                                              {this.PretyfiBsketStatus(basket.review_status)} 
-                                              <span className="mdl-list__item-primary-content" >
-                                                    {basket.sapak.name}
-                                              </span> 
-                                        </span>
-                                    </li>
+                                if  (basket.review_status == "WithSapak"){
+                                     sapak_style.background =  "url('/static/content/"+basket.sapak.small_image_id+"') 50% 50% / contain no-repeat";
+                                return <OrderManagementListItem basket={basket} key ={i} />;
+                                }
                             })
                         }
                     </ul>
+            <div style={{display:"flex",background: "rgb(237,247,238)"}}>
+              <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>done</i>
+              <h2>הזמנות שאושרו</h2>
+                </div>
+                    <ul className="mdl-list" style={list_style}>
+                        {                            
+                            this.props.view.me.baskets.map((basket, i2) => {
+                            if  (basket.review_status == "Approved"){
+                            return <OrderManagementListItem basket={basket} key ={i2} />;
+                            }
+                            })
+                        }
+                    </ul>
+                    
+                    <div style={{display:"flex",background: "rgb(237,247,238)"}}>
+              <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>not_interested</i>
+              <h2>הזמנות שנדחו</h2>
+                </div>
+                    <ul className="mdl-list" style={list_style}>
+                        {                            
+                            this.props.view.me.baskets.map((basket, i3) => {
+                            if  (basket.review_status == "Rejected"){
+                            return <OrderManagementListItem basket={basket} key ={i3} />;
+                            }
+                            })
+                        }
+                    </ul>
+                
+             <h2>Default settings</h2>
+
+        <Accordion>
+          {this.props.view.me.baskets.map((item, x) => {
+            return (
+              <AccordionItem title={<OrderManagementListItemAccordeon basket={item}/>} slug={x} key={x}>
+                <div>
+                  {`Item ${ item.review_status } content`}
+                  {x === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
                 </div>
                   
                    
@@ -121,6 +173,7 @@ const OrderManagement = Relay.createContainer(OrderManagementSub, {
                         review_status
                         sapak {
                             name
+                            small_image_id
                         }
                     }
                     role_type
