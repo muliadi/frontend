@@ -10,6 +10,7 @@
     "babel-preset-stage-0": "*",
     "react": "*",
     "react-relay": "*",
+    "react-sanfona": "0.0.13",
     "react-slider": "*",
     "webpack": "*"
   },
