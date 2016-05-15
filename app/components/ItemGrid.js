@@ -9,20 +9,6 @@ import ItemCreateCard from './ItemCreateCard.js'
 // TODO: get items in basket only when user is logged as rest. It used to be this way but there was a bug, amount of items in basket not updating in item card  
 // TODO: bug for items in basket has an ugly solution!
 class ItemGridSub extends React.Component {
-   componentWillMount() {
-        this.props.relay.setVariables({
-            maxPriceInAgorot: this.props.maxPriceInAgorot,
-            minPriceInAgorot: this.props.minPriceInAgorot,
-            includeCategories: this.props.includeCategories,
-            excludeCategories: this.props.excludeCategories,
-            includeVendors: this.props.includeVendors,
-            excludeVendors: this.props.excludeVendors,
-            includePackagings: this.props.includePackagings,
-            excludePackagings: this.props.excludePackagings,
-            show: true,
-            // show_num_in_basket: this.props.view.me.role_type=="Restaurant",
-        });
-    }
     componentWillReceiveProps(nextProps) {
          const newVars = {show: true}
          var set = false;
@@ -82,11 +68,9 @@ class ItemGridSub extends React.Component {
         this.props.view.items.edges.map((item)=>{
              amount_in_basket[item.node.id] = 0;
         })
-        // if (`current_items_in_baskets` in this.props.view) {
-            this.props.view.current_items_in_baskets.edges.map((itemInBasket)=>{
-                amount_in_basket[itemInBasket.node.itemID] = itemInBasket.node.Amount;
-            })            
-        // }
+        this.props.view.current_items_in_baskets.edges.map((itemInBasket)=>{
+            amount_in_basket[itemInBasket.node.itemID] = itemInBasket.node.Amount;
+        })            
         
         // sort filtering data
         // inserting categories AND vendors in the same interface        
@@ -179,29 +163,26 @@ class ItemGridSub extends React.Component {
                 }
                 <div className="mdl-grid" style={style_grid}>
                     {
-                        'items' in this.props.view ?
-                            this.props.view.items.edges.map((item, i) => {
-                                return item.node.small_image.id != "0" ?
-                                    <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
-                                        <ItemCard
-                                            role_type={this.props.view.me.role_type}
-                                            name={item.node.name}
-                                            price={item.node.price_in_agorot/100}
-                                            image_id={item.node.small_image.id}
-                                            unitsName={item.node.units.name}
-                                            packagingName={item.node.packaging.name}
-                                            vendor_image_id={item.node.vendor.small_image.id}
-                                            itemID={item.node.id}
-                                            amount_in_basket={amount_in_basket[item.node.id]}
-                                            amount={item.node.amount}
-                                            shortDesc = {item.node.short_desc}>
-                                        </ItemCard>
-                                    </div>
-                                    :
-                                    null
-                            })
-                        :
-                            null
+                        this.props.view.items.edges.map((item, i) => {
+                            return item.node.small_image.id != "0" ?
+                                <div key={i} className="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone" style={style_cell}>
+                                    <ItemCard
+                                        role_type={this.props.view.me.role_type}
+                                        name={item.node.name}
+                                        price={item.node.price_in_agorot/100}
+                                        image_id={item.node.small_image.id}
+                                        unitsName={item.node.units.name}
+                                        packagingName={item.node.packaging.name}
+                                        vendor_image_id={item.node.vendor.small_image.id}
+                                        itemID={item.node.id}
+                                        amount_in_basket={amount_in_basket[item.node.id]}
+                                        amount={item.node.amount}
+                                        shortDesc = {item.node.short_desc}>
+                                    </ItemCard>
+                                </div>
+                                :
+                                null
+                        })
                     }
                 </div>
             </div>
@@ -219,8 +200,6 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
         excludeVendors: [],
         includePackagings: [],
         excludePackagings: [],
-        show: true,
-        show_num_in_basket: false,
     },
     fragments: {
         view: () => Relay.QL`
@@ -277,7 +256,7 @@ const ItemGrid = Relay.createContainer(ItemGridSub, {
                         excludeVendorsID: $excludeVendors,
                         includePackagingsID: $includePackagings,
                         excludePackagingsID: $excludePackagings,
-                    ) @include(if: $show) {
+                    ) {
                     edges{
                         node {
                             ... on item {
