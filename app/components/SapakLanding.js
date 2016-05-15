@@ -13,7 +13,8 @@ class SapakLandingSub extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            communicating: {}
+            communicating: {},
+            remarks: {}
         }
     }
     componentWillMount() {
@@ -132,9 +133,15 @@ class SapakLandingSub extends React.Component {
                                 אשר
                             </button>                                
                             
+                            <button
+                                className="mdl-button mdl-js-button mdl-button--raised"
+                                onClick={()=>{this.handleReviewBasketMutation.bind(this)(basket.id, "Rejected", "just testing this comment, please change me!", "abcd"+i)}}
+                                style={{marginRight: "15px"}}>
+                                דחה
+                            </button>                                
                             {
                                 basket.items_in_basket.map((item, i)=>{
-                                    return <div key={"abc"+i}>
+                                    return <div key={"abcde"+i}>
                                         {item.item.name} x {item.Amount} x {item.item.price_in_agorot} 
                                     </div>
                                 })
