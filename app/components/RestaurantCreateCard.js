@@ -107,7 +107,7 @@ class RestaurantCreateCard extends React.Component {
                 },
                 onSuccess: () => {
                     this.setState({ communicating: false, success: true })
-                    document.hash = "/#/items"
+                    document.location = "/#/items"
                 },
             });
     }
