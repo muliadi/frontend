@@ -13,7 +13,8 @@ class SapakLandingSub extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            communicating: {}
+            communicating: {},
+            remarks: {}
         }
     }
     componentWillMount() {
@@ -60,8 +61,17 @@ class SapakLandingSub extends React.Component {
                 },
             });
     }
-    
+    handleRemarksChange(key, remarks) {
+        console.log(key)
+        const myremarks = JSON.parse(JSON.stringify(this.state.remarks));
+        myremarks[key] = remarks 
+        this.setState({
+            remarks: myremarks,
+        })    
+        console.log(myremarks)    
+    }
     handleReviewBasketMutation(basketID, reviewStatus, reviewComment, key) {
+        console.log(reviewComment)
         const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
         mycomm[key] = true 
         this.setState({
@@ -122,19 +132,34 @@ class SapakLandingSub extends React.Component {
                 <h5>רשימת הסלים המחכים לאישור:</h5>
                 {
                     this.props.view.me.role_sapak.baskets.map((basket, i)=>{
-                        return <div key={i}>
-                            <h6>{basket.creator.full_name}</h6>
+                        return <div key={i} style={{padding:"20px", marginBottom:"30px"}}>
+                            <h6>שם המזמין: {basket.creator.full_name}</h6>
                             
                             <button
                                 className="mdl-button mdl-js-button mdl-button--raised"
-                                onClick={()=>{this.handleReviewBasketMutation.bind(this)(basket.id, "Approved", "just testing this comment, please change me!", "abc"+i)}}
+                                onClick={()=>{this.handleReviewBasketMutation.bind(this)(basket.id, "Approved", this.state.remarks["remarks"+i], "abc"+i)}}
                                 style={{marginRight: "15px"}}>
                                 אשר
                             </button>                                
                             
+                            <button
+                                className="mdl-button mdl-js-button mdl-button--raised"
+                                onClick={()=>{this.handleReviewBasketMutation.bind(this)(basket.id, "Rejected", this.state.remarks["remarks"+i], "abcd"+i)}}
+                                style={{marginRight: "15px"}}>
+                                דחה
+                            </button>                                
+                            
+                            <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style={{marginRight:"30px"}}>
+                                <input
+                                    className="mdl-textfield__input"
+                                    type="mail"
+                                    onChange={(e)=>{this.handleRemarksChange.bind(this)("remarks"+i, e.target.value) }}></input>
+                                <label className="mdl-textfield__label">הערות למסעדה</label>
+                            </div>
+                            
                             {
                                 basket.items_in_basket.map((item, i)=>{
-                                    return <div key={"abc"+i}>
+                                    return <div key={"abcde"+i}>
                                         {item.item.name} x {item.Amount} x {item.item.price_in_agorot} 
                                     </div>
                                 })

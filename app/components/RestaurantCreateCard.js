@@ -107,6 +107,7 @@ class RestaurantCreateCard extends React.Component {
                 },
                 onSuccess: () => {
                     this.setState({ communicating: false, success: true })
+                    document.location = "/#/items"
                 },
             });
     }
