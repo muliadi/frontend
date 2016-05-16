@@ -94,10 +94,10 @@ class MainFrameSub extends React.Component {
             Relay.Store.commitUpdate(new LogOutMutation({}),
                 {
                     onFailure: (e) => {
-                        // TODO: implement
+                        console.log(e)
                     },
                     onSuccess: () => {
-                        document.location = "/#/loggedout";
+                        document.location = "/";
                     },
                 });            
         }
