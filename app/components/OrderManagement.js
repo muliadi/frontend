@@ -3,10 +3,10 @@
 import React from 'react';
 import Relay from 'react-relay';
 import { Accordion, AccordionItem } from 'react-sanfona';
-
-import RestaurantCreateCard from './RestaurantCreateCard.js'
 import OrderManagementListItem from './OrderManagementListItem.js'
-import OrderManagementListItemAccordeon from './OrderManagementListItemAccordeon.js'
+import RestaurantCreateCard from './RestaurantCreateCard.js'
+
+import OrderManagementAccordeon from './OrderManagementAccordeon.js'
 
 
 class OrderManagementSub extends React.Component {
@@ -26,7 +26,7 @@ class OrderManagementSub extends React.Component {
 
  PretyfiBsketStatus(status)
  {
-     console.log(status);
+     //console.log(status);
      switch (status) {
           case "WithSapak":     
             return <span className="mdl-list__item-primary-content" style={{ textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>
@@ -47,6 +47,12 @@ class OrderManagementSub extends React.Component {
           default:      return <i className="material-icons mdl-list__item-icon">shopping_cart</i>;;
         }
     
+ }
+ 
+ getWithSapakBaskets(baskets){
+    baskets.filtermap((basket) => {
+        return basket.review_status == "WithSapak"
+    })
  }
 
     
@@ -97,59 +103,27 @@ class OrderManagementSub extends React.Component {
               <h2>הזמנות ממתינות לאישור הספק</h2>
                
               </div>
-                    <ul className="mdl-list" style={list_style}>
-                        {                            
-                            
-                            this.props.view.me.baskets.map((basket, i) => {
-                                if  (basket.review_status == "WithSapak"){
-                                     sapak_style.background =  "url('/static/content/"+basket.sapak.small_image_id+"') 50% 50% / contain no-repeat";
-                                return <OrderManagementListItem basket={basket} key ={i} />;
-                                }
-                            })
-                        }
-                    </ul>
+                    <OrderManagementAccordeon 
+                   baskets = {this.props.view.me.baskets}
+                   review_status = "WithSapak"/>
+                    
             <div style={{display:"flex",background: "rgb(237,247,238)"}}>
               <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>done</i>
               <h2>הזמנות שאושרו</h2>
                 </div>
-                    <ul className="mdl-list" style={list_style}>
-                        {                            
-                            this.props.view.me.baskets.map((basket, i2) => {
-                            if  (basket.review_status == "Approved"){
-                            return <OrderManagementListItem basket={basket} key ={i2} />;
-                            }
-                            })
-                        }
-                    </ul>
+                    <OrderManagementAccordeon 
+                   baskets = {this.props.view.me.baskets}
+                   review_status = "Approved"/>
                     
                     <div style={{display:"flex",background: "rgb(237,247,238)"}}>
               <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>not_interested</i>
               <h2>הזמנות שנדחו</h2>
                 </div>
-                    <ul className="mdl-list" style={list_style}>
-                        {                            
-                            this.props.view.me.baskets.map((basket, i3) => {
-                            if  (basket.review_status == "Rejected"){
-                            return <OrderManagementListItem basket={basket} key ={i3} />;
-                            }
-                            })
-                        }
-                    </ul>
                 
-             <h2>Default settings</h2>
-
-        <Accordion>
-          {this.props.view.me.baskets.map((item, x) => {
-            return (
-              <AccordionItem title={<OrderManagementListItemAccordeon basket={item}/>} slug={x} key={x}>
-                <div>
-                  {`Item ${ item.review_status } content`}
-                  {x === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
-                </div>
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
+                   <OrderManagementAccordeon 
+                   baskets = {this.props.view.me.baskets}
+                   
+                   review_status = "Rejected"/>
                 </div>
                   
                    
@@ -171,6 +145,19 @@ const OrderManagement = Relay.createContainer(OrderManagementSub, {
                         id
                         date_updated
                         review_status
+                        items_in_basket{
+                            Amount
+                            remarks
+                            item{
+                                id
+                                name
+                                price_in_agorot
+                                small_image{
+                                id
+                                }
+                                
+                            }
+                        }
                         sapak {
                             name
                             small_image_id

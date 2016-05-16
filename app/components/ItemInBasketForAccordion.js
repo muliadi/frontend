@@ -5,17 +5,17 @@ import Relay from 'react-relay';
 
 
 import AddItemToBasketMutation from "../mutations/addItemToBasket.js";
-import NoteBubble from "./NoteBubble.js";
+import NoteBubbleVewOnly from "./NoteBubbleVewOnly.js";
 
 
 var __ItemInBasketElementID = 0
-class ItemInBasket extends React.Component {
+class ItemInBasketForAccordion extends React.Component {
     constructor(props){
         super(props)
          this.state ={            
-            noteContent: this.props.item.node.remarks,
+            noteContent: this.props.item.remarks,
             isTranslated: false,
-            itemInBasketElementID: "elementInBasketID_"+__ItemInBasketElementID,
+            itemInBasketElementID: "elementInAccBasketID_"+__ItemInBasketElementID,
             error: null,
         }
         __ItemInBasketElementID += 1;
@@ -25,7 +25,7 @@ class ItemInBasket extends React.Component {
     }
     componentDidUpdate() {
         if ((this.props.isNoteOpen)&&(!this.state.isTranslated)) {
-            document.getElementById(this.state.itemInBasketElementID).style.transform = 'translateX(+200px)';
+            document.getElementById(this.state.itemInBasketElementID).style.transform = 'translateX(100px)';
             this.setState({isTranslated: true})
             return 
         }
@@ -35,40 +35,17 @@ class ItemInBasket extends React.Component {
             return 
         }        
     }
-    handleNoteBubbleSave(){
-        this.handleAddItemToBasket(this.props.item, 0, this.state.noteContent)
-        this.props.onClose(this.props.myKey)   
-    }   
-    handleAddItemToBasket(item, amount, remarks) {
-        Relay.Store.commitUpdate(new AddItemToBasketMutation({
-            amount: amount,
-            remarks: remarks==null? item.node.remarks : remarks,
-            itemID: item.node.item.id,
-        }),
-            {
-                onFailure: (e) => {
-                    console.log(e.getError())
-                },
-                onSuccess: () => {
-                    var notification = document.querySelector('.mdl-js-snackbar');
-                    notification.MaterialSnackbar.showSnackbar(
-                    {
-                        message:  item.node.item.name +' הוסף בהצלחה',
-                        timeout: 700
-                    }
-                    );
-                },
-            });
-    }     
+    
+       
     render() {
         const listItem_style = {
             //opacity:"0.4",
             padding: "0px",
-            paddingRight:"10px",
+            paddingRight:"100px",
             listStyle: "none",
             //border: "1px solid rgba(78,176,82,0.2)",
             //display: "table-cell", 
-            width: "400px",
+            width: "500px",
             textAlign: "center",
             minHeight: "110px",
             overflow: "visible",
@@ -93,19 +70,7 @@ class ItemInBasket extends React.Component {
             top: "3px",
         }
         
-         const style_noteCallOut = {
-            float: "left",
-            top: "-32px",
-            backgroundImage: "url('/static/Callouts.gif')",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "left -33px",
-            width: "11px",
-            height: "11px",
-            marginLeft: "-8px",
-            position: "relative",
-            marginTop: "10px",
-            
-        }
+         
         const style_noteButtonDiv ={            
         }
         const style_binButton = {            
@@ -129,17 +94,19 @@ class ItemInBasket extends React.Component {
             marginRight: "auto",
             padding: "1px",           
         };
+       
         const item = this.props.item;
+         console.log (item.item);
         return (
             <li id={this.state.itemInBasketElementID} className="mdl-list__item basketlistItem" style={listItem_style}>
                 <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px", width:"410px"}}>
-                    <span style={{  minHeight: "90px", minWidth:"90px", background:"url('/static/content/" + item.node.item.small_image.id+"') 50% 50% / contain no-repeat "}}/>
+                    <span style={{  minHeight: "90px", minWidth:"90px", background:"url('/static/content/" + item.item.small_image.id+"') 50% 50% / contain no-repeat "}}/>
                     <span className="mdl-list__item-text-body" style={{width:"100%", textAlign:"right", marginRight:"5px", marginLeft:"5px"}}> 
-                        {item.node.item.name}
+                        {item.item.name}
                 </span>
-                    <div>x{item.node.Amount}</div>
+                    <div>x{item.Amount}</div>
                     
-                    <span style={{minWidth:"110px", marginRight:"4px"}}>{item.node.item.price_in_agorot * item.node.Amount/ 100} &#8362;</span>
+                    <span style={{minWidth:"110px", marginRight:"4px"}}>{item.item.price_in_agorot * item.Amount/ 100} &#8362;</span>
                         
                         <div  className= "basket-noteButton" style={style_noteButtonDiv}>
                             <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style={style_noteButton} 
@@ -148,7 +115,7 @@ class ItemInBasket extends React.Component {
                             </button>
                             {
                                 this.props.isNoteOpen?
-                               <NoteBubble
+                               <NoteBubbleVewOnly 
                                noteContent = {this.state.noteContent} 
                                onClickCloseButton ={()=>{this.props.onClose()}} 
                                onClickSaveButton ={()=>{this.handleNoteBubbleSave()}}
@@ -159,27 +126,7 @@ class ItemInBasket extends React.Component {
                                 
                             }
                         </div>
-                    <div className= "basket-binButton" style={style_binButton}>
-                        <div >
-                        <span>
-                        </span>
-                        <span style={{display: "inline-block", width: "140px"}}>
-                            
-                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                onClick={()=>{this.handleAddItemToBasket(item, -1, null); this.props.onClose()}} >
-                                <i className="material-icons">remove</i>
-                            </button>
-                            <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                onClick={()=>{this.handleAddItemToBasket(item, 1, null); this.props.onClose()}} >
-                                <i className="material-icons">add</i>
-                            </button>
-                                <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
-                                onClick={()=>{this.handleAddItemToBasket(item, -item.node.Amount, null); this.props.onClose()}} >
-                                <i className="material-icons">delete </i>
-                            </button>
-                        </span>
-                        </div>
-                    </div>
+                   
                      
                 </span>
                
@@ -189,4 +136,4 @@ class ItemInBasket extends React.Component {
 
 
 
-export default ItemInBasket
+export default ItemInBasketForAccordion

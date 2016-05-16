@@ -10,7 +10,7 @@ class OrderManagementListItem extends React.Component {
     } 
     
     PretyfiDate(date){
-        console.log(date);
+        //console.log(date);
         var formDate = date.slice(8, 10)+"/"+date.slice(5, 7)+"/"+date.slice(0, 4);
         return formDate;
     }
@@ -22,7 +22,7 @@ class OrderManagementListItem extends React.Component {
 
  PretyfiBsketStatus(status)
  {
-     console.log(status);
+    // console.log(status);
      switch (status) {
           case "WithSapak":     
             return <span className="mdl-list__item-primary-content" style={{ textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>

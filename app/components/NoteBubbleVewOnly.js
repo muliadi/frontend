@@ -5,7 +5,7 @@ import Relay from 'react-relay';
 
 
 
-class NoteBubble extends React.Component {
+class NoteBubbleVewOnly extends React.Component {
     
     constructor(props){
         super(props)
@@ -31,14 +31,7 @@ class NoteBubble extends React.Component {
    
    
     render() {
-        const style_saveButton={
-            position:"absolute",
-            bottom:"3px",
-            left:"3px",
-            maxHeight: "18px",
-            lineHeight: "13px",
-            fontSize: "14px"
-        }
+        
            const style_noteBubble = {
             border: "1px solid rgba(78,176,82,0.2)",
             //border: "1px solid #828282",
@@ -60,16 +53,11 @@ class NoteBubble extends React.Component {
             <div className="NoteBubble" style={style_noteBubble} > 
                 <div style={{display: "inline-block", width: "auto"}}>
                 <div className="mdl-textfield mdl-js-textfield" style = {{width:"176px", }}>
-                        <textarea className="mdl-textfield__input" type="text" rows="3" id="note1"
+                        <textarea disabled className="mdl-textfield__input" type="text" rows="3" id="note1"
                         onChange={(e)=>{this.props.onNoteContentChange(e.target.value) }}
                         >{this.props.noteContent}</textarea>
                     <label className="mdl-textfield__label" htmlFor="note1">הערה</label>
                     </div>                
-                    <button className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored"
-                    onClick= {()=>{this.props.onClickSaveButton()}}
-                    style = {style_saveButton} >
-                    שמור
-                </button>
                 <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
                     onClick= {()=>{this.props.onClickCloseButton()}} style = {{position:"absolute", top:"1px", left:"1px"}}>
                     <i className="material-icons">close</i>
@@ -81,4 +69,4 @@ class NoteBubble extends React.Component {
         )}
 }
 
-export default NoteBubble
+export default NoteBubbleVewOnly
