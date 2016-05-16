@@ -5,7 +5,7 @@ import Relay from 'react-relay';
 
 import joinRestaurantToChainMutation from '../mutations/joinRestaurantToChain.js'
 import ReviewBasketMutation from '../mutations/reviewBasket.js'
-
+import SapakOrderManagementAccordeon from './SapakOrderManagementAccordeon.js'
 
 import CommRound from './commRound.js'
 
@@ -108,7 +108,72 @@ class SapakLandingSub extends React.Component {
                 <div/>
             )
         }
+        
+        const style_grid = {
+            top: "0px",
+            bottom: "0px",
+            marginBottom:"0px",
+            marginTop:"20px",
+        }
+        
+         const listbox_style = {
+            margin: "0px",
+            padding:   "0px",
+            //display: "flex",
+            //direction:"ltr",
+            overflow:"auto",
+            overflowX:"hidden",
+            width: "100%",
+            //flexGrow: "1",            
+            wordWrap: "break-word",
+            //wordBreak: "break-all",
+
+        }
+        const list_style ={
+            margin: "0px",
+            padding: "0px",
+            //display: "table-row",
+            //background: "#fff",
+            width: "100%",
+        }
+        const sapak_style = {
+             width: "35px",
+            height: "35px",
+            marginLeft:"10px",
+            
+        } 
+        
         return (
+             <div className="mdl-grid" style={style_grid}> 
+            <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
+                </div>
+                <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            
+            <div style={{display:"flex",background: "rgb(237,247,238)"}}>
+              <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>query_builder</i>
+              <h2>הזמנות ממתינות לאישור הספק</h2>
+               
+              </div>
+              <SapakOrderManagementAccordeon 
+                   baskets = {this.props.view.me.role_sapak.baskets}
+                   review_status = "WithSapak"/>
+            
+            <div style={{display:"flex",background: "rgb(237,247,238)"}}>
+              <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>done</i>
+              <h2>הזמנות שאושרו</h2>
+                </div>
+                    <SapakOrderManagementAccordeon 
+                   baskets = {this.props.view.me.role_sapak.baskets}
+                   review_status = "Approved"/>
+                   
+                <div style={{display:"flex",background: "rgb(237,247,238)"}}>
+                <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>not_interested</i>
+                <h2>הזמנות שנדחו</h2>
+                    </div>
+                        <SapakOrderManagementAccordeon 
+                    baskets = {this.props.view.me.role_sapak.baskets}
+                    review_status = "Rejected"/>
+            
             <div style={{margin:"25px"}}>
                 <h5>רשימת המסעדות המחכות לאישור הצטרפות לרשת:</h5>
                 {
@@ -128,7 +193,15 @@ class SapakLandingSub extends React.Component {
                             }
                         </div>
                     })
-                }                
+                }  
+                
+                
+                
+                
+                
+                
+                
+                              
                 <h5>רשימת הסלים המחכים לאישור:</h5>
                 {
                     this.props.view.me.role_sapak.baskets.map((basket, i)=>{
@@ -168,9 +241,19 @@ class SapakLandingSub extends React.Component {
                     })
                 }                
             </div>
+            
+            
+            
+            </div>
+             <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
+                </div>
+            </div>
         );
     }
 }
+
+
+
 
 const SapakLanding = Relay.createContainer(SapakLandingSub, {
     initialVariables: {
@@ -182,8 +265,23 @@ const SapakLanding = Relay.createContainer(SapakLandingSub, {
                 me @include(if: $show) {
                     role_type
                     role_sapak {
-                        baskets(review_status: WithSapak) {
+                        baskets {
                             id
+                            date_updated
+                            review_status
+                            items_in_basket{
+                                Amount
+                                remarks
+                                item{
+                                    id
+                                    name
+                                    price_in_agorot
+                                    small_image{
+                                    id
+                                    }
+                                    
+                                }
+                            }
                             creator {
                                 full_name
                             }

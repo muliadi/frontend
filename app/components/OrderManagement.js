@@ -95,7 +95,7 @@ class OrderManagementSub extends React.Component {
             <div className="mdl-grid" style={style_grid}>        
                 <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
                 </div>
-                <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+                <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
               
               <div style={listbox_style}>
               <div style={{display:"flex",background: "rgb(237,247,238)"}}>
