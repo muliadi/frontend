@@ -23,7 +23,7 @@ class ProfilePageSub extends React.Component {
                 </div>
                 <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
                   
-               {(() => { console.log(this.props.view.me.role_type);
+               {(() => { 
                          switch (this.props.view.me.role_type) {
                              case "Sapak":
                                 return <div>Sapak components will go here</div>;

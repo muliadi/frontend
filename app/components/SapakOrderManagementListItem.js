@@ -1,15 +1,16 @@
 /* jshint esversion: 6*/
 
 import React from 'react';
+import Relay from 'react-relay';
 import { Accordion, AccordionItem } from 'react-sanfona';
-
+import ReviewBasketMutation from '../mutations/reviewBasket.js'
 
 class SapakOrderManagementListItem extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            communicating: null,
-            remarks: null
+            communicating: false,
+            remarks: ""
         }
     }
     
@@ -53,12 +54,23 @@ class SapakOrderManagementListItem extends React.Component {
     
  }
  
-    handleReviewBasketMutation(basketID, reviewStatus, reviewComment, key) {
+    handleReviewBasketMutation(event,basketID, reviewStatus, reviewComment,) {
+        //console.log(event)
+        event = event || window.event // cross-browser event
+        if (event.stopPropagation) {
+        // W3C standard variant
+            event.stopPropagation()
+        } else {
+            // IE variant
+            event.cancelBubble = true
+        }
+
+       
         console.log(reviewComment)
         const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
-        mycomm[key] = true 
+        
         this.setState({
-            communicating: mycomm,
+            communicating: true,
         })
         Relay.Store.commitUpdate(new ReviewBasketMutation({
             basketID: basketID,
@@ -68,18 +80,14 @@ class SapakOrderManagementListItem extends React.Component {
             {
                 onFailure: (e) => {
                     console.log(e.getError())
-                    const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
-                    mycomm[key] = false
                     this.setState({
-                        communicating: mycomm
+                        communicating: false
                     })
                 },
                 onSuccess: () => {
                     console.log('basket successfuly reviewed!')
-                    const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
-                    mycomm[key] = false
                     this.setState({
-                        communicating: mycomm
+                        communicating: false
                     })
                 },
             });
@@ -123,20 +131,26 @@ class SapakOrderManagementListItem extends React.Component {
         }
         
         return (
-                    <li key={this.props.key} className="mdl-list__item basketlistItem" >
+                    <li  className="mdl-list__item basketlistItem" >
                         <span className="mdl-list__item-primary-content" >
                             <span className="mdl-list__item-text-body" > 
-                                {this.PretyfiDate(this.props.basket.date_updated)}  
+                                 {this.PretyfiBsketStatus(this.props.basket.review_status)} 
                         </span>
-                                {this.PretyfiBsketStatus(this.props.basket.review_status)} 
+                                {this.PretyfiDate(this.props.basket.date_updated)} 
                                 <span className="mdl-list__item-primary-content" >
                                     
                                     
                                      <button
                                 className="mdl-button mdl-js-button mdl-button--raised"
-                                onClick={()=>{this.handleReviewBasketMutation.bind(this)(this.props.basket.id, "Approved", this.state.remarks["remarks"+i], "abc"+i)}}
+                                onClick={(e)=>{this.handleReviewBasketMutation.bind(this)(e,this.props.basket.id, "Approved", this.state.remarks)}}
                                 style={{marginRight: "15px"}}>
                                 אשר
+                                </button> 
+                                <button
+                                className="mdl-button mdl-js-button mdl-button--raised"
+                                onClick={(e)=>{this.handleReviewBasketMutation.bind(this)(e,this.props.basket.id, "Rejected", this.state.remarks)}}
+                                style={{marginRight: "15px"}}>
+                                דחה
                                 </button>   
                                     <div>
                                     

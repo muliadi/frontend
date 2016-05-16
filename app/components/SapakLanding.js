@@ -62,13 +62,13 @@ class SapakLandingSub extends React.Component {
             });
     }
     handleRemarksChange(key, remarks) {
-        console.log(key)
+        //console.log(key)
         const myremarks = JSON.parse(JSON.stringify(this.state.remarks));
         myremarks[key] = remarks 
         this.setState({
             remarks: myremarks,
         })    
-        console.log(myremarks)    
+        //console.log(myremarks)    
     }
     handleReviewBasketMutation(basketID, reviewStatus, reviewComment, key) {
         console.log(reviewComment)

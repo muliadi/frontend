@@ -62,7 +62,7 @@ class ItemInBasket extends React.Component {
     }     
     render() {
         const listItem_style = {
-            //opacity:"0.4",
+            background: "#ffffff",
             padding: "0px",
             paddingRight:"10px",
             listStyle: "none",

@@ -97,7 +97,7 @@ class ItemsInBasketListSub extends React.Component {
             minHeight: "50px",
             marginBottom:"60px",
             padding:"10px",
-            background: "rgba(78,176,82,0.1)",
+            background: "rgb(237, 247, 238)",
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
@@ -117,19 +117,21 @@ class ItemsInBasketListSub extends React.Component {
         return (
 
             <div className="ItemsBasket" style={{
-                background: "#FFF",
                 margin: "0px 2px 0px 2px",
                 position:"fixed",
                 height:"100%",
                 width:"405px",
                 display: "flex",
                 marginRight:"5px",
-                flexDirection:"column",                                
+                flexDirection:"column", 
+                background:"url('/static/basketBack.png')", 
+                backgroundRepeat: "round"     
+                                         
             }}>
             
                 <div>
 
-                    <div className="mdl-grid" style={{ background: "rgba(78,176,82,0.1)" }}>
+                    <div className="mdl-grid" style={{ background: "rgb(237, 247, 238)" }}>
 
 
                         <div className="mdl-cell mdl-cell--5-col-desktop mdl-cell--5-col-tablet mdl-cell--4-col-phone" style={{ fontSize: "16px", color: "rgba(0,0,0,.54)", lineHeight: "25px" }}>

@@ -25,7 +25,7 @@ class ItemInBasketForAccordion extends React.Component {
     }
     componentDidUpdate() {
         if ((this.props.isNoteOpen)&&(!this.state.isTranslated)) {
-            document.getElementById(this.state.itemInBasketElementID).style.transform = 'translateX(100px)';
+            document.getElementById(this.state.itemInBasketElementID).style.transform = 'translateX(0px)';
             this.setState({isTranslated: true})
             return 
         }
@@ -96,7 +96,6 @@ class ItemInBasketForAccordion extends React.Component {
         };
        
         const item = this.props.item;
-         console.log (item.item);
         return (
             <li id={this.state.itemInBasketElementID} className="mdl-list__item basketlistItem" style={listItem_style}>
                 <span className="mdl-list__item-primary-content" style={{position:"relative", minHeight: "110px", width:"410px"}}>

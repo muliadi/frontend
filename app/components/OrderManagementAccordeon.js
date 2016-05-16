@@ -62,7 +62,7 @@ class OrderManagementAccordeonSub extends React.Component {
        }
         
         return (
-                <Accordion>
+                <Accordion activeItems={-1}>
                         {   this.props.baskets.filter((basket) => {
                     return basket.review_status == this.props.review_status
                     }).map((basket, x) => {

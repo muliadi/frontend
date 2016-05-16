@@ -62,7 +62,7 @@ class MainFrameSub extends React.Component {
             fontSize: "17px",
         }       
         const style_sidebar = {
-            backgroundColor: "whitesmoke",
+            backgroundColor: "#fff",
             marginTop: "0px",
             marginRight: "-7px",
             marginBottom: "-20px",
