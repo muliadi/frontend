@@ -119,8 +119,8 @@ class ItemsInBasketListSub extends React.Component {
                 marginRight:"5px",
                 flexDirection:"column", 
                 background:"url('/static/basketBack.png')", 
-                backgroundRepeat: "round"     
-                                         
+                backgroundRepeat: "repeat",
+                backgroundSize: "300px",     
             }}>
             
                 <div>
