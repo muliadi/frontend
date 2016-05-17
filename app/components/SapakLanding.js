@@ -194,56 +194,7 @@ class SapakLandingSub extends React.Component {
                         </div>
                     })
                 }  
-                
-                
-                
-                
-                
-                
-                
-                              
-                <h5>רשימת הסלים המחכים לאישור:</h5>
-                {
-                    this.props.view.me.role_sapak.baskets.map((basket, i)=>{
-                        return <div key={i} style={{padding:"20px", marginBottom:"30px"}}>
-                            <h6>שם המזמין: {basket.creator.full_name}</h6>
-                            
-                            <button
-                                className="mdl-button mdl-js-button mdl-button--raised"
-                                onClick={()=>{this.handleReviewBasketMutation.bind(this)(basket.id, "Approved", this.state.remarks["remarks"+i], "abc"+i)}}
-                                style={{marginRight: "15px"}}>
-                                אשר
-                            </button>                                
-                            
-                            <button
-                                className="mdl-button mdl-js-button mdl-button--raised"
-                                onClick={()=>{this.handleReviewBasketMutation.bind(this)(basket.id, "Rejected", this.state.remarks["remarks"+i], "abcd"+i)}}
-                                style={{marginRight: "15px"}}>
-                                דחה
-                            </button>                                
-                            
-                            <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style={{marginRight:"30px"}}>
-                                <input
-                                    className="mdl-textfield__input"
-                                    type="mail"
-                                    onChange={(e)=>{this.handleRemarksChange.bind(this)("remarks"+i, e.target.value) }}></input>
-                                <label className="mdl-textfield__label">הערות למסעדה</label>
-                            </div>
-                            
-                            {
-                                basket.items_in_basket.map((item, i)=>{
-                                    return <div key={"abcde"+i}>
-                                        {item.item.name} x {item.Amount} x {item.item.price_in_agorot} 
-                                    </div>
-                                })
-                            }
-                        </div>
-                    })
-                }                
             </div>
-            
-            
-            
             </div>
              <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
                 </div>
