@@ -24,20 +24,34 @@ class MainFrameSub extends React.Component {
             borderRadius: "5px",
            // cursor:"pointer",
         } 
-     if (this.props.view.me.role_type == "Restaurant" ){
-        if (this.props.view.me.restaurants[0].was_accepted_to_chain){
+        switch (this.props.view.me.role_type) {
+          case "Restaurant":   
+          {
+            if (this.props.view.me.restaurants[0].was_accepted_to_chain){
             const logo_path =  "/static/content/"+this.props.view.me.restaurants[0].chain.small_image_id;
             style_logo.background = "url('"+logo_path+"') 50% 50% / contain no-repeat";
              
-        } else {
+             } else {
             const logo_path =  "/static/content/"+this.props.view.me.restaurants[0].small_image.id;
             style_logo.background = "url('"+logo_path+"') 50% 50% / contain no-repeat"; 
             console.log(logo_path);
-        }
+            }
             retVar = <div style={style_logo}/>;
+            return retVar;
+          }
+          case "Sapak": 
+          {
+            const logo_path =  "/static/content/"+this.props.view.me.role_sapak.small_image_id;
+            style_logo.background = "url('"+logo_path+"') 50% 50% / contain no-repeat"; 
+            console.log(logo_path);
+            
+            retVar = <div style={style_logo}/>; 
+            return retVar;
+          }
+          
+          default:      return retVar;
         }
-     
-         return retVar;
+    
  }
     
     render() {
@@ -295,6 +309,9 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
             fragment on view {
                 ${ItemsInBasketList.getFragment('view')},                
                 me {
+                    role_sapak{
+                        small_image_id
+                    }
                     role_type
                     is_founder
                     mail
