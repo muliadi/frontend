@@ -67,7 +67,7 @@ class SapakOrderManagementAccordeonSub extends React.Component {
                     return basket.review_status == this.props.review_status
                     }).map((basket, x) => {
                         return ( 
-                        <AccordionItem title={<SapakOrderManagementListItem key = {this.props.key+x} basket={basket}/>} slug={this.props.key+x} >
+                        <AccordionItem title={<SapakOrderManagementListItem key = {"4sadf76cbfh"+basket.id} basket={basket}/>} slug={"4sadf76cbfh"+basket.id} >
                             
                             <div style={listbox_style}>
                     <ul className="mdl-list" style={list_style}>
@@ -75,12 +75,12 @@ class SapakOrderManagementAccordeonSub extends React.Component {
                             basket.items_in_basket.map((item, i) => {
                                //console.log(item);
                                 return <ItemInBasketForAccordion 
-                                key={this.props.key+"sdlfn d683"+item.id} 
-                                myKey={this.props.key+"ndlckb48ct5o"+item.id}
+                                key={"sdlfn d683"+item.id} 
+                                myKey={"ndlckb48ct5o"+item.id}
                                 item={item} 
                                 onOpen = {NoteOpened} 
                                 onClose = {NoteClosed}
-                                isNoteOpen ={this.state.openItemKeyAccordion == this.props.key+"ndlckb48ct5o"+item.id}/>
+                                isNoteOpen ={this.state.openItemKeyAccordion == "ndlckb48ct5o"+item.id}/>
                             })
                         }
                     </ul>
