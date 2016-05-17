@@ -17,12 +17,6 @@ class ItemsInBasketListSub extends React.Component {
             error: null,
         }
     }
-    
-     
-    
-    componentWillMount() {
-        this.props.relay.setVariables({show:true});
-    }
     componentDidMount() {
         componentHandler.upgradeDom();
     }
@@ -162,12 +156,12 @@ class ItemsInBasketListSub extends React.Component {
                         {                            
                             this.props.view.current_items_in_baskets.edges.map((item, i) => {
                                 return <ItemInBasket 
-                                key={i} 
-                                myKey={i}
+                                key={"iteminbasket_"+item.node.id} 
+                                myKey={item.node.id}
                                 item={item} 
                                 onOpen = {NoteOpened} 
                                 onClose = {NoteClosed}
-                                isNoteOpen ={this.state.openItemKey == i}/>
+                                isNoteOpen ={this.state.openItemKey == item.node.id}/>
                             })
                         }
                     </ul>
@@ -199,9 +193,6 @@ class ItemsInBasketListSub extends React.Component {
 }
 
 const ItemsInBasketList = Relay.createContainer(ItemsInBasketListSub, {
-    initialVariables: {
-        show: false,
-    },
     fragments: {
         view: () => Relay.QL`
             fragment on view {
@@ -220,6 +211,7 @@ const ItemsInBasketList = Relay.createContainer(ItemsInBasketListSub, {
                     edges {
                         node {
                             ... on item_in_basket {
+                              id
                               Amount
                               remarks
                                 item {

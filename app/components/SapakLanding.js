@@ -17,11 +17,6 @@ class SapakLandingSub extends React.Component {
             remarks: {}
         }
     }
-    componentWillMount() {
-        this.props.relay.setVariables({
-            show: true,
-        });        
-    }
     componentWillReceiveProps(nextProps) {
         if (nextProps.forceFetch) {
             this.props.relay.forceFetch()
@@ -161,6 +156,7 @@ class SapakLandingSub extends React.Component {
                
               </div>
               <SapakOrderManagementAccordeon 
+                    view = {this.props.view}
                    baskets = {this.props.view.me.role_sapak.baskets}
                    review_status = "WithSapak"/>
             
@@ -168,7 +164,8 @@ class SapakLandingSub extends React.Component {
               <i className="material-icons" style = {style_AccordionHeader}>done</i>
               <h2w>הזמנות שאושרו</h2w>
                 </div>
-                    <SapakOrderManagementAccordeon 
+                    <SapakOrderManagementAccordeon
+                    view = {this.props.view} 
                    baskets = {this.props.view.me.role_sapak.baskets}
                    review_status = "Approved"/>
                    
@@ -176,7 +173,8 @@ class SapakLandingSub extends React.Component {
                 <i className="material-icons" style = {style_AccordionHeader}>not_interested</i>
                 <h2w>הזמנות שנדחו</h2w>
                     </div>
-                        <SapakOrderManagementAccordeon 
+                        <SapakOrderManagementAccordeon
+                        view = {this.props.view} 
                     baskets = {this.props.view.me.role_sapak.baskets}
                     review_status = "Rejected"/>
             
@@ -215,13 +213,11 @@ class SapakLandingSub extends React.Component {
 
 
 const SapakLanding = Relay.createContainer(SapakLandingSub, {
-    initialVariables: {
-        show: false,
-    },    
     fragments: {
         view: () => Relay.QL`
             fragment on view {
-                me @include(if: $show) {
+                ${SapakOrderManagementAccordeon.getFragment('view')},
+                me {
                     role_type
                     role_sapak {
                         baskets {

@@ -10,7 +10,6 @@ class OrderManagementListItem extends React.Component {
     } 
     
     PretyfiDate(date){
-        //console.log(date);
         var formDate = date.slice(8, 10)+"/"+date.slice(5, 7)+"/"+date.slice(0, 4);
         return formDate;
     }
@@ -22,7 +21,6 @@ class OrderManagementListItem extends React.Component {
 
  PretyfiBsketStatus(status)
  {
-    // console.log(status);
      switch (status) {
           case "WithSapak":     
             return <span className="mdl-list__item-primary-content" style={{ textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>
@@ -57,21 +55,15 @@ class OrderManagementListItem extends React.Component {
          const listbox_style = {
             margin: "0px",
             padding:   "0px",
-            //display: "flex",
-            //direction:"ltr",
             overflow:"auto",
             overflowX:"hidden",
             width: "100%",
-            //flexGrow: "1",            
             wordWrap: "break-word",
-            //wordBreak: "break-all",
 
         }
         const list_style ={
             margin: "0px",
             padding: "0px",
-            //display: "table-row",
-            //background: "#fff",
             width: "100%",
         }
         const sapak_style = {
@@ -84,13 +76,11 @@ class OrderManagementListItem extends React.Component {
         
         const style_noteBubble = {
             border: "1px solid rgba(78,176,82,0.2)",
-            //border: "1px solid #828282",
             backgroundColor: "#fef3bb ",
             borderRadius: "0px",
             boxShadow: "0 0 0px #B2B2B2",
             display: "inline-block",
             padding: "1px 10px",
-            //position: "absolute",
             verticalAlign: "top",
             right:"0px",
             float: "left",   
@@ -106,8 +96,6 @@ class OrderManagementListItem extends React.Component {
                         </span>
                                 {this.PretyfiBsketStatus(this.props.basket.review_status)} 
                                 <span className="mdl-list__item-primary-content" >
-                                    
-                                    
                                     <div
                                     style = {sapak_style}
                                     >
@@ -118,15 +106,16 @@ class OrderManagementListItem extends React.Component {
                                     <div className="NoteBubble" style={style_noteBubble} > 
                                         <div style={{display: "inline-block", width: "auto"}}>
                                         <div className="mdl-textfield mdl-js-textfield" style = {{width:"176px", padding:"5px 0px"}}>
-                                                <textarea disabled className="mdl-textfield__input" type="text" rows="1" id="note1"
+                                                <textarea disabled className="mdl-textfield__input" type="text" rows="1" id={"dkfjhd974fh kjhf"+this.props.basket.id}
                                                 >{this.props.basket.sapak_remarks}</textarea>
-                                            <label className="mdl-textfield__label" htmlFor="note1">הערה</label>
+                                            <label
+                                                className="mdl-textfield__label"
+                                                style={{marginTop: "-10px"}}
+                                                htmlFor={"dkfjhd974fh kjhf"+this.props.basket.id}>הערה</label>
                                             </div>                
                                                       
                                         </div> 
                                     </div>
-                                    
-                                   
                                 </span> 
                         </span>
                     </li>

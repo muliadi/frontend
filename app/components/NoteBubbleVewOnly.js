@@ -4,34 +4,21 @@ import React from 'react';
 import Relay from 'react-relay';
 
 
+var __notebubbleReadOnlyidCount = 0
 
 class NoteBubbleVewOnly extends React.Component {
-    
-    constructor(props){
+    constructor(props) {
         super(props)
-         this.state ={
-            noteContent: "",
-            error: null,
+        this.state = {
+            id: "NoteBubbleVewOnly_"+__notebubbleReadOnlyidCount,
         }
+        __notebubbleReadOnlyidCount += 1
     }
-    
     componentDidMount() {
         componentHandler.upgradeDom();
         
-    }
-   
-      
-   
-   handlenoteContentChange(e){
-       this.setState({
-            noteContent: event.target.value,
-            error: null,
-        });
-   }
-   
-   
-    render() {
-        
+    }    
+    render() {        
            const style_noteBubble = {
             border: "1px solid rgba(78,176,82,0.2)",
             //border: "1px solid #828282",
@@ -53,10 +40,10 @@ class NoteBubbleVewOnly extends React.Component {
             <div className="NoteBubble" style={style_noteBubble} > 
                 <div style={{display: "inline-block", width: "auto"}}>
                 <div className="mdl-textfield mdl-js-textfield" style = {{width:"176px", }}>
-                        <textarea disabled className="mdl-textfield__input" type="text" rows="3" id="note1"
-                        onChange={(e)=>{this.props.onNoteContentChange(e.target.value) }}
+                        <textarea disabled className="mdl-textfield__input" type="text" rows="3" id={this.state.id}
+                        value={this.props.noteContent}
                         >{this.props.noteContent}</textarea>
-                    <label className="mdl-textfield__label" htmlFor="note1">הערה</label>
+                    <label className="mdl-textfield__label" htmlFor={this.state.id}>הערה</label>
                     </div>                
                 <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
                     onClick= {()=>{this.props.onClickCloseButton()}} style = {{position:"absolute", top:"1px", left:"1px"}}>

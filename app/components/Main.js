@@ -129,7 +129,7 @@ const MainSub = class extends React.Component {
                 }
             }
             else {
-                return <ItemGrid view={this.props.view}></ItemGrid>            
+                document.location="/#/items"
             }
         }
         

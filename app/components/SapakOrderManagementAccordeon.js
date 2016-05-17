@@ -75,12 +75,12 @@ class SapakOrderManagementAccordeonSub extends React.Component {
                             basket.items_in_basket.map((item, i) => {
                                //console.log(item);
                                 return <ItemInBasketForAccordion 
-                                key={i} 
-                                myKey={i}
+                                key={"sdlfn d683"+item.id} 
+                                myKey={"ndlckb48ct5o"+item.id}
                                 item={item} 
                                 onOpen = {NoteOpened} 
                                 onClose = {NoteClosed}
-                                isNoteOpen ={this.state.openItemKeyAccordion == i}/>
+                                isNoteOpen ={this.state.openItemKeyAccordion == "ndlckb48ct5o"+item.id}/>
                             })
                         }
                     </ul>
@@ -105,6 +105,7 @@ const SapakOrderManagementAccordeon = Relay.createContainer(SapakOrderManagement
                         date_updated
                         review_status
                         items_in_basket{
+                            id
                             Amount
                             remarks
                             item{

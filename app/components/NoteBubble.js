@@ -4,32 +4,20 @@ import React from 'react';
 import Relay from 'react-relay';
 
 
+var __notebubbleidCount = 0
 
 class NoteBubble extends React.Component {
-    
-    constructor(props){
+    constructor(props) {
         super(props)
-         this.state ={
-            noteContent: "",
-            error: null,
+        this.state = {
+            id: "NoteBubble_"+__notebubbleidCount,
         }
-    }
-    
+        __notebubbleidCount += 1
+    }    
     componentDidMount() {
         componentHandler.upgradeDom();
         
     }
-   
-      
-   
-   handlenoteContentChange(e){
-       this.setState({
-            noteContent: event.target.value,
-            error: null,
-        });
-   }
-   
-   
     render() {
         const style_saveButton={
             position:"absolute",
@@ -56,14 +44,15 @@ class NoteBubble extends React.Component {
         }
         
         return (
-            <div >
+            <div id={this.state.id}>
             <div className="NoteBubble" style={style_noteBubble} > 
                 <div style={{display: "inline-block", width: "auto"}}>
                 <div className="mdl-textfield mdl-js-textfield" style = {{width:"176px", }}>
-                        <textarea className="mdl-textfield__input" type="text" rows="3" id="note1"
+                        <textarea className="mdl-textfield__input" type="text" rows="3" id={this.state.id}
                         onChange={(e)=>{this.props.onNoteContentChange(e.target.value) }}
+                        value={this.props.noteContent}
                         >{this.props.noteContent}</textarea>
-                    <label className="mdl-textfield__label" htmlFor="note1">הערה</label>
+                    <label className="mdl-textfield__label" htmlFor={this.state.id}>הערה</label>
                     </div>                
                     <button className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored"
                     onClick= {()=>{this.props.onClickSaveButton()}}

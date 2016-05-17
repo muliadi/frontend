@@ -9,6 +9,7 @@ class SapakOrderManagementListItem extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            id: +"_basket_"+this.props.basket.id,
             communicating: false,
             remarks: ""
         }
@@ -178,11 +179,14 @@ class SapakOrderManagementListItem extends React.Component {
                                  <div
                                 style={{marginRight: "15px",  backgroundColor: "rgb(254, 243, 187)", paddingLeft:"15px",paddingRight:"15px"}}>
                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style={{width:"400px"}}>
-                                <textarea className="mdl-textfield__input" type="text" rows="1" id={"note1"+this.props.key}
+                                <textarea className="mdl-textfield__input" type="text" rows="1" id={this.state.id+"_with_sapak_"}
                                     onChange={(e)=>{this.handleRemarksChange.bind(this)(e.target.value) }}
                                     onClick={(e)=>{this.handleNoteOnClick.bind(this)(e)}}
                                     ></textarea>
-                                <label className="mdl-textfield__label" htmlFor={"note1"+this.props.key}>הערות למסעדה</label>
+                                <label
+                                    className="mdl-textfield__label"
+                                    style={{marginTop:"-10px"}}                                    
+                                    htmlFor={this.state.id+"_with_sapak_"}>הערות למסעדה</label>
                                 </div> 
                                 </div> 
                                   <div style={{ margin: "auto" }}>

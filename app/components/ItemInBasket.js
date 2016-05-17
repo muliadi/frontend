@@ -21,6 +21,16 @@ class ItemInBasket extends React.Component {
         __ItemInBasketElementID += 1;
     }
     componentDidMount() {
+        if ((this.props.isNoteOpen)&&(!this.state.isTranslated)) {
+            document.getElementById(this.state.itemInBasketElementID).style.transform = 'translateX(+200px)';
+            this.setState({isTranslated: true})
+            return 
+        }
+        if ((!this.props.isNoteOpen)&&(this.state.isTranslated)) {
+            document.getElementById(this.state.itemInBasketElementID).style.transform = 'translateX(0px)';
+            this.setState({isTranslated: false})
+            return 
+        }        
         componentHandler.upgradeDom();
     }
     componentDidUpdate() {
@@ -146,18 +156,13 @@ class ItemInBasket extends React.Component {
                             onClick= {()=>{this.props.onOpen(this.props.myKey)}}>
                                 <i className="material-icons">description</i>
                             </button>
-                            {
-                                this.props.isNoteOpen?
                                <NoteBubble
+                               key = {"_note_of_item_in_basket_982e4293775ks_"+this.props.item.node.id}
                                noteContent = {this.state.noteContent} 
                                onClickCloseButton ={()=>{this.props.onClose()}} 
                                onClickSaveButton ={()=>{this.handleNoteBubbleSave()}}
                                onNoteContentChange={(newContent)=>{this.setState({noteContent: newContent})}}
                                />
-                                :
-                                null
-                                
-                            }
                         </div>
                     <div className= "basket-binButton" style={style_binButton}>
                         <div >

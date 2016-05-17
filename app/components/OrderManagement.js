@@ -103,7 +103,8 @@ class OrderManagementSub extends React.Component {
               <h2>הזמנות ממתינות לאישור הספק</h2>
                
               </div>
-                    <OrderManagementAccordeon 
+                    <OrderManagementAccordeon
+                    view = {this.props.view} 
                    baskets = {this.props.view.me.baskets}
                    review_status = "WithSapak"/>
                     
@@ -112,6 +113,7 @@ class OrderManagementSub extends React.Component {
               <h2>הזמנות שאושרו</h2>
                 </div>
                     <OrderManagementAccordeon 
+                    view = {this.props.view} 
                    baskets = {this.props.view.me.baskets}
                    review_status = "Approved"/>
                     
@@ -121,6 +123,7 @@ class OrderManagementSub extends React.Component {
                 </div>
                 
                    <OrderManagementAccordeon 
+                    view = {this.props.view} 
                    baskets = {this.props.view.me.baskets}
                    
                    review_status = "Rejected"/>
@@ -140,6 +143,7 @@ const OrderManagement = Relay.createContainer(OrderManagementSub, {
     fragments: {
         view: () => Relay.QL`
             fragment on view {
+                ${OrderManagementAccordeon.getFragment('view')},
                 me {
                     baskets {
                         id

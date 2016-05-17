@@ -124,7 +124,7 @@ class ItemGridSub extends React.Component {
                     <div style={{flexWrap:"wrap", flexDirection:"row", display:"flex"}}>
                         {
                             categoriesInFilter.map((category, i) => {
-                                return <div key={"_^_"+i} style={style_filtering_category}>
+                                return <div key={"_^_"+category.id} style={style_filtering_category}>
                                             <div style={{
                                                 cursor: "pointer",
                                                 borderRadius: "50px",
