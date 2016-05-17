@@ -155,7 +155,8 @@ class SapakLandingSub extends React.Component {
               <h2w>הזמנות ממתינות לאישור הספק</h2w>
                
               </div>
-              <SapakOrderManagementAccordeon 
+              <SapakOrderManagementAccordeon
+                key= "ws" 
                     view = {this.props.view}
                    baskets = {this.props.view.me.role_sapak.baskets}
                    review_status = "WithSapak"/>
@@ -165,6 +166,7 @@ class SapakLandingSub extends React.Component {
               <h2w>הזמנות שאושרו</h2w>
                 </div>
                     <SapakOrderManagementAccordeon
+                    key= "ap" 
                     view = {this.props.view} 
                    baskets = {this.props.view.me.role_sapak.baskets}
                    review_status = "Approved"/>
@@ -174,6 +176,7 @@ class SapakLandingSub extends React.Component {
                 <h2w>הזמנות שנדחו</h2w>
                     </div>
                         <SapakOrderManagementAccordeon
+                        key= "rj" 
                         view = {this.props.view} 
                     baskets = {this.props.view.me.role_sapak.baskets}
                     review_status = "Rejected"/>
@@ -181,11 +184,12 @@ class SapakLandingSub extends React.Component {
              <div style={{display:"flex",background: "rgba(78,176,82,0.8)"}}>
                 <i className="material-icons" style = {style_AccordionHeader}>not_interested</i>
                 <h2w>רשימת המסעדות המחכות לאישור הצטרפות לרשת</h2w>
-                    
+               </div>
+               <div>     
                 {
                     this.props.view.me.get_restaurants_pending_chain_join_from_all_chains.edges.map((edge, i)=>{
                         return <div>
-                            {edge.node.name} מבקש להצטרף ל {edge.node.chain.name}
+                            {edge.node.name} מבקש להצטרף לרשת: {edge.node.chain.name}
                             {
                                 this.state.communicating[i] ?
                                     <commRound style={{marginRight: "15px"}}/>

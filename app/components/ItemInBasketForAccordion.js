@@ -75,8 +75,8 @@ class ItemInBasketForAccordion extends React.Component {
         const style_binButton = {            
         }
         
-                
-        if ((this.state.noteContent!=null)&&(this.state.noteContent!=""))
+           
+        if ((this.props.item.remarks!="")&&(this.props.item.remarks!=null))
         {
              style_noteButtonDiv.display = "block"             
         }        
