@@ -142,40 +142,48 @@ class SapakLandingSub extends React.Component {
             marginLeft:"10px",
             
         } 
-        
+        const style_AccordionHeader = {
+            marginTop:"auto",
+            marginBottom:"auto",
+            marginLeft: "22px",
+            marginRight:"22px",
+            color: "#ffffff"
+            }
         return (
              <div className="mdl-grid" style={style_grid}> 
             <div className="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--1-col-phone">
                 </div>
                 <div className="mdl-cell mdl-cell--10-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
             
-            <div style={{display:"flex",background: "rgb(237,247,238)"}}>
-              <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>query_builder</i>
-              <h2>הזמנות ממתינות לאישור הספק</h2>
+            <div style={{display:"flex",background: "rgba(78,176,82,0.8)"}}>
+              <i className="material-icons" style = {style_AccordionHeader}>query_builder</i>
+              <h2w>הזמנות ממתינות לאישור הספק</h2w>
                
               </div>
               <SapakOrderManagementAccordeon 
                    baskets = {this.props.view.me.role_sapak.baskets}
                    review_status = "WithSapak"/>
             
-            <div style={{display:"flex",background: "rgb(237,247,238)"}}>
-              <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>done</i>
-              <h2>הזמנות שאושרו</h2>
+            <div style={{display:"flex",background: "rgba(78,176,82,0.8)"}}>
+              <i className="material-icons" style = {style_AccordionHeader}>done</i>
+              <h2w>הזמנות שאושרו</h2w>
                 </div>
                     <SapakOrderManagementAccordeon 
                    baskets = {this.props.view.me.role_sapak.baskets}
                    review_status = "Approved"/>
                    
-                <div style={{display:"flex",background: "rgb(237,247,238)"}}>
-                <i className="material-icons" style = {{marginTop:"auto", marginBottom:"auto", marginLeft: "30px", marginRight:"30px"}}>not_interested</i>
-                <h2>הזמנות שנדחו</h2>
+                <div style={{display:"flex",background: "rgba(78,176,82,0.8)"}}>
+                <i className="material-icons" style = {style_AccordionHeader}>not_interested</i>
+                <h2w>הזמנות שנדחו</h2w>
                     </div>
                         <SapakOrderManagementAccordeon 
                     baskets = {this.props.view.me.role_sapak.baskets}
                     review_status = "Rejected"/>
             
-            <div style={{margin:"25px"}}>
-                <h5>רשימת המסעדות המחכות לאישור הצטרפות לרשת:</h5>
+             <div style={{display:"flex",background: "rgba(78,176,82,0.8)"}}>
+                <i className="material-icons" style = {style_AccordionHeader}>not_interested</i>
+                <h2w>רשימת המסעדות המחכות לאישור הצטרפות לרשת</h2w>
+                    
                 {
                     this.props.view.me.get_restaurants_pending_chain_join_from_all_chains.edges.map((edge, i)=>{
                         return <div>

@@ -67,7 +67,7 @@ class SapakOrderManagementAccordeonSub extends React.Component {
                     return basket.review_status == this.props.review_status
                     }).map((basket, x) => {
                         return ( 
-                        <AccordionItem title={<SapakOrderManagementListItem basket={basket}/>} slug={x} key={x}>
+                        <AccordionItem title={<SapakOrderManagementListItem key = {x} basket={basket}/>} slug={x} key={x}>
                             
                             <div style={listbox_style}>
                     <ul className="mdl-list" style={list_style}>

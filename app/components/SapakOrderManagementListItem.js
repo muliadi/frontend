@@ -60,6 +60,17 @@ class SapakOrderManagementListItem extends React.Component {
         })    
     }
  
+ handleNoteOnClick(event){
+      event = event || window.event // cross-browser event
+        if (event.stopPropagation) {
+        // W3C standard variant
+            event.stopPropagation()
+        } else {
+            // IE variant
+            event.cancelBubble = true
+        }
+ }
+ 
     handleReviewBasketMutation(event,basketID, reviewStatus, reviewComment,) {
         //console.log(event)
         event = event || window.event // cross-browser event
@@ -137,42 +148,60 @@ class SapakOrderManagementListItem extends React.Component {
         }
         
         return (
-                    <li  className="mdl-list__item basketlistItem" >
-                        <span className="mdl-list__item-primary-content" >
-                                <span className="mdl-list__item-text-body" style={{marginLeft:"15px",}}> 
-                                 {this.PretyfiBsketStatus(this.props.basket.review_status)} 
-                                </span>
-                                <span className="mdl-list__item-text-body" style={{marginLeft:"15px",}}> 
+                    <div  className="accordionHeader" >
+                        <div className="mdl-grid" style={{width: "100%",}}>
+                        <div className="mdl-cell mdl-cell--1-col" style={{fontSize: "16px"}}>
+                            
+                                {this.PretyfiBsketStatus(this.props.basket.review_status)} 
+                            
+                        </div>
+                        <div className="mdl-cell mdl-cell--2-col" style={{fontSize: "16px"}}>
+                            
                                 {this.PretyfiDate(this.props.basket.date_updated)} 
-                                </span>
-                                 <span className="mdl-list__item-text-body" style={{marginLeft:"15px",}}> 
+                            
+                        </div>
+                         <div className="mdl-cell mdl-cell--3-col" style={{fontSize: "16px", }}>
+                                  <div style = {{display:"flexGrow",}}>
+                                  <div>
                                       הזמנה מ:  {this.props.basket.restaurant.name} 
-                                </span>
-                                <span className="mdl-list__item-primary-content" >
+                                </div>
+                                <div>
+                                      שם המזמין:  {this.props.basket.creator.full_name} 
+                                </div>
+                                </div>
+                         </div>
+                                <div className="mdl-cell mdl-cell--6-col">
                                {    
                                 this.props.basket.review_status== "WithSapak"?
-                                 <div>   
+                                 <div style={{display:"flex", }}>   
+                                 
+                                 <div
+                                style={{marginRight: "15px",  backgroundColor: "rgb(254, 243, 187)", paddingLeft:"15px",paddingRight:"15px"}}>
+                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style={{width:"400px"}}>
+                                <textarea className="mdl-textfield__input" type="text" rows="1" id={"note1"+this.props.key}
+                                    onChange={(e)=>{this.handleRemarksChange.bind(this)(e.target.value) }}
+                                    onClick={(e)=>{this.handleNoteOnClick.bind(this)(e)}}
+                                    ></textarea>
+                                <label className="mdl-textfield__label" htmlFor={"note1"+this.props.key}>הערות למסעדה</label>
+                                </div> 
+                                </div> 
+                                  <div style={{ margin: "auto" }}>
                                 <button
-                                className="mdl-button mdl-js-button mdl-button--raised"
+                                style={{ marginRight:"10px", }} 
+                                className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab coloredOk"
                                 onClick={(e)=>{this.handleReviewBasketMutation.bind(this)(e,this.props.basket.id, "Approved", this.state.remarks)}}
-                                style={{marginRight: "15px"}}>
-                                אשר
+                                >
+                                <i className="material-icons" >done</i>
+                                
                                 </button> 
                                 <button
-                                className="mdl-button mdl-js-button mdl-button--raised"
+                                style={{ marginRight:"10px", }} 
+                                className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab coloredCancel"
                                 onClick={(e)=>{this.handleReviewBasketMutation.bind(this)(e,this.props.basket.id, "Rejected", this.state.remarks)}}
-                                style={{marginRight: "15px"}}>
-                                דחה
+                                >
+                                 <i className="material-icons" >not_interested</i>
                                 </button>
-                                
-                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" 
-                                style={{marginRight:"30px", backgroundColor: "rgb(254, 243, 187)"}}>
-                                <input
-                                    className="mdl-textfield__input"
-                                    type="mail"
-                                    onChange={(e)=>{this.handleRemarksChange.bind(this)(e.target.value) }}></input>
-                                <label className="mdl-textfield__label">הערות למסעדה</label>
-                                </div>  
+                                </div>
                                 </div>  
                                 :
                                 null 
@@ -180,9 +209,10 @@ class SapakOrderManagementListItem extends React.Component {
                                     <div>
                                     
                                     </div>
-                                </span> 
-                        </span>
-                    </li>
+                               </div> 
+                            </div>
+         
+                    </div>
         );
     }
 }
