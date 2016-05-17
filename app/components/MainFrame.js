@@ -270,7 +270,7 @@ class MainFrameSub extends React.Component {
                         </div>                                                            
                     </div>
                     <div className="footer-pusher" />
-                    <footer className="mdl-mini-footer" style={{marginRight: (this.props.view.me.role_type=="Restaurant" )? "400px":"0px" }}>
+                    <footer className="mdl-mini-footer" style={{marginRight: (this.props.view.me.role_type=="Restaurant" )? "404px":"0px" }}>
                         <div
                             className="mdl-mini-footer--middle-section" style={{margin:"auto"}} >
                         <div style={{direction: "ltr"}}>  Copyright © 2016 CrazyDuck Ltd. All rights reserved.</div>

@@ -104,6 +104,7 @@ const OrderManagementAccordeon = Relay.createContainer(OrderManagementAccordeonS
                         id
                         date_updated
                         review_status
+                        sapak_remarks
                         items_in_basket{
                             Amount
                             remarks

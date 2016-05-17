@@ -266,6 +266,9 @@ const SapakLanding = Relay.createContainer(SapakLandingSub, {
                     role_type
                     role_sapak {
                         baskets {
+                            restaurant {
+                                    name
+                            }
                             id
                             date_updated
                             review_status

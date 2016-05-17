@@ -54,6 +54,12 @@ class SapakOrderManagementListItem extends React.Component {
     
  }
  
+ handleRemarksChange(remarks) {
+        this.setState({
+            remarks: remarks,
+        })    
+    }
+ 
     handleReviewBasketMutation(event,basketID, reviewStatus, reviewComment,) {
         //console.log(event)
         event = event || window.event // cross-browser event
@@ -133,14 +139,20 @@ class SapakOrderManagementListItem extends React.Component {
         return (
                     <li  className="mdl-list__item basketlistItem" >
                         <span className="mdl-list__item-primary-content" >
-                            <span className="mdl-list__item-text-body" > 
+                                <span className="mdl-list__item-text-body" style={{marginLeft:"15px",}}> 
                                  {this.PretyfiBsketStatus(this.props.basket.review_status)} 
-                        </span>
+                                </span>
+                                <span className="mdl-list__item-text-body" style={{marginLeft:"15px",}}> 
                                 {this.PretyfiDate(this.props.basket.date_updated)} 
+                                </span>
+                                 <span className="mdl-list__item-text-body" style={{marginLeft:"15px",}}> 
+                                      הזמנה מ:  {this.props.basket.restaurant.name} 
+                                </span>
                                 <span className="mdl-list__item-primary-content" >
-                                    
-                                    
-                                     <button
+                               {    
+                                this.props.basket.review_status== "WithSapak"?
+                                 <div>   
+                                <button
                                 className="mdl-button mdl-js-button mdl-button--raised"
                                 onClick={(e)=>{this.handleReviewBasketMutation.bind(this)(e,this.props.basket.id, "Approved", this.state.remarks)}}
                                 style={{marginRight: "15px"}}>
@@ -151,7 +163,20 @@ class SapakOrderManagementListItem extends React.Component {
                                 onClick={(e)=>{this.handleReviewBasketMutation.bind(this)(e,this.props.basket.id, "Rejected", this.state.remarks)}}
                                 style={{marginRight: "15px"}}>
                                 דחה
-                                </button>   
+                                </button>
+                                
+                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" 
+                                style={{marginRight:"30px", backgroundColor: "rgb(254, 243, 187)"}}>
+                                <input
+                                    className="mdl-textfield__input"
+                                    type="mail"
+                                    onChange={(e)=>{this.handleRemarksChange.bind(this)(e.target.value) }}></input>
+                                <label className="mdl-textfield__label">הערות למסעדה</label>
+                                </div>  
+                                </div>  
+                                :
+                                null 
+                               }
                                     <div>
                                     
                                     </div>

@@ -82,6 +82,22 @@ class OrderManagementListItem extends React.Component {
             
         }
         
+        const style_noteBubble = {
+            border: "1px solid rgba(78,176,82,0.2)",
+            //border: "1px solid #828282",
+            backgroundColor: "#fef3bb ",
+            borderRadius: "0px",
+            boxShadow: "0 0 0px #B2B2B2",
+            display: "inline-block",
+            padding: "1px 10px",
+            //position: "absolute",
+            verticalAlign: "top",
+            right:"0px",
+            float: "left",   
+            margin: "0px 40px 0px 0px", 
+            top: "-1px",
+        }
+        
         return (
                     <li key={this.props.key} className="mdl-list__item basketlistItem" >
                         <span className="mdl-list__item-primary-content" >
@@ -99,6 +115,18 @@ class OrderManagementListItem extends React.Component {
                                     <div>
                                     {this.props.basket.sapak.name}
                                     </div>
+                                    <div className="NoteBubble" style={style_noteBubble} > 
+                                        <div style={{display: "inline-block", width: "auto"}}>
+                                        <div className="mdl-textfield mdl-js-textfield" style = {{width:"176px", padding:"5px 0px"}}>
+                                                <textarea disabled className="mdl-textfield__input" type="text" rows="1" id="note1"
+                                                >{this.props.basket.sapak_remarks}</textarea>
+                                            <label className="mdl-textfield__label" htmlFor="note1">הערה</label>
+                                            </div>                
+                                                      
+                                        </div> 
+                                    </div>
+                                    
+                                   
                                 </span> 
                         </span>
                     </li>
