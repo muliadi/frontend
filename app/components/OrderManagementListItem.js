@@ -89,7 +89,7 @@ class OrderManagementListItem extends React.Component {
         }
         
         return (
-                    <li key={this.props.key} className="mdl-list__item basketlistItem" >
+                    <li className="mdl-list__item basketlistItem" >
                         <span className="mdl-list__item-primary-content" >
                             <span className="mdl-list__item-text-body" > 
                                 {this.PretyfiDate(this.props.basket.date_updated)}  

@@ -13,7 +13,6 @@ class ItemInBasketForAccordion extends React.Component {
     constructor(props){
         super(props)
          this.state ={            
-            noteContent: this.props.item.remarks,
             isTranslated: false,
             itemInBasketElementID: "elementInAccBasketID_"+__ItemInBasketElementID,
             error: null,
@@ -112,20 +111,17 @@ class ItemInBasketForAccordion extends React.Component {
                             onClick= {()=>{this.props.onOpen(this.props.myKey)}}>
                                 <i className="material-icons">description</i>
                             </button>
-                            {
-                                this.props.isNoteOpen?
+                            {this.props.isNoteOpen?
                                <NoteBubbleVewOnly 
-                               noteContent = {this.state.noteContent} 
+                               noteContent = {item.remarks} 
                                onClickCloseButton ={()=>{this.props.onClose()}} 
                                onClickSaveButton ={()=>{this.handleNoteBubbleSave()}}
                                onNoteContentChange={(newContent)=>{this.setState({noteContent: newContent})}}
                                />
-                                :
-                                null
-                                
+                            :
+                               null
                             }
-                        </div>
-                   
+                        </div>                   
                      
                 </span>
                

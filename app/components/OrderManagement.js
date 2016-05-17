@@ -151,6 +151,7 @@ const OrderManagement = Relay.createContainer(OrderManagementSub, {
                         review_status
                         sapak_remarks
                         items_in_basket{
+                            id
                             Amount
                             remarks
                             item{

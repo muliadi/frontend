@@ -228,6 +228,7 @@ const SapakLanding = Relay.createContainer(SapakLandingSub, {
                             date_updated
                             review_status
                             items_in_basket{
+                                id
                                 Amount
                                 remarks
                                 item{

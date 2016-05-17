@@ -67,20 +67,19 @@ class OrderManagementAccordeonSub extends React.Component {
                     return basket.review_status == this.props.review_status
                     }).map((basket, x) => {
                         return ( 
-                        <AccordionItem title={<OrderManagementListItem basket={basket}/>} slug={x} key={x}>
+                        <AccordionItem title={<OrderManagementListItem basket={basket}/>} slug={"476cbfh"+basket.id} key={"476cbfh"+basket.id}>
                             
                             <div style={listbox_style}>
                     <ul className="mdl-list" style={list_style}>
                         {                            
                             basket.items_in_basket.map((item, i) => {
-                               //console.log(item);
-                                return <ItemInBasketForAccordion 
+                                return (<ItemInBasketForAccordion 
                                 key={"m,nqwd89c76"+item.id} 
-                                myKey={"09vxmcn"+i}
+                                myKey={"09vxmcn"+item.id}
                                 item={item} 
                                 onOpen = {NoteOpened} 
                                 onClose = {NoteClosed}
-                                isNoteOpen ={this.state.openItemKeyAccordion == "09vxmcn"+i}/>
+                                isNoteOpen ={this.state.openItemKeyAccordion == "09vxmcn"+item.id}/>)
                             })
                         }
                     </ul>
