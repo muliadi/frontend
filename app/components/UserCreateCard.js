@@ -63,10 +63,6 @@ class UserCreateCard extends React.Component {
             this.setState({ error: "אנא הכנס סיסמה" });
             return;
         }
-        if (this.state.base64data == null) {
-            this.setState({ error: "אנא הוסף תמונה" });
-            return;
-        }
         this.setState({ communicating: true })
         Relay.Store.commitUpdate(new AddUserMutation({
             full_name: this.state.full_name,
