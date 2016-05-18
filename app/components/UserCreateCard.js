@@ -161,6 +161,7 @@ class UserCreateCard extends React.Component {
                                 <input
                                     className="mdl-textfield__input"
                                     type="text"
+                                    onKeyUp={(e)=>{if (e.keyCode==13) {this.handleSaveItem.bind(this)()}} }                        
                                     onChange={this.handleFullNameChange.bind(this) }></input>
                                 <label className="mdl-textfield__label">שם מלא</label>
                             </div>
@@ -168,6 +169,7 @@ class UserCreateCard extends React.Component {
                                 <input
                                     className="mdl-textfield__input"
                                     type="mail"
+                                    onKeyUp={(e)=>{if (e.keyCode==13) {this.handleSaveItem.bind(this)()}} }                        
                                     onChange={this.handleMailChange.bind(this) }></input>
                                 <label className="mdl-textfield__label">מייל</label>
                             </div>
@@ -175,6 +177,7 @@ class UserCreateCard extends React.Component {
                                 <input
                                     className="mdl-textfield__input"
                                     type="password"
+                                    onKeyUp={(e)=>{if (e.keyCode==13) {this.handleSaveItem.bind(this)()}} }                        
                                     onChange={this.handlePass1Change.bind(this) }></input>
                                 <label className="mdl-textfield__label">סיסמה</label>
                             </div>
