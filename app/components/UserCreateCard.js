@@ -63,10 +63,6 @@ class UserCreateCard extends React.Component {
             this.setState({ error: "אנא הכנס סיסמה" });
             return;
         }
-        if (this.state.base64data == null) {
-            this.setState({ error: "אנא הוסף תמונה" });
-            return;
-        }
         this.setState({ communicating: true })
         Relay.Store.commitUpdate(new AddUserMutation({
             full_name: this.state.full_name,
@@ -165,6 +161,7 @@ class UserCreateCard extends React.Component {
                                 <input
                                     className="mdl-textfield__input"
                                     type="text"
+                                    onKeyUp={(e)=>{if (e.keyCode==13) {this.handleSaveItem.bind(this)()}} }                        
                                     onChange={this.handleFullNameChange.bind(this) }></input>
                                 <label className="mdl-textfield__label">שם מלא</label>
                             </div>
@@ -172,6 +169,7 @@ class UserCreateCard extends React.Component {
                                 <input
                                     className="mdl-textfield__input"
                                     type="mail"
+                                    onKeyUp={(e)=>{if (e.keyCode==13) {this.handleSaveItem.bind(this)()}} }                        
                                     onChange={this.handleMailChange.bind(this) }></input>
                                 <label className="mdl-textfield__label">מייל</label>
                             </div>
@@ -179,6 +177,7 @@ class UserCreateCard extends React.Component {
                                 <input
                                     className="mdl-textfield__input"
                                     type="password"
+                                    onKeyUp={(e)=>{if (e.keyCode==13) {this.handleSaveItem.bind(this)()}} }                        
                                     onChange={this.handlePass1Change.bind(this) }></input>
                                 <label className="mdl-textfield__label">סיסמה</label>
                             </div>
