@@ -25,6 +25,7 @@ class RestaurantCreateCard extends React.Component {
             isChainsFullyOpen: false,
             isChain: false,
             currentChainID: null,
+            dropDaysRemarks: null,
         }
     }
     handleRestaurantNameChange(event) {
@@ -65,6 +66,11 @@ class RestaurantCreateCard extends React.Component {
             }.bind(this);
         }
     }
+    handleRemarksChange(remarks) {
+        this.setState({
+            dropDaysRemarks: remarks,
+        })    
+    }
     handleSaveItem(event) {
         if (this.state.restaurant_name == "") {
             this.setState({ error: "אנא הכנס שם המסעדה" });
@@ -92,6 +98,7 @@ class RestaurantCreateCard extends React.Component {
             isChain: this.state.isChain,
             chainID: this.state.currentChainID,
             imageBase64Data: this.state.base64data,
+            dropDaysRemarks: this.state.dropDaysRemarks,
         }),
             {
                 onFailure: (e) => {
@@ -312,7 +319,19 @@ class RestaurantCreateCard extends React.Component {
                                 <div style={{display:"flex", marginRight:"auto", marginLeft:"auto"}}>
                                     {timeRanges}
                                 </div>
+                                 <div
+                                style={{marginRight: "15px",  backgroundColor: "rgb(254, 243, 187)", paddingLeft:"15px",paddingRight:"15px"}}>
+                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style={{width:"100%"}}>
+                                <textarea className="mdl-textfield__input" type="text" rows="1" id={this.state.id+"_with_sapak_"}
+                                    onChange={(e)=>{this.handleRemarksChange.bind(this)(e.target.value) }}
+                                    ></textarea>
+                                <label
+                                    className="mdl-textfield__label"
+                                    style={{marginTop:"-10px"}}                                    
+                                    htmlFor={this.state.id+"_with_sapak_"}>הערות למסעדה</label>
+                                </div> 
                             </div>
+                             </div>
                            
                             
                             
