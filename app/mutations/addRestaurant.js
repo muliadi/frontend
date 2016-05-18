@@ -12,8 +12,6 @@ export default class AddRestaurantMutation extends Relay.Mutation {
             address: this.props.address,
             companyNum: this.props.companyNum,
             companyName: this.props.companyName,
-            dropTimeTo: this.props.dropTimeTo,
-            dropTimeFrom: this.props.dropTimeFrom,
             dropDays: this.props.dropDays,
             isChain: this.props.isChain,
             chainID: this.props.chainID,
