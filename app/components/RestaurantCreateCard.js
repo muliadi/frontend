@@ -5,7 +5,7 @@ import Relay from 'react-relay';
 
 import AddRestaurantMutation from "../mutations/addRestaurant.js"
 import CommRound from './commRound.js'
-
+import EditContactPerson from './EditContactPerson.js'
 import TimeRange from './TimeRange.js'
 
 class RestaurantCreateCard extends React.Component {
@@ -26,8 +26,25 @@ class RestaurantCreateCard extends React.Component {
             isChain: false,
             currentChainID: null,
             dropDaysRemarks: null,
+            isModalOpen: false,
         }
     }
+    
+     openModal() {
+        console.log(this.state.isModalOpen)
+        this.setState({ 
+            isModalOpen: true,
+         });
+    }
+
+    closeModal() {
+        console.log(this.state.isModalOpen)
+        this.setState({
+             isModalOpen: false,
+             });
+    }
+
+    
     handleRestaurantNameChange(event) {
         this.setState({
             restaurant_name: event.target.value,
@@ -331,6 +348,33 @@ class RestaurantCreateCard extends React.Component {
                                     htmlFor={this.state.id+"sdfasfw2w_drop_days_remarks_"}>הערות למסעדה</label>
                                 </div> 
                             </div>
+                            <div className="add_contact_info" style={{marginTop:"10px", display:"flex"}}>
+                            <div style={{marginTop:"auto", marginBottom:"auto"}}>
+                            אנשי קשר
+                            </div> 
+                            <button 
+                            onClick={this.openModal.bind(this)}
+                            className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab colloredAdd" style={{marginLeft:"10px"}}>
+                                <i className="material-icons">add</i>
+                            </button>
+                            </div>
+                                                       
+                            <EditContactPerson 
+                            isOpen={this.state.isModalOpen}
+                                transitionName="modal-anim">
+                                <div className="modal" key={this.state.isModalOpen}>
+                                    <h3>My Modal</h3>
+                                    <div className="body">
+                                        <p>This is the modal&apos;s body.</p>
+                                    </div>
+                                    <button 
+                                    onClick ={this.closeModal.bind(this)} 
+                                    >Close modal</button>
+                                   
+                                </div>
+                            </EditContactPerson>
+                            
+                            
                              </div>
                            
                             
