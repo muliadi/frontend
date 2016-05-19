@@ -319,16 +319,16 @@ class RestaurantCreateCard extends React.Component {
                                 <div style={{display:"flex", marginRight:"auto", marginLeft:"auto"}}>
                                     {timeRanges}
                                 </div>
-                                 <div
-                                style={{marginRight: "15px",  backgroundColor: "rgb(254, 243, 187)", paddingLeft:"15px",paddingRight:"15px"}}>
+                                 <div 
+                                style={{  backgroundColor: "rgb(254, 243, 187)", paddingLeft:"15px",paddingRight:"15px", paddingTop:"15px"}}>
                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style={{width:"100%"}}>
-                                <textarea className="mdl-textfield__input" type="text" rows="1" id={this.state.id+"_with_sapak_"}
+                                <textarea className="mdl-textfield__input" type="text" rows="2" id={this.state.id+"sdfasfw2w_drop_days_remarks_"}
                                     onChange={(e)=>{this.handleRemarksChange.bind(this)(e.target.value) }}
                                     ></textarea>
                                 <label
                                     className="mdl-textfield__label"
                                     style={{marginTop:"-10px"}}                                    
-                                    htmlFor={this.state.id+"_with_sapak_"}>הערות למסעדה</label>
+                                    htmlFor={this.state.id+"sdfasfw2w_drop_days_remarks_"}>הערות למסעדה</label>
                                 </div> 
                             </div>
                              </div>
