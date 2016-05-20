@@ -7,6 +7,7 @@ import AddRestaurantMutation from "../mutations/addRestaurant.js"
 import CommRound from './commRound.js'
 import ModalWindowComponent from './ModalWindowComponent.js'
 import TimeRange from './TimeRange.js'
+import ContactPersonComponent from './ContactPersonComponent.js'
 
 class RestaurantCreateCard extends React.Component {
     constructor(props) {
@@ -26,22 +27,13 @@ class RestaurantCreateCard extends React.Component {
             isChain: false,
             currentChainID: null,
             dropDaysRemarks: null,
-            isModalOpen: false,
+            
         }
     }
     
-     openModal() {
-        console.log(this.state.isModalOpen)
-        this.setState({ 
-            isModalOpen: true,
-         });
-    }
-
-    closeModal() {
-        console.log(this.state.isModalOpen)
-        this.setState({
-             isModalOpen: false,
-             });
+    static contextTypes = {
+        showModal: React.PropTypes.func,
+        hideModal: React.PropTypes.func,
     }
 
     
@@ -353,27 +345,11 @@ class RestaurantCreateCard extends React.Component {
                             אנשי קשר
                             </div> 
                             <button 
-                            onClick={this.openModal.bind(this)}
+                            onClick={()=>this.context.showModal(<ContactPersonComponent key="asdfASD#@asd1"  />)}
                             className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab colloredAdd" style={{marginLeft:"10px"}}>
                                 <i className="material-icons">add</i>
                             </button>
                             </div>
-                                                       
-                            <ModalWindowComponent 
-                            isOpen={this.state.isModalOpen}
-                                transitionName="modal-anim">
-                                <div className="modal" key={this.state.isModalOpen}>
-                                    <h3>My Modal</h3>
-                                    <div className="body">
-                                        <p>This is the modal&apos;s body.</p>
-                                    </div>
-                                    <button 
-                                    onClick ={this.closeModal.bind(this)} 
-                                    >Close modal</button>
-                                   
-                                </div>
-                            </ModalWindowComponent>
-                            
                             
                              </div>
                            
