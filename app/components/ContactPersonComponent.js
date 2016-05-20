@@ -95,11 +95,26 @@ class ContactPersonComponent extends React.Component {
          
                                     <h3>My Modal</h3>
                                     <div className="body">
+                                        <div style={{display: "inline-block", width: "auto"}}>
+                                        <i className="material-icons">person</i>
+                                        <div className="mdl-textfield mdl-js-textfield" style = {{width:"176px", }}>
+                                                <input className="mdl-textfield__input" type="text"  id={this.props.key+"1"}
+                                                ></input>
+                                            <label className="mdl-textfield__label" htmlFor={this.props.key+"1"}>שם מלא...</label>
+                                            </div>                
+                                        <button className="mdl-button mdl-js-button mdl-button--icon mdl-button--colored"
+                                            onClick= {this.context.hideModal} style = {{position:"absolute", top:"1px", left:"1px"}}>
+                                            <i className="material-icons">close</i>
+                                        </button>                
+                                        </div> 
                                         <p>This is the modal&apos;s body.</p>
                                     </div>
-                                    <button 
+                                    <div className="modal-footer" style={{display: "flex", flexDirection: "row-reverse",}}>
+                                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
                                     onClick = {this.context.hideModal}
-                                    >Close modal</button>
+                                    >שמור</button>
+                                    </div>
+                                    
                                    
         </div>
         );

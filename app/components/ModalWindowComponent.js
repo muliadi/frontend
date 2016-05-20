@@ -18,7 +18,7 @@ class ModalWindowComponent extends React.Component {
             return (
               <ReactCSSTransitionGroup transitionName={this.props.transitionName} transitionLeaveTimeout={300} transitionEnterTimeout={500} >
                   {this.props.children}
-                  <div id="lean-overlay" style={{display: "block", opacity: "0.5"}}
+                  <div id="lean-overlay" style={{display: "block", opacity: "0.1"}}
                   onClick ={this.context.hideModal} ></div>
               </ReactCSSTransitionGroup>
             );
