@@ -21,7 +21,8 @@ const MainSub = class extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            mock: false
+            mock: false,
+            selectedItem: null,
         }
         window.onhashchange = ()=>{this.setState({mock: !this.state.mock})}
         SetSapakimCookie(this.props.view.current_session)
@@ -59,13 +60,13 @@ const MainSub = class extends React.Component {
             // user is not logged:
             switch (arg1) {
                 case "terms_and_conditions":
-                    return <TermsAndConditions view={this.props.view}></TermsAndConditions>            
+                    return {page: <TermsAndConditions view={this.props.view}></TermsAndConditions>, type:"termsAndConditions"}            
                 case "login":
-                    return <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser>                    
+                    return {page: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser>, type:"logInOrCreateUser"}
                 case "sapakim":
-                    return <SapakGrid view={this.props.view}></SapakGrid>
+                    return {page: <SapakGrid view={this.props.view}></SapakGrid>, type: "sapakGrid"}
                 case "items":
-                    return <ItemGrid view={this.props.view}
+                    return {page: <ItemGrid view={this.props.view}
                             includeCategories={includeCategories}
                             excludeCategories={excludeCategories}
                             includeVendors={includeVendors}
@@ -75,14 +76,14 @@ const MainSub = class extends React.Component {
                             maxPriceInAgorot={maxPrices}
                             minPriceInAgorot={minPrices}
                         >
-                        </ItemGrid>
+                        </ItemGrid>, type:"itemGrid"}
                 case "mail_verification":
                     if (argNum!=2) {
-                        return <div>404 Not Found</div>
+                        return {page: <div>404 Not Found</div>, type: "404"}
                     }
-                    return <MailVerification hash={arg2}></MailVerification>
+                    return {page: <MailVerification hash={arg2}></MailVerification>, type: "mailVerification"}
                 default:
-                    return <LandingPage view={this.props.view}></LandingPage>            
+                    return {page: <LandingPage view={this.props.view}></LandingPage>, type: "landing"}            
             }
         }
 
@@ -92,13 +93,13 @@ const MainSub = class extends React.Component {
             if (argNum>0) {
                 switch (arg1) {
                     case "orders":
-                        return <OrderManagement view={this.props.view} forceFetch={this.props.view.has_updates}></OrderManagement>
+                        return {page: <OrderManagement view={this.props.view} forceFetch={this.props.view.has_updates}></OrderManagement>, type: "orderManagement"}
                     case "terms_and_conditions":
-                        return <TermsAndConditions view={this.props.view}></TermsAndConditions>            
+                        return {page: <TermsAndConditions view={this.props.view}></TermsAndConditions>, type: "termsAndConditions"}            
                     case "admin":
-                        return <AdminPage view={this.props.view}></AdminPage>
+                        return {page: <AdminPage view={this.props.view}></AdminPage>, type: "adminPage"}
                     case "items":
-                        return <ItemGrid
+                        return {page: <ItemGrid
                             includePackagings={includeCategories}
                                 view={this.props.view}
                                 includeCategories={includeCategories}
@@ -110,22 +111,22 @@ const MainSub = class extends React.Component {
                                 maxPriceInAgorot={maxPrices}
                                 minPriceInAgorot={minPrices}
                                 >
-                            </ItemGrid>
+                            </ItemGrid>, type: "itemGrid"}
                     case "users":
-                        return <UserGrid view={this.props.view}></UserGrid>
+                        return {page: <UserGrid view={this.props.view}></UserGrid>, type: "userGrid"}
                     case "sapakim":
-                        return <SapakGrid view={this.props.view}></SapakGrid>
+                        return {page: <SapakGrid view={this.props.view}></SapakGrid>, type: "sapakGrid"}
                     case "login":
-                        return <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser>
+                        return {page: <LogInOrCreateUser role_type={this.props.view.me.role_type}></LogInOrCreateUser>, type: "login"}
                     case "profile":
-                        return <ProfilePage view={this.props.view}></ProfilePage>
+                        return {page: <ProfilePage view={this.props.view}></ProfilePage>, type: "profilePage"}
                     case "mail_verification":
                         if (argNum!=2) {
-                            return <div>404 Not Found</div>
+                            return {page: <div>404 Not Found</div>, type: "404"}
                         }
-                        return <MailVerification hash={arg2}></MailVerification>
+                        return {page: <MailVerification hash={arg2}></MailVerification>, type:"mailVerification"}
                     default:
-                        return <div>404 Not Found</div>
+                        return {page: <div>404 Not Found</div>, type:"404"}
                 }
             }
             else {
@@ -133,22 +134,42 @@ const MainSub = class extends React.Component {
             }
         }
         
-        if (this.props.view.me.role_type=="Sapak") {     
+        if (this.props.view.me.role_type=="Sapak") {
             if (argNum>0) {
                 switch (arg1) {
                     case "terms_and_conditions":
-                        return <TermsAndConditions view={this.props.view}></TermsAndConditions>            
+                        return {page: <TermsAndConditions view={this.props.view}></TermsAndConditions>, type: "termsAndConditions"}            
                     case "mail_verification":
                         if (argNum!=2) {
-                            return <div>404 Not Found</div>
+                            return {page: <div>404 Not Found</div>, type: "404"}
                         }
-                        return <MailVerification hash={arg2}></MailVerification>
+                        return {page: <MailVerification hash={arg2}></MailVerification>, type: "mailVerification"}
+                    case "items":
+                        return {page: <ItemGrid
+                            includePackagings={includeCategories}
+                                view={this.props.view}
+                                includeCategories={includeCategories}
+                                excludeCategories={excludeCategories}
+                                includeVendors={includeVendors}
+                                excludeVendors={excludeVendors}
+                                includePackagings={includePackagings}
+                                excludePackagings={excludePackagings}
+                                maxPriceInAgorot={maxPrices}
+                                minPriceInAgorot={minPrices}
+                                selectedItem={this.state.selectedItem}
+                                onItemSelected={(item)=>{
+                                    this.setState({
+                                        selectedItem: item,
+                                    })     
+                                }}
+                                >
+                            </ItemGrid> , type: "itemGrid" }                      
                     default:
-                        return <div>404 Not Found</div>
+                        return {page: <div>404 Not Found</div>, type:"404"}
                 }
             }
             else {
-                return <SapakLanding view={this.props.view} forceFetch={this.props.view.has_updates}></SapakLanding>            
+                return {page: <SapakLanding view={this.props.view} forceFetch={this.props.view.has_updates}></SapakLanding>, type:"landing"}            
             }
         }
                     
@@ -174,9 +195,19 @@ const MainSub = class extends React.Component {
         this.fixFooter();
     }
     render() {   
+        const pageToRender = this.getPageToRender()
         return (
-            <MainFrame view={this.props.view} sidebar={this.state.sidebar}>
-                {this.getPageToRender()}
+            <MainFrame
+                view={this.props.view}
+                type={pageToRender.type}
+                selectedItem={this.state.selectedItem}
+                onItemSelected={(item)=>{
+                    this.setState({
+                        selectedItem: item,
+                    })     
+                }}
+            >
+                {pageToRender.page}
             </MainFrame>
         );
     }

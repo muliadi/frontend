@@ -47,7 +47,6 @@ class SapakLandingSub extends React.Component {
                     })
                 },
                 onSuccess: () => {
-                    console.log('restaurant successfuly joined chain!')
                     const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
                     mycomm[key] = false
                     this.setState({
@@ -57,16 +56,13 @@ class SapakLandingSub extends React.Component {
             });
     }
     handleRemarksChange(key, remarks) {
-        //console.log(key)
         const myremarks = JSON.parse(JSON.stringify(this.state.remarks));
         myremarks[key] = remarks 
         this.setState({
             remarks: myremarks,
         })    
-        //console.log(myremarks)    
     }
     handleReviewBasketMutation(basketID, reviewStatus, reviewComment, key) {
-        console.log(reviewComment)
         const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
         mycomm[key] = true 
         this.setState({
@@ -87,7 +83,6 @@ class SapakLandingSub extends React.Component {
                     })
                 },
                 onSuccess: () => {
-                    console.log('basket successfuly reviewed!')
                     const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
                     mycomm[key] = false
                     this.setState({

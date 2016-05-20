@@ -8,6 +8,7 @@ import {lang} from '../lang/heb.js';
 import LogOutMutation from '../mutations/logOut.js'
 
 import ItemsInBasketList from './itemsInBasketList.js'
+import ItemsEditor from './ItemsEditor.js'
 
 class MainFrameSub extends React.Component {
     componentDidMount() {
@@ -34,7 +35,6 @@ class MainFrameSub extends React.Component {
              } else {
             const logo_path =  "/static/content/"+this.props.view.me.restaurants[0].small_image.id;
             style_logo.background = "url('"+logo_path+"') 50% 50% / contain no-repeat"; 
-            console.log(logo_path);
             }
             retVar = <div style={style_logo}/>;
             return retVar;
@@ -43,7 +43,6 @@ class MainFrameSub extends React.Component {
           {
             const logo_path =  "/static/content/"+this.props.view.me.role_sapak.small_image_id;
             style_logo.background = "url('"+logo_path+"') 50% 50% / contain no-repeat"; 
-            console.log(logo_path);
             
             retVar = <div style={style_logo}/>; 
             return retVar;
@@ -272,12 +271,17 @@ class MainFrameSub extends React.Component {
                 <main className="mdl-layout__content">
                     <div className="page-content" style={style_page_content}>
                         {
-                            (this.props.view.me.role_type=="Restaurant" )?
+                            (this.props.view.me.role_type=="Restaurant") ?
                                 <div style={style_sidebar}>
                                     <ItemsInBasketList view={this.props.view} />
                                 </div>
                             :
-                                null
+                                ((this.props.type=="itemGrid") && (this.props.view.me.role_type=="Sapak"))?
+                                    <div style={style_sidebar}>
+                                        <ItemsEditor item={this.props.selectedItem} onItemSelected={this.props.onItemSelected}/>
+                                    </div>
+                                :
+                                    null
                         }                    
                         <div style={{position:"relative", width:"100%", zIndex:"1"}}>
                             {this.props.children}

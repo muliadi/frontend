@@ -73,7 +73,6 @@ class SapakOrderManagementAccordeonSub extends React.Component {
                     <ul className="mdl-list" style={list_style}>
                         {                            
                             basket.items_in_basket.map((item, i) => {
-                               //console.log(item);
                                 return <ItemInBasketForAccordion 
                                 key={"sdlfn d683"+item.id} 
                                 myKey={"ndlckb48ct5o"+item.id}

@@ -26,7 +26,6 @@ class OrderManagementSub extends React.Component {
 
  PretyfiBsketStatus(status)
  {
-     //console.log(status);
      switch (status) {
           case "WithSapak":     
             return <span className="mdl-list__item-primary-content" style={{ textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>

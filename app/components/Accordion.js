@@ -21,17 +21,14 @@ class Accordion extends React.Component {
         componentHandler.upgradeDom();
     }
     componentDidUpdate() {
-        console.log("updating accord")
         if ((this.state.isOpen)&&(!this.state.isFullyOpen)) {
             document.getElementById(this.state.ID).style.maxHeight = '300px';
             this.setState({isFullyOpen: true})
-            console.log("300px")
             return 
         }                
         if ((!this.state.isOpen)&&(this.state.isFullyOpen)) {
             document.getElementById(this.state.ID).style.maxHeight = '0px';
             this.setState({isFullyOpen: false})
-            console.log("0")
             return 
         }                
     }

@@ -20,7 +20,6 @@ class SapakOrderManagementListItem extends React.Component {
     } 
     
     PretyfiDate(date){
-        //console.log(date);
         var formDate = date.slice(8, 10)+"/"+date.slice(5, 7)+"/"+date.slice(0, 4);
         return formDate;
     }
@@ -32,7 +31,6 @@ class SapakOrderManagementListItem extends React.Component {
 
  PretyfiBsketStatus(status)
  {
-    // console.log(status);
      switch (status) {
           case "WithSapak":     
             return <span className="mdl-list__item-primary-content" style={{ textAlign:"right", marginRight:"5px", marginLeft:"5px"}}>
@@ -73,7 +71,6 @@ class SapakOrderManagementListItem extends React.Component {
  }
  
     handleReviewBasketMutation(event,basketID, reviewStatus, reviewComment,) {
-        //console.log(event)
         event = event || window.event // cross-browser event
         if (event.stopPropagation) {
         // W3C standard variant
@@ -84,7 +81,6 @@ class SapakOrderManagementListItem extends React.Component {
         }
 
        
-        console.log(reviewComment)
         const mycomm = JSON.parse(JSON.stringify(this.state.communicating));
         
         this.setState({
@@ -103,7 +99,6 @@ class SapakOrderManagementListItem extends React.Component {
                     })
                 },
                 onSuccess: () => {
-                    console.log('basket successfuly reviewed!')
                     this.setState({
                         communicating: false
                     })

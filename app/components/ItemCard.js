@@ -15,7 +15,7 @@ class ItemCard extends React.Component {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "1",
             remarks: null,
-            itemID: this.props.itemID,
+            itemID: this.props.item.id,
         }),
             {
                 onFailure: (e) => {
@@ -25,7 +25,7 @@ class ItemCard extends React.Component {
                     var notification = document.querySelector('.mdl-js-snackbar');
                     notification.MaterialSnackbar.showSnackbar(
                     {
-                        message:  this.props.name +' הוסף בהצלחה',
+                        message:  this.props.item.name +' הוסף בהצלחה',
                         timeout: 700
                     }
                     );
@@ -36,7 +36,7 @@ class ItemCard extends React.Component {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "-1",
             remarks: null,
-            itemID: this.props.itemID,
+            itemID: this.props.item.id,
         }),
             {
                 onFailure: (e) => {
@@ -57,7 +57,7 @@ class ItemCard extends React.Component {
         Relay.Store.commitUpdate(new AddItemToBasketMutation({
             amount: "-1",
             remarks: null,
-            itemID: this.props.itemID,
+            itemID: this.props.item.id,
         }),
             {
                 onFailure: (e) => {
@@ -75,14 +75,8 @@ class ItemCard extends React.Component {
     }    
     render() {
         const style_card_title = {
-            //background: "url('/static/content/"+this.props.image_id+"')",
             cursor: "pointer",   
             height: "170px",             
-           // minHeight: "90px",
-           // minWidth:"90px",
-           // backgroundSize:"contain",
-           // backgroundPosition:"center center",
-           // backgroundRepeat:"no-repeat"
         }
         const style_card = {
             width: "100%",
@@ -91,6 +85,10 @@ class ItemCard extends React.Component {
             marginLeft: "auto",        
             marginRight: "auto",        
         };
+        if (this.props.isSelected) {
+            console.log("CARD: "+this.props.item.name)
+            style_card["border"] = "solid 5px red"
+        }
         
         const style_support_textSep = {
             borderTop: "1px solid rgba(78,176,82,0.2)",
@@ -155,6 +153,11 @@ class ItemCard extends React.Component {
                 className="mdl-card mdl-shadow--8dp"
                 onMouseOver={style_card_mouse_over}
                 onMouseOut={style_card_mouse_out}
+                onClick={()=>{
+                    if ('onItemSelected' in this.props) {
+                        this.props.onItemSelected(this.props.item)
+                    }
+                }}
                 style={style_card}>
 
                 <div className="mdl-tooltip mdl-tooltip--top" htmlFor={__id} >
@@ -168,9 +171,9 @@ class ItemCard extends React.Component {
                 </div>
                 
                 {
-                    this.props.vendor_image_id != "0" ?
+                    this.props.item.vendor.small_image.id != "0" ?
                         <div style={{position:"relative"}}>
-                        <img src={"/static/content/"+this.props.vendor_image_id} alt="Shopping Cart" style={{ width: "40px", top: "3px", right:"3px", position: "absolute"}}></img>
+                        <img src={"/static/content/"+this.props.item.vendor.small_image.id} alt="Shopping Cart" style={{ width: "40px", top: "3px", right:"3px", position: "absolute"}}></img>
                         </div>
                     :
                         null
@@ -180,60 +183,62 @@ class ItemCard extends React.Component {
                 <div 
                     className="mdl-card__title mdl-card--expand"
                     style={style_card_title}> 
-                    <span style={{  height: "140px", width:"140px", marginLeft: "auto", marginRight:"auto", background:"url('/static/content/"+this.props.image_id+"') 50% 50% / contain no-repeat ", }}/>
+                    <span style={{  height: "140px", width:"140px", marginLeft: "auto", marginRight:"auto", background:"url('/static/content/"+this.props.item.small_image.id+"') 50% 50% / contain no-repeat ", }}/>
                 </div>
                 <div style={style_support_textSep}/>
                 <div className="mdl-card__supporting-text  mdl-card--border"
                         style={style_support_text}>
                     <div>
                         <div style={style_name}>
-                            {this.props.name}
+                            {this.props.item.name}
                         </div>
                         <div style={style_packaging}>
-                            {this.props.packagingName} מכיל {this.props.amount} {this.props.unitsName}   
+                            {this.props.item.packaging.name} מכיל {this.props.item.amount} {this.props.item.units.name}   
                         </div>
                         <div style={style_packaging}>
-                            {this.props.shortDesc}   
+                            {this.props.item.short_desc}   
                         </div>
                        <div style={style_price}>
-                            {this.props.price} &#8362; ל{this.props.packagingName}
+                            {this.props.item.price_in_agorot / 100} &#8362; ל{this.props.item.packaging.name}
                         </div>
                     </div>
                 </div>
                  
+                 
+                 
                  {  
-                           this.props.role_type=='Restaurant' ?       
-                <div className="mdl-card__actions mdl-card--border" style={style_actions}>
-                    <button
-                        style={style_add_to_basket_button}
-                        id={__id}
-                        className="mdl-button mdl-js-button mdl-button--primary"
-                        onClick={this.handleAddItemToBasket.bind(this) }
-                        >
-                        <i
-                            className="material-icons"
-                            
-                        >add</i>
-                    </button>
+                    this.props.role_type=='Restaurant' ?       
+                        <div className="mdl-card__actions mdl-card--border" style={style_actions}>
+                            <button
+                                style={style_add_to_basket_button}
+                                id={__id}
+                                className="mdl-button mdl-js-button mdl-button--primary"
+                                onClick={this.handleAddItemToBasket.bind(this) }
+                                >
+                                <i
+                                    className="material-icons"
+                                    
+                                >add</i>
+                            </button>
 
-                    <div style={style_amount_text}  id={__id+"_2"}>
-                        {this.props.amount_in_basket}
-                    </div>
-                                        
-                    <button
-                        style={style_add_to_basket_button}
-                        id={__id+"_1"}
-                        className="mdl-button mdl-js-button mdl-button--primary"
-                        onClick={this.handleRemoveItemToBasket.bind(this) }
-                        >
-                        <i className="material-icons"
-                        
-                        >remove</i>
-                    </button>
-                    
-                </div> 
+                            <div style={style_amount_text}  id={__id+"_2"}>
+                                {this.props.amount_in_basket}
+                            </div>
+                                                
+                            <button
+                                style={style_add_to_basket_button}
+                                id={__id+"_1"}
+                                className="mdl-button mdl-js-button mdl-button--primary"
+                                onClick={this.handleRemoveItemToBasket.bind(this) }
+                                >
+                                <i className="material-icons"
+                                
+                                >remove</i>
+                            </button>
+                            
+                    </div> 
                 :
-                null
+                    null
              }
                  
                    
