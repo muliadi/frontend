@@ -4,34 +4,25 @@ import React from "react"
 import Relay from 'react-relay';
 
 class ModalWindowComponent extends React.Component {
-    constructor(props){
-        super(props)
-        this.state ={
-            base64data: null,
-            name: "",
-            city: "",
-            mail: "",
-            shortDesc: "",
-        }
-    }    
-   
     
-    
+     static contextTypes = {
+        hideModal: React.PropTypes.func,
+    }
     componentDidMount() {
         componentHandler.upgradeDom();
     }    
     render() {
         
         var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-        
-        
-        if(this.props.isOpen){
+             if(this.props.modalComponent!=null){
             return (
               <ReactCSSTransitionGroup transitionName={this.props.transitionName} transitionLeaveTimeout={300} transitionEnterTimeout={500} >
                   {this.props.children}
+                  <div id="lean-overlay" style={{display: "block", opacity: "0.1"}}
+                  onClick ={this.context.hideModal} ></div>
               </ReactCSSTransitionGroup>
             );
-        } else {
+             } else {
             return <ReactCSSTransitionGroup transitionName={this.props.transitionName} transitionLeaveTimeout={300} transitionEnterTimeout={500} />;
         }
     }

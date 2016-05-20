@@ -16,6 +16,7 @@ import AdminPage from './AdminPage.js'
 import SapakLanding from './SapakLanding.js'
 import SetSapakimCookie from '../utils/cookies.js'
 import OrderManagement from './OrderManagement.js'
+import ModalWindowComponent from './ModalWindowComponent.js'
 
 const MainSub = class extends React.Component {
     constructor(props) {
@@ -23,10 +24,31 @@ const MainSub = class extends React.Component {
         this.state = {
             mock: false,
             selectedItem: null,
+            modalComponent: null,
         }
         window.onhashchange = ()=>{this.setState({mock: !this.state.mock})}
         SetSapakimCookie(this.props.view.current_session)
     } 
+    
+    
+    static childContextTypes = {
+        showModal: React.PropTypes.func,
+        hideModal: React.PropTypes.func,
+    }
+  
+  getChildContext() {
+    return {showModal: this.showModal.bind(this),
+            hideModal: this.hideModal.bind(this)};
+  }
+    
+    showModal(component){
+        this.setState({modalComponent: component})
+        
+    }
+    hideModal(){
+        this.setState({modalComponent: null})
+    }
+    
     componentWillMount() {
         // check for updates every 10 seconds
         const checkForUpdates = ()=>{setTimeout(()=>{
@@ -197,6 +219,7 @@ const MainSub = class extends React.Component {
     render() {   
         const pageToRender = this.getPageToRender()
         return (
+            <div>
             <MainFrame
                 view={this.props.view}
                 type={pageToRender.type}
@@ -209,6 +232,11 @@ const MainSub = class extends React.Component {
             >
                 {pageToRender.page}
             </MainFrame>
+                    <ModalWindowComponent modalComponent = {this.state.modalComponent}
+                            transitionName="modal-anim">
+                            {this.state.modalComponent}
+                    </ModalWindowComponent>
+            </div>
         );
     }
 };
