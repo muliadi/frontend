@@ -3,9 +3,7 @@
 import React from "react"
 import Relay from 'react-relay';
 
-import AddSapakMutation from "../mutations/addSapak.js"
-
-class EditContactPerson extends React.Component {
+class ModalWindowComponent extends React.Component {
     constructor(props){
         super(props)
         this.state ={
@@ -39,5 +37,5 @@ class EditContactPerson extends React.Component {
     }
 }
 
-export default EditContactPerson;
+export default ModalWindowComponent;
 

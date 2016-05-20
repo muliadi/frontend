@@ -5,7 +5,7 @@ import Relay from 'react-relay';
 
 import AddRestaurantMutation from "../mutations/addRestaurant.js"
 import CommRound from './commRound.js'
-import EditContactPerson from './EditContactPerson.js'
+import ModalWindowComponent from './ModalWindowComponent.js'
 import TimeRange from './TimeRange.js'
 
 class RestaurantCreateCard extends React.Component {
@@ -359,7 +359,7 @@ class RestaurantCreateCard extends React.Component {
                             </button>
                             </div>
                                                        
-                            <EditContactPerson 
+                            <ModalWindowComponent 
                             isOpen={this.state.isModalOpen}
                                 transitionName="modal-anim">
                                 <div className="modal" key={this.state.isModalOpen}>
@@ -372,7 +372,7 @@ class RestaurantCreateCard extends React.Component {
                                     >Close modal</button>
                                    
                                 </div>
-                            </EditContactPerson>
+                            </ModalWindowComponent>
                             
                             
                              </div>
