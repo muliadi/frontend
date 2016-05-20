@@ -111,7 +111,7 @@ class MainFrameSub extends React.Component {
                         console.log(e)
                     },
                     onSuccess: () => {
-                        document.location = "/";
+                        document.location = "/#/";
                     },
                 });            
         }
