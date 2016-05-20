@@ -101,7 +101,7 @@ class ItemCard extends React.Component {
         
         const style_support_text = {
             cursor: "pointer",
-            height: "104",
+            height: "104px",
             //borderTop: "2px solid rgba(78,176,82,0.2)"
         }
         const style_name = {
