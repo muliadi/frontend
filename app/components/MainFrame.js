@@ -113,7 +113,7 @@ class MainFrameSub extends React.Component {
                         document.location = "/#/";
                     },
                 });            
-        }
+        }        
         return (
             <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                 <header className="mdl-layout__header" style={{paddingTop:"5px", paddingBottom:"5px", background:"#FFF", color:"#424242", padding:"0 60px"}}>
@@ -278,7 +278,11 @@ class MainFrameSub extends React.Component {
                             :
                                 ((this.props.type=="itemGrid") && (this.props.view.me.role_type=="Sapak"))?
                                     <div style={style_sidebar}>
-                                        <ItemsEditor item={this.props.selectedItem} onItemSelected={this.props.onItemSelected}/>
+                                        <ItemsEditor
+                                            item={this.props.selectedItem}
+                                            onItemSelected={this.props.onItemSelected}
+                                            chains={this.props.view.me.role_sapak.chains}
+                                            />
                                     </div>
                                 :
                                     null
@@ -315,6 +319,9 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
                 me {
                     role_sapak{
                         small_image_id
+                        chains {
+                            name
+                        }
                     }
                     role_type
                     is_founder

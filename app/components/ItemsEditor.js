@@ -115,6 +115,10 @@ class ItemsEditor extends React.Component {
                     </div> : null}
                 </div>
                 
+                <div style={{marginBottom:"10px"}}>
+                מוסיף לרשת: {this.props.chains[0].name}
+                </div>
+                
                 <div className="mdl-card__actions mdl-card--border" style={style_actions}>
                     <button
                         style={style_save_button}
