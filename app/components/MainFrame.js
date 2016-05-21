@@ -282,6 +282,7 @@ class MainFrameSub extends React.Component {
                                             item={this.props.selectedItem}
                                             onItemSelected={this.props.onItemSelected}
                                             chains={this.props.view.me.role_sapak.chains}
+                                            categories={this.props.view.categories.edges}
                                             />
                                     </div>
                                 :
@@ -315,7 +316,17 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
     fragments: {
         view: () => Relay.QL`
             fragment on view {
-                ${ItemsInBasketList.getFragment('view')},                
+                ${ItemsInBasketList.getFragment('view')},
+                categories(first:100) {
+                    edges {
+                        node {
+                            ... on item_category {
+                                id
+                                full_name
+                            }
+                        }
+                    }
+                }                                
                 me {
                     role_sapak{
                         small_image_id

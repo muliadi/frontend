@@ -82,6 +82,15 @@ class ItemsEditor extends React.Component {
         else {
             style_small_image.background = "rgba(0,0,0,0.1)";             
         }
+        const style_select_category = {
+            cursor: "pointer",
+            color: "white",
+            background: "black",
+            borderRadius: "6px",
+            paddingLeft: "5px",
+            paddingRight: "5px",
+            paddingBottom: "2px",
+        }        
         return (
             <div className="mdl-card mdl-shadow--4dp" style={style_card}>
                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -117,6 +126,19 @@ class ItemsEditor extends React.Component {
                 
                 <div style={{marginBottom:"10px"}}>
                 מוסיף לרשת: {this.props.chains[0].name}
+                </div>
+                
+                <div style={{display:"flex", flexDirection:"row", flexWrap:"wrap", marginBottom:"20px"}}>
+                {
+                        this.props.categories.map(category=>{
+                            return <div key={"itemeditor_on_sidebar"+category.node.id} style={{ marginRight: "10px", marginTop: "10px", fontSize:"12px" }}>
+                                        <span style={style_select_category}>
+                                            {category.node.full_name}                                                        
+                                        </span>
+                                    </div>                            
+                        }
+                    )
+                }
                 </div>
                 
                 <div className="mdl-card__actions mdl-card--border" style={style_actions}>
