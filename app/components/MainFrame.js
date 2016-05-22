@@ -283,6 +283,7 @@ class MainFrameSub extends React.Component {
                                             onItemSelected={this.props.onItemSelected}
                                             chains={this.props.view.me.role_sapak.chains}
                                             categories={this.props.view.categories.edges}
+                                            units={this.props.view.units.edges}
                                             />
                                     </div>
                                 :
@@ -326,7 +327,17 @@ const MainFrame = Relay.createContainer(MainFrameSub, {
                             }
                         }
                     }
-                }                                
+                }   
+                units(first:100) {
+                    edges {
+                        node {
+                            ... on item_units_of_measure {
+                                id
+                                name
+                            }
+                        }
+                    }
+                }                                             
                 me {
                     role_sapak{
                         small_image_id
